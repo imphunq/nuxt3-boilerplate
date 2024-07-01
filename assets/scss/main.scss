@@ -1,0 +1,37 @@
+@import '_colors.scss';
+
+.navbar {
+  padding: max(7px, 0.7vw) max(25px, 2vw);
+  
+  .breadcrumb {
+    color: $color-gray-8;
+
+    #dropdownBreadcrumb {
+      width: 140px;
+      height: max(max(30px, 1.8vw));
+
+      span {
+        font-size: 12px;
+        color: $color-black;
+      }
+
+      svg {
+        color: $color-gray-8;
+      }
+
+      .personal-icon {
+        content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAABHNCSVQICAgIfAhkiAAAAyRJREFUOE+VVEtME1EUvVNaWii0FCh0g2JwwcKmNW5MIPIxERaaNnEhCwO4MNFo5OMHFkqn6EJcWF1ojJrYGj9gAhaVxC7EmkiCmODUBUEDAokGpAVKf9DPdHx3TOu0xRhvMsnMe+edOfee+y4FW0QtvVYOVNQg4kCfnyPas6NErF0JsFM/VtiJOAUMcJJhJ62aTz9KpS/U0+52jUpkbt4nV1RVZkOejIJgmAO59Df0/XQEnn/cCEzORS46TSU3heeTZERNgQhiD1pqc43NNbngcIVhcDwEs0tsEl9KENWVUiAY+DQXBcsr38hqUHyUqPQiKElWR7vtXcZ8w06NGPrsvhSSdPVyopZgoVQpgq5H3pGh8+qDSTJM7fDeHAt54PidNQhucvz5Ck0WNNfIQV8ugZmlGAx92IAxkmYiepsUwBGoacDXMUqrb1BYbIWMZR63FSp7Bnzgmo/yWPz7k7ZCvmbC6LStp2CethdCzzNfYPIbp6USqipIetfs/uQ5rAvWLj1cC1HotK4nlxv0Uqgidezp93VQdfSy1dJa0OJgNsHBhP+bDE3BDOrNbhuSMaMmtU4oHxmxLXqPKDKUDZK63X4dTFl/0V0EVwZ9M5gm98ZUDPvNnoyDF4hjDTppcn32JwsdVm/SoMTG9VYl2Jwh4JW97C7WXer/U3whKzqKvYVuCp0UYlDM6fver3zNLjcpW8amwyk1S7SGXCoC7D0kw/hMDBAG1uzeCRUcuuqx8W4SRywHdDI4S2zHQCfxW0OA6REgPYgKbzkCfLqIxU7g3eT7TMq67p5UKfpIa+Cmbrskg2QrUmxwVHXO5g18WaK0fEeiOuKeBa/IaiAOZUVZ/yTDy4/YiZkIcTd0bJQutqbczUa91HCqMQ/mlmOwq+zv6hY8LIjIyanvMXKP/cNvabUR/54yNSiIWasrsw2ocHGNhY0IBwVyEa/U44+D2xeHGMuBdpsEHr4LgdUZGuZA3JoxNRJ5Ycp5UsrcsFvGzzNh/bDPmHkyz8Y3/Ite7gymJqxHxnDETTSFzDYjB5yefOopoHTk3UXeGfLOxEFs32rS/gI/4G9HoOjVygAAAABJRU5ErkJggg==);
+        width: max(15px, 1vw);
+        height: max(15px, 1vw);
+        margin-right: 5px;
+      }
+    }
+  }
+
+  #navbar-user {
+    #default-search {
+      height: max(35px, 2.5vw);
+      width: max(200px, 22.5vw);
+    }
+  }
+}
