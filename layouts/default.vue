@@ -1,6 +1,10 @@
 <template>
   <div class="overflow-x-hidden">
     <HeaderComponent />
+
+    <div>
+      
+    </div>
     <slot />
   </div>
 </template>
