@@ -5,7 +5,11 @@ body {
 }
 
 .navbar {
-  padding: max(7px, 0.7vw) max(25px, 2vw);
+  padding: 7px 25px;
+
+  @media screen and (max-width: 400px) {
+    padding: 7px 15px;
+  }
 
   .breadcrumb {
     color: $color-gray-8;
