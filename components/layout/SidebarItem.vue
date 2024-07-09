@@ -1,28 +1,36 @@
 <template>
   <div>
-    <div
-      class="sidebar-item flex items-center dark:text-white group ml-[37px] cursor-pointer"
-      :aria-controls="`dropdown-example-${keyItem}`"
-      :data-collapse-toggle="`dropdown-example-${keyItem}`"
-      @click="hasChildren ? '' : gotoRoute(item.to)"
-    >
-      <img v-if="item.icon" :src="item.icon" alt="icon" />
-      <span class="ms-3 flex-1 text-left rtl:text-right whitespace-nowrap">
-        {{ item.title }}
-      </span>
+      <div
+        :id="`dropdown-click-${keyItem}-id`"
+        class="sidebar-item flex items-center dark:text-white group cursor-pointer"
+        :class="[isCollapse ? 'py-[7px] pl-[25px]' : 'ml-[37px]']"
+        :aria-controls="`dropdown-click-${keyItem}`"
+        :data-collapse-toggle="`dropdown-click-${keyItem}`"
+        @click="hasChildren ? '' : gotoRoute(item.to)"
+      >
+        <img
+          v-if="item.icon"
+          :src="item.icon"
+          alt="icon"
+        />
+        <div class="ms-3 flex-1 text-left rtl:text-right whitespace-nowrap">
+          <span v-if="!isCollapse">{{ item.title }}</span>
+        </div>
 
-      <template v-if="hasChildren">
-        <svg class="arrow-icon mr-4" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg>
-      </template>
-    </div>
+        <template v-if="hasChildren">
+          <svg class="arrow-icon mr-4" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0V0z"></path><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path></svg>
+        </template>
+      </div>
 
-    <div v-if="hasChildren" :id="`dropdown-example-${keyItem}`" class="hidden py-2 space-y-2 ml-8">
-      <SidebarItem
-        v-for="(child, index) in item.children"
-        :key="`${index}-${child.to}`"
-        :item="child"
-      />
-    </div>
+      <div :id="`dropdown-click-${keyItem}`" class="hidden py-2 space-y-2 ml-8">
+        <template v-if="hasChildren && !isCollapse">
+          <SidebarItem
+            v-for="(child, index) in item.children"
+            :key="`${index}-${child.to}`"
+            :item="child"
+          />
+        </template>
+      </div>
   </div>
 </template>
 
@@ -38,7 +46,13 @@ interface Props {
   item: MenuItem
 }
 
+const globalStore = useGlobalStore()
+
 const props = defineProps<Props>()
+
+const isCollapse = computed(() => {
+  return globalStore.getIsCollapse
+})
 
 const hasChildren = computed(() => {
   return props.item.children && props.item.children.length > 0

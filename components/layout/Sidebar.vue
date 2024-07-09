@@ -1,7 +1,9 @@
 <template>
   <aside id="logo-sidebar"
-    class="fixed left-0 z-40 border-r border-solid w-80 h-screen transition-transform -translate-x-full bg-white border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-    aria-label="Sidebar">
+    class="fixed left-0 z-40 border-r border-solid h-screen transition-transform -translate-x-full bg-white border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    aria-label="Sidebar"
+    :class="[isCollapse ? 'w-16' : 'w-80']"
+  >
     <div class="h-full flex flex-col pb-4 overflow-y-auto bg-white dark:bg-gray-800">
       <!-- <div class="flex justify-end">
         <button type="button" class="bg-gray-200">
@@ -11,19 +13,28 @@
         </button>
       </div> -->
 
-      <div class="space-y-2 font-medium pb-2 border-b border-solid border-gray-200">
-        <SidebarItem
-          v-for="(item, index) in items"
-          :key="`${index}-${item.to}`"
-          :item="item"
-        />
+      <div class="space-y-2 font-medium pb-2" :class="[isCollapse ? '' : 'border-b border-solid border-gray-200']">
+        <div v-if="!isCollapse">
+          <SidebarItem
+            v-for="(item, index) in items"
+            :key="`${index}-${item.to}`"
+            :item="item"
+          />
+        </div>
+        <div v-else>
+          <SidebarItemCollapse
+            v-for="(item, index) in items"
+            :key="`${index}-${item.to}-collapse`"
+            :item="item"
+          />
+        </div>
       </div>
 
-      <div class="pt-2">
+      <div v-if="!isCollapse" class="pt-2">
         <SidebarTeam />
       </div>
 
-      <div class="my-20">
+      <div v-if="!isCollapse" class="my-20">
         <SidebarFooter />
       </div>
     </div>
@@ -31,7 +42,10 @@
 </template>
 
 <script lang="ts" setup>
+import { initFlowbite, initDropdowns } from 'flowbite'
+
 import SidebarItem from './SidebarItem.vue'
+import SidebarItemCollapse from './SidebarItemCollapse.vue'
 import SidebarTeam from './SidebarTeam.vue'
 import SidebarFooter from './SidebarFooter.vue'
 import OverviewIcon from '~/assets/images/icons/overview.png'
@@ -53,10 +67,23 @@ import LastUploadIcon from '~/assets/images/icons/last-upload.svg'
 import RemoteUploadIcon from '~/assets/images/icons/remote-upload.svg'
 import FtpUploadIcon from '~/assets/images/icons/ftp-upload.svg'
 
+const globalStore = useGlobalStore()
+
+onMounted(() => {
+  useFlowbite(() => {
+    initFlowbite()
+    initDropdowns()
+  })
+})
+
+const isCollapse = computed(() => {
+  return globalStore.getIsCollapse
+})
+
 const items = computed(() => {
   return [
     {
-      to: '/',
+      to: '/overview',
       icon: OverviewIcon,
       title: 'Overview',
     },

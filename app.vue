@@ -9,6 +9,9 @@
 import { initFlowbite } from 'flowbite'
 
 onMounted(() => {
-  initFlowbite()
+  useFlowbite(() => {
+    initFlowbite()
+  })
+  // initFlowbite()
 })
 </script>
