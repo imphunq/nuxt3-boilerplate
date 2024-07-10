@@ -11,7 +11,5 @@ onMounted(() => {
   globalStore.setBreadcrumbs([
     { name: 'Overview', href: '/' },
   ])
-
-  console.log(globalStore.breadcrumbs)
 })
 </script>

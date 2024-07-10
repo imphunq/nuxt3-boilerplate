@@ -2,7 +2,34 @@
   <nav class="navbar bg-white border-b border-solid border-gray-200 dark:bg-gray-900">
     <div class="flex flex-wrap items-center justify-between mx-auto gap-x-2 xs:gap-x-5">
       <div class="flex items-center space-x-3 rtl:space-x-reverse">
-        <button type="button" @click="handleCollapse">
+        <button
+          v-if="!openDrawer"
+          type="button"
+          @click="handleCollapse"
+        >
+          <svg
+            class="w-6 h-6 xs:w-8 xs:h-8 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="2"
+              d="M5 7h14M5 12h14M5 17h14"
+            />
+          </svg>
+        </button>
+
+        <button
+          v-else
+          type="button"
+          data-drawer-target="drawer-sidebar"
+          data-drawer-show="drawer-sidebar"
+          aria-controls="drawer-sidebar"
+        >
           <svg
             class="w-6 h-6 xs:w-8 xs:h-8 text-gray-800 dark:text-white"
             aria-hidden="true"
@@ -39,17 +66,68 @@
         <SearchInput />
       </div>
     </div>
+
+    <template v-if="openDrawer">
+      <DrawerSidebar />
+    </template>
   </nav>
 </template>
 
 <script setup lang="ts">
+import { initDrawers } from 'flowbite'
+
 import Breadcrumb from './Breadcrumb.vue'
 import SearchInput from './SearchInput.vue'
 import RightNavbar from './RightNavbar.vue'
+import DrawerSidebar from './DrawerSidebar.vue'
+
+onMounted(() => {
+  useFlowbite(() => {
+    initDrawers()
+  })
+})
 
 const globleStore = useGlobalStore()
 
+const openDrawer = ref<boolean>(false)
+
+onMounted(() => {
+  window.addEventListener('resize', onResize);
+
+  onResize()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+})
+
+const windowWidth = computed(() => {
+  return window.innerWidth
+})
+
+watch(windowWidth, (width) => {
+  if (width >= 640) {
+    openDrawer.value = false
+  } else {
+    openDrawer.value = true
+  }
+})
+
+const onResize = () => {
+  const width = window.innerWidth
+
+  if (width >= 640) {
+    openDrawer.value = false
+  } else {
+    openDrawer.value = true
+  }
+}
+
 const handleCollapse = () => {
-  globleStore.setIsCollapse(!globleStore.getIsCollapse)
+  const width = window.innerWidth
+
+  if (width >= 640) {
+    globleStore.setIsCollapse(!globleStore.getIsCollapse)
+  }
 }
 </script>
