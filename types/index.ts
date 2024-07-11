@@ -1,4 +1,2 @@
-export type {
-  IBreadcrumb
-} from './common'
+export * from './common'
 

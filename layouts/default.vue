@@ -5,7 +5,7 @@
     <div class="flex">
       <Sidebar :key="`${isCollapse}-sidebar`" />
 
-      <div class="main-content">
+      <div class="main-content p-4" :class="[isCollapse ? 'sm:ml-16' : 'sm:ml-80']">
         <slot />
       </div>
     </div>
