@@ -1,10 +1,10 @@
 <template>
   <div>
     <button
-      id="dropdownSortByButton"
+      id="dropdownGroupByButton"
       data-dropdown-toggle="dropdown-group-by"
       type="button"
-      class="flex items-center py-1.5 px-4 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+      class="flex items-center py-1.5 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
     >
       <img class="mr-3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAABHNCSVQICAgIfAhkiAAAAXZJREFUOE+VUz1awkAQnVn8wS6eQDwBafy+0OkJSANY4g0SLiAewGSPgJ3EQm4AVKTEE4g3wEqg2HEm+RIVNMTtZnffmzdv3yKUWLbrWdVjFSKRSwhLIBzEUXD3HYoleMBp+xNAtJCwT0QWIGjGaSbrZ3h02j0p6C9C7iRA72NtTucjvZR7TqvXBUW3oizBKTNlIu5WtEQJQH2HKFFF8wTKhKVGa3R6C5Y8Xq2NX62ChQafuX6Jo7Cbj1bGo4uWZx8oNeK7Z4kAoulqQ242quyVUpQ1E8JKBZbxo15sC/gXUaGV24eSmZNDrFOF3n7rXPC6X0fyrIgUSmbS1wA9iwK/jI/5aM61V0NSr2TgJn4KBlxfgmGDCTyp95GlOcIkkDX2/j0eBnYGanR8zQdNrnfM/UFs8CFLNk9DNoPq8TA8zy5xE1EiDSaFipSZ5KMlH/NILXhjzEHRzOzK1yA0V2x6MdF2jtLgYZ8VNCW58kln0b0Ece/6BBlTlE6TeiXfAAAAAElFTkSuQmCC" alt="">
       <span class="flex-1 mr-5">
