@@ -18,11 +18,17 @@
       </div>
     </div>
 
-    <div class="flex items-center mt-5 gap-5">
-      <ListTeam />
+    <div class="flex items-stretch justify-between mt-5 gap-8 w-full">
+      <div class="w-1/2 flex flex-col">
+        <ListTeam class="flex-1" />
+      </div>
+
+      <div class="w-1/2 flex flex-col">
+        <TaskCompletionRate class="flex-1" />
+      </div>
     </div>
 
-    <div class="guide mt-5">
+    <div class="guide mt-5 mb-8">
       <GuideComponent />
     </div>
   </div>
@@ -37,6 +43,7 @@ import ListComments from '~/components/overview/ListComments.vue'
 import UserActivity from '~/components/overview/UserActivity.vue'
 import ListTeam from '~/components/overview/ListTeam.vue'
 import GuideComponent from '~/components/overview/GuideComponent.vue'
+import TaskCompletionRate from '~/components/overview/TaskCompletionRate.vue'
 
 const globalStore = useGlobalStore()
 
