@@ -30,7 +30,7 @@
               r="1"
             /></svg>
           </div>
-          <div class="h-2/3 z-20 flex justify-center items-center text-6xl text-white">
+          <div class="h-2/3 z-10 flex justify-center items-center text-6xl text-white">
             <button
               type="button"
               class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

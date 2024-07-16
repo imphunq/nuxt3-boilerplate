@@ -8,7 +8,9 @@
     </div>
 
     <div class="flex items-center gap-5">
-     <RangeSlider class="mt-2" />
+      <RangeSlider class="mt-2" />
+
+      <FilterProject class="mt-2" />
 
       <DropdownFolderProject />
 
@@ -27,4 +29,5 @@ import GroupByDropdown from '~/components/common/GroupByDropdown.vue'
 import OptionView from '~/components/common/OptionView.vue'
 import DropdownFolderProject from '~/components/common/DropdownFolderProject.vue'
 import RangeSlider from '~/components/common/RangeSlider.vue'
+import FilterProject from '~/components/common/FilterProject.vue'
 </script>
