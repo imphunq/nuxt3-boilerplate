@@ -1,12 +1,18 @@
 <template>
   <div
     v-if="data.length"
-    class="mt-8 grid grid-cols-4 gap-5"
+    class="mt-8"
   >
-    <ProjectOverlay
-      v-for="index in 6"
-      :key="`${index}-project-overlay`"
-    />
+    <div class="grid grid-cols-4 gap-5">
+      <ProjectOverlay
+        v-for="index in 6"
+        :key="`${index}-project-overlay`"
+      />
+    </div>
+
+    <div class="w-full flex justify-center mt-8">
+      <Pagination :data="meta" />
+    </div>
   </div>
 
   <NoProjects v-else />
