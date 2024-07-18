@@ -47,12 +47,24 @@ const option = ref<string>(OPTION_VIEW.GRID)
 const changeView = (view: string) => {
   option.value = view
 
-  if (props.page === 'project' && props.type === 'all') {
+  if (props.page === 'project' && props.type === PROJECT_TYPE.ALL) {
     projectStore.setOptionView(view)
   }
 
-  if (props.page === 'project' && props.type === 'starred') {
+  if (props.page === 'project' && props.type === PROJECT_TYPE.STARRED) {
     projectStore.setStarredOptionView(view)
+  }
+
+  if (props.page === 'project' && props.type === PROJECT_TYPE.SHARE) {
+    projectStore.setSharedOptionView(view)
+  }
+
+  if (props.page === 'project' && props.type === PROJECT_TYPE.ONGOING) {
+    projectStore.setOnGoingOptionView(view)
+  }
+
+  if (props.page === 'project' && props.type === PROJECT_TYPE.RECENTLY_ADDED) {
+    projectStore.setRecentlyAddedOptionView(view)
   }
 }
 

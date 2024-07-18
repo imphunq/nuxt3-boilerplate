@@ -98,7 +98,7 @@ const items = computed(() => {
           title: 'All Projects',
         },
         {
-          to: '/',
+          to: '/projects/recently-added',
           icon: RecentAddIcon,
           title: 'Recently Added',
         },
@@ -108,12 +108,12 @@ const items = computed(() => {
           title: 'Starred Projects',
         },
         {
-          to: '/',
+          to: '/projects/on-going',
           icon: OnGoingIcon,
           title: 'On-going Projects',
         },
         {
-          to: '/',
+          to: '/projects/share',
           icon: ShareProjectIcon,
           title: 'Shares Projects',
         },

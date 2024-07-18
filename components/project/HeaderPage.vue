@@ -51,6 +51,18 @@ const currentView = computed(() => {
     return projectStore.getStarredOptionView
   }
 
+  if (props.type === PROJECT_TYPE.SHARE) {
+    return projectStore.getSharedOptionView
+  }
+
+  if (props.type === PROJECT_TYPE.ONGOING) {
+    return projectStore.getOnGoingOptionView
+  }
+
+  if (props.type === PROJECT_TYPE.RECENTLY_ADDED) {
+    return projectStore.getRecentlyAddedOptionView
+  }
+
   return projectStore.getOptionView
 })
 </script>
