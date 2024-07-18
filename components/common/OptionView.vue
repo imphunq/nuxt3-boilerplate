@@ -28,11 +28,16 @@
 
 <script lang="ts" setup>
 import { OPTION_VIEW } from '~/constants/common'
+import { PROJECT_TYPE } from '~/constants/project'
 
 const props = withDefaults(defineProps<{
   page: string
+  type: string
+  currentView: string
 }>(), {
   page: 'project',
+  type: PROJECT_TYPE.ALL,
+  currentView: OPTION_VIEW.GRID
 })
 
 const projectStore = useProjectStore()
@@ -42,10 +47,18 @@ const option = ref<string>(OPTION_VIEW.GRID)
 const changeView = (view: string) => {
   option.value = view
 
-  if (props.page === 'project') {
+  if (props.page === 'project' && props.type === 'all') {
     projectStore.setOptionView(view)
   }
+
+  if (props.page === 'project' && props.type === 'starred') {
+    projectStore.setStarredOptionView(view)
+  }
 }
+
+onMounted(() => {
+  changeView(props.currentView)
+})
 </script>
 
 <style lang="scss" scoped>

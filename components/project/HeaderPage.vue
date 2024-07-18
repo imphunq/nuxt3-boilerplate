@@ -1,9 +1,9 @@
 <template>
   <div class="flex items-center justify-between gap-8">
     <div class="flex flex-col">
-      <span class="">All project</span>
+      <span class="">{{ title }}</span>
       <span class="text-xs">
-        View all your projects here
+        {{ subTitle }}
       </span>
     </div>
 
@@ -18,7 +18,7 @@
 
       <SortByDropdown />
 
-      <OptionView page="project" />
+      <OptionView page="project" type="all" :current-view="currentView" />
     </div>
   </div>
 </template>
@@ -30,4 +30,27 @@ import OptionView from '~/components/common/OptionView.vue'
 import DropdownFolderProject from '~/components/common/DropdownFolderProject.vue'
 import RangeSlider from '~/components/common/RangeSlider.vue'
 import FilterProject from '~/components/common/FilterProject.vue'
+import { PROJECT_TYPE } from '~/constants/project'
+
+interface Props {
+  title: string
+  subTitle: string
+  type: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  title: 'All project',
+  subTitle: 'View all your projects here',
+  type: PROJECT_TYPE.ALL,
+})
+
+const projectStore = useProjectStore()
+
+const currentView = computed(() => {
+  if (props.type === PROJECT_TYPE.STARRED) {
+    return projectStore.getStarredOptionView
+  }
+
+  return projectStore.getOptionView
+})
 </script>

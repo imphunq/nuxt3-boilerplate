@@ -103,7 +103,7 @@ const items = computed(() => {
           title: 'Recently Added',
         },
         {
-          to: '/',
+          to: '/projects/starred',
           icon: StarProjectIcon,
           title: 'Starred Projects',
         },

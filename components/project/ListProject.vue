@@ -29,12 +29,25 @@ import NoProjects from '~/components/common/NoProjects.vue'
 import Pagination from '~/components/common/Pagination.vue'
 import type { IPagination } from '~/types'
 import { OPTION_VIEW } from '~/constants/common'
+import { PROJECT_TYPE } from '~/constants/project'
 
 const projectStore = useProjectStore()
 
 const data = ref([1])
 
-const optionView = computed(() => projectStore.optionView)
+const props = withDefaults(defineProps<{
+  type: string
+}>(), {
+  type: PROJECT_TYPE.ALL,
+})
+
+const optionView = computed(() => {
+  if (props.type === PROJECT_TYPE.STARRED) {
+    return projectStore.getStarredOptionView
+  }
+
+  return projectStore.getOptionView
+})
 
 const meta: IPagination = {
   current_page: 1,

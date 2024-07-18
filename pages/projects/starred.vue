@@ -1,6 +1,11 @@
 <template>
   <div>
-    <HeaderPage :key="route.path" :type="PROJECT_TYPE.ALL" />
+    <HeaderPage
+      title="Starred Project"
+      sub-title="View all your starred projects here"
+      :key="route.path"
+      :type="PROJECT_TYPE.STARRED"
+    />
 
     <ListProject :key="route.path" />
   </div>
@@ -16,7 +21,7 @@ const route = useRoute()
 
 onMounted(() => {
   globalStore.setBreadcrumbs([
-    { name: 'Projects', href: '/projects' },
+    { name: 'Starred Projects', href: '/' },
   ])
 })
 </script>
