@@ -1,4 +1,3 @@
-import { set } from "lodash"
 import { defineStore } from "pinia"
 import type { IBreadcrumb } from "~/types"
 

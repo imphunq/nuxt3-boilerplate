@@ -12,7 +12,7 @@
         alt=""
       >
       <span class="flex-1 mr-5">
-        Sort by
+        Group by
       </span>
       <svg
         stroke="currentColor"

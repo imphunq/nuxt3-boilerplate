@@ -18,7 +18,7 @@
 
       <SortByDropdown />
 
-      <OptionView />
+      <OptionView page="project" />
     </div>
   </div>
 </template>

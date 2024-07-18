@@ -3,11 +3,15 @@
     v-if="data.length"
     class="mt-8"
   >
-    <div class="grid grid-cols-4 gap-5">
+    <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5">
       <ProjectOverlay
         v-for="index in 6"
         :key="`${index}-project-overlay`"
       />
+    </div>
+
+    <div v-else>
+      <ListProjectsTable />
     </div>
 
     <div class="w-full flex justify-center mt-8">
@@ -20,11 +24,17 @@
 
 <script lang="ts" setup>
 import ProjectOverlay from '~/components/common/ScreenOverlay.vue'
+import ListProjectsTable from '~/components/project/ListProjectsTable.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
 import Pagination from '~/components/common/Pagination.vue'
 import type { IPagination } from '~/types'
+import { OPTION_VIEW } from '~/constants/common'
+
+const projectStore = useProjectStore()
 
 const data = ref([1])
+
+const optionView = computed(() => projectStore.optionView)
 
 const meta: IPagination = {
   current_page: 1,

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
+    '@element-plus/nuxt',
   ],
 
   css: [
@@ -51,4 +52,7 @@ export default defineNuxtConfig({
   },
 
   ssr: false,
+
+  elementPlus: {
+  }
 })
