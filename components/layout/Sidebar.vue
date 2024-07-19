@@ -1,5 +1,6 @@
 <template>
-  <aside id="logo-sidebar"
+  <aside
+    id="logo-sidebar"
     class="fixed left-0 z-40 border-r border-solid h-screen transition-transform -translate-x-full bg-white border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar"
     :class="[isCollapse ? 'w-16' : 'w-80']"
@@ -13,7 +14,10 @@
         </button>
       </div> -->
 
-      <div class="space-y-2 font-medium pb-2" :class="[isCollapse ? '' : 'border-b border-solid border-gray-200']">
+      <div
+        class="space-y-2 font-medium pb-2"
+        :class="[isCollapse ? '' : 'border-b border-solid border-gray-200']"
+      >
         <div v-if="!isCollapse">
           <SidebarItem
             v-for="(item, index) in items"
@@ -30,11 +34,17 @@
         </div>
       </div>
 
-      <div v-if="!isCollapse" class="pt-2">
+      <div
+        v-if="!isCollapse"
+        class="pt-2"
+      >
         <SidebarTeam />
       </div>
 
-      <div v-if="!isCollapse" class="my-20">
+      <div
+        v-if="!isCollapse"
+        class="my-20"
+      >
         <SidebarFooter />
       </div>
     </div>
@@ -88,7 +98,7 @@ const items = computed(() => {
       title: 'Overview',
     },
     {
-      to: '/projects',
+      to: '',
       icon: ProjectIcon,
       title: 'Projects',
       children: [
@@ -122,7 +132,7 @@ const items = computed(() => {
           icon: FileManagerIcon,
           title: 'File Manager',
         },
-      ]
+      ],
     },
     {
       to: '/uploads',
@@ -144,7 +154,7 @@ const items = computed(() => {
           icon: FtpUploadIcon,
           title: 'FTP Uploads',
         },
-      ]
+      ],
     },
     {
       to: '/comments',
@@ -175,7 +185,7 @@ const items = computed(() => {
       to: '/help',
       icon: HelpIcon,
       title: 'Help',
-    }
+    },
   ]
 })
 </script>

@@ -1,19 +1,46 @@
 <template>
-  <div id="drawer-sidebar"
+  <div
+    id="drawer-sidebar"
     class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800"
-    tabindex="-1" aria-labelledby="drawer-label">
-    <h5 id="drawer-label"
-      class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"><svg
-        class="w-4 h-4 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-        viewBox="0 0 20 20">
+    tabindex="-1"
+    aria-labelledby="drawer-label"
+  >
+    <h5
+      id="drawer-label"
+      class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
+    >
+      <svg
+        class="w-4 h-4 me-2.5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
         <path
-          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-      </svg>Menu</h5>
-    <button type="button" data-drawer-hide="drawer-sidebar" aria-controls="drawer-sidebar"
-      class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
-      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>Menu
+    </h5>
+    <button
+      type="button"
+      data-drawer-hide="drawer-sidebar"
+      aria-controls="drawer-sidebar"
+      class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+    >
+      <svg
+        class="w-3 h-3"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+        />
       </svg>
       <span class="sr-only">Close menu</span>
     </button>
@@ -27,8 +54,8 @@
 </template>
 
 <script lang="ts" setup>
-import SidebarItem from './SidebarItem.vue'
 import { initDrawers } from 'flowbite'
+import SidebarItem from './SidebarItem.vue'
 
 import OverviewIcon from '~/assets/images/icons/overview.png'
 import ProjectIcon from '~/assets/images/icons/project.png'
@@ -56,103 +83,103 @@ onMounted(() => {
 })
 
 const items = computed(() => {
-    return [
-      {
-        to: '/overview',
-        icon: OverviewIcon,
-        title: 'Overview',
-      },
-      {
-        to: '/projects',
-        icon: ProjectIcon,
-        title: 'Projects',
-        children: [
-          {
-            to: '/projects',
-            icon: AllProjectIcon,
-            title: 'All Projects',
-          },
-          {
-            to: '/projects/recently-added',
-            icon: RecentAddIcon,
-            title: 'Recently Added',
-          },
-          {
-            to: '/projects/starred',
-            icon: StarProjectIcon,
-            title: 'Starred Projects',
-          },
-          {
-            to: '/projects/on-going',
-            icon: OnGoingIcon,
-            title: 'On-going Projects',
-          },
-          {
-            to: '/projects/share',
-            icon: ShareProjectIcon,
-            title: 'Shares Projects',
-          },
-          {
-            to: '/',
-            icon: FileManagerIcon,
-            title: 'File Manager',
-          },
-        ]
-      },
-      {
-        to: '/uploads',
-        icon: UploadIcon,
-        title: 'Uploads',
-        children: [
-          {
-            to: '/uploads',
-            icon: LastUploadIcon,
-            title: 'Last Uploads',
-          },
-          {
-            to: '/',
-            icon: RemoteUploadIcon,
-            title: 'Remote Uploads',
-          },
-          {
-            to: '/uploads/3',
-            icon: FtpUploadIcon,
-            title: 'FTP Uploads',
-          },
-        ]
-      },
-      {
-        to: '/comments',
-        icon: CommentIcon,
-        title: 'Comments',
-      },
-      {
-        to: '/starred',
-        icon: StarIcon,
-        title: 'Starred',
-      },
-      {
-        to: '/shares',
-        icon: ShareIcon,
-        title: 'Shares',
-      },
-      {
-        to: '/tasks',
-        icon: TaskIcon,
-        title: 'Tasks',
-      },
-      {
-        to: '/analytics',
-        icon: AnalyticsIcon,
-        title: 'Analytics',
-      },
-      {
-        to: '/help',
-        icon: HelpIcon,
-        title: 'Help',
-      }
-    ]
-  })
+  return [
+    {
+      to: '/overview',
+      icon: OverviewIcon,
+      title: 'Overview',
+    },
+    {
+      to: '',
+      icon: ProjectIcon,
+      title: 'Projects',
+      children: [
+        {
+          to: '/projects',
+          icon: AllProjectIcon,
+          title: 'All Projects',
+        },
+        {
+          to: '/projects/recently-added',
+          icon: RecentAddIcon,
+          title: 'Recently Added',
+        },
+        {
+          to: '/projects/starred',
+          icon: StarProjectIcon,
+          title: 'Starred Projects',
+        },
+        {
+          to: '/projects/on-going',
+          icon: OnGoingIcon,
+          title: 'On-going Projects',
+        },
+        {
+          to: '/projects/share',
+          icon: ShareProjectIcon,
+          title: 'Shares Projects',
+        },
+        {
+          to: '/',
+          icon: FileManagerIcon,
+          title: 'File Manager',
+        },
+      ],
+    },
+    {
+      to: '/uploads',
+      icon: UploadIcon,
+      title: 'Uploads',
+      children: [
+        {
+          to: '/uploads',
+          icon: LastUploadIcon,
+          title: 'Last Uploads',
+        },
+        {
+          to: '/',
+          icon: RemoteUploadIcon,
+          title: 'Remote Uploads',
+        },
+        {
+          to: '/uploads/3',
+          icon: FtpUploadIcon,
+          title: 'FTP Uploads',
+        },
+      ],
+    },
+    {
+      to: '/comments',
+      icon: CommentIcon,
+      title: 'Comments',
+    },
+    {
+      to: '/starred',
+      icon: StarIcon,
+      title: 'Starred',
+    },
+    {
+      to: '/shares',
+      icon: ShareIcon,
+      title: 'Shares',
+    },
+    {
+      to: '/tasks',
+      icon: TaskIcon,
+      title: 'Tasks',
+    },
+    {
+      to: '/analytics',
+      icon: AnalyticsIcon,
+      title: 'Analytics',
+    },
+    {
+      to: '/help',
+      icon: HelpIcon,
+      title: 'Help',
+    },
+  ]
+})
 </script>
 
 <style lang="scss" scoped></style>
