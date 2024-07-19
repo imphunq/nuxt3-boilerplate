@@ -142,7 +142,7 @@ const items = computed(() => {
       title: 'Uploads',
       children: [
         {
-          to: '/uploads',
+          to: '/last-upload',
           icon: LastUploadIcon,
           title: 'Last Uploads',
         },
