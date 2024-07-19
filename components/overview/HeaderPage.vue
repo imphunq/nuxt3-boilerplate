@@ -15,7 +15,7 @@
 
     <div class="flex items-center space-x-2">
       <SelectTeamDropdown />
-      <SortByDropdown type="overview" />
+      <SortByDropdown type="project" />
       <OptionView />
     </div>
   </div>
