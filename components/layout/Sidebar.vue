@@ -5,8 +5,9 @@
     aria-label="Sidebar"
     :class="[isCollapse ? 'w-16' : 'w-80']"
   >
-    <div class="h-full flex flex-col pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-      <!-- <div class="flex justify-end">
+    <el-scrollbar>
+      <div class="h-full flex flex-col pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <!-- <div class="flex justify-end">
         <button type="button" class="bg-gray-200">
           <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 16-4-4 4-4m-6 8-4-4 4-4"/>
@@ -14,40 +15,41 @@
         </button>
       </div> -->
 
-      <div
-        class="space-y-2 font-medium pb-2"
-        :class="[isCollapse ? '' : 'border-b border-solid border-gray-200']"
-      >
-        <div v-if="!isCollapse">
-          <SidebarItem
-            v-for="(item, index) in items"
-            :key="`${index}-${item.to}`"
-            :item="item"
-          />
+        <div
+          class="space-y-2 font-medium pb-2"
+          :class="[isCollapse ? '' : 'border-b border-solid border-gray-200']"
+        >
+          <div v-if="!isCollapse">
+            <SidebarItem
+              v-for="(item, index) in items"
+              :key="`${index}-${item.to}`"
+              :item="item"
+            />
+          </div>
+          <div v-else>
+            <SidebarItemCollapse
+              v-for="(item, index) in items"
+              :key="`${index}-${item.to}-collapse`"
+              :item="item"
+            />
+          </div>
         </div>
-        <div v-else>
-          <SidebarItemCollapse
-            v-for="(item, index) in items"
-            :key="`${index}-${item.to}-collapse`"
-            :item="item"
-          />
+
+        <div
+          v-if="!isCollapse"
+          class="pt-2"
+        >
+          <SidebarTeam />
+        </div>
+
+        <div
+          v-if="!isCollapse"
+          class="my-20"
+        >
+          <SidebarFooter />
         </div>
       </div>
-
-      <div
-        v-if="!isCollapse"
-        class="pt-2"
-      >
-        <SidebarTeam />
-      </div>
-
-      <div
-        v-if="!isCollapse"
-        class="my-20"
-      >
-        <SidebarFooter />
-      </div>
-    </div>
+    </el-scrollbar>
   </aside>
 </template>
 
