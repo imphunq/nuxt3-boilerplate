@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     '~/assets/css/reset.css',
     '~/assets/scss/main.scss',
     '~/assets/css/tailwind.css',
+    '~/assets/css/element.css',
   ],
 
   vite: {
@@ -42,6 +43,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      title: 'HostDesign',
       meta: [
         {
           name: 'viewport',
@@ -54,5 +56,6 @@ export default defineNuxtConfig({
   ssr: false,
 
   elementPlus: {
+
   }
 })

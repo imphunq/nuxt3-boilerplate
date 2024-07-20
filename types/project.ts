@@ -1,3 +1,5 @@
+type Privacy = 'private' | 'public'
+
 export interface IProject {
   id: number;
   watermark_id: number | null;
@@ -28,7 +30,7 @@ export interface IProject {
   members: IProjectMember[];
 }
 
-interface IProjectMember {
+export interface IProjectMember {
   id: number;
   name: string;
   lastname: string;
@@ -38,4 +40,18 @@ interface IProjectMember {
   project_id: number;
   avatar_url: string | null;
   avatar_url_thumb: string | null;
+}
+
+export interface IIcon {
+  id?: number
+  icon: string
+}
+
+export interface IProjectCreate {
+  project_title: string
+  projecttype: Privacy
+  project_description?: string
+  background_color?: string
+  projectdevice?: string
+  icon_id?: IIcon
 }

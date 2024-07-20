@@ -9,7 +9,12 @@
       </nuxt-link>
     </div>
 
-    <div class="new-project-btn-block items-center justify-between rounded-full text-white cursor-pointer hidden phone:flex" id="dropdownNewButton" data-dropdown-toggle="dropdownNew">
+    <div
+      ref="dropdownNewButtonRef"
+      class="new-project-btn-block items-center justify-between rounded-full text-white cursor-pointer hidden phone:flex"
+      id="dropdownNewButton"
+      data-dropdown-toggle="dropdownNewRecord"
+    >
       <div class="new-block flex items-center">
         <svg stroke="currentColor" fill="currentColor" stroke-width="0" t="1551322312294" viewBox="0 0 1024 1024" version="1.1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><defs></defs><path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"></path><path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"></path></svg>
         <span class="text-xs ml-2">
@@ -24,31 +29,31 @@
 
     <!-- /** Dropdown add new button */ -->
 
-    <div id="dropdownNew" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 w-52">
+    <div id="dropdownNewRecord" class="p-4 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 w-52">
       <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni1"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">New Project</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500" @click="openModalProject">New Project</div>
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni2"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">New Team</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">New Team</div>
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni3"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">New Task</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">New Task</div>
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni4"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">New Folder</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">New Folder</div>
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni5"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">Remote Upload</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">Remote Upload</div>
         </li>
         <li class="flex items-center gap-x-4">
           <div class="new-icon ni6"></div>
-          <NuxtLink to="/" class="block px-4 py-2 text-xs">FTP Upload</NuxtLink>
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">FTP Upload</div>
         </li>
       </ul>
     </div>
@@ -72,11 +77,33 @@
     </div>
 
     <UserDropdown />
+
+    <CreateProjectModal ref="createProjectModalRef" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import UserDropdown from './UserDropdown.vue'
+import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
+import { initDropdowns } from 'flowbite'
+
+const dropdownNewButtonRef = ref<HTMLElement | null>()
+const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
+
+onMounted(() => {
+  useFlowbite(() => {
+    initDropdowns()
+  })
+})
+
+const openModalProject = () => {
+  createProjectModalRef?.value?.open()
+  closeDropdown()
+}
+
+const closeDropdown = () => {
+  dropdownNewButtonRef.value?.click()
+}
 </script>
 
 <style lang="scss" scoped>
