@@ -7,7 +7,7 @@
           <div class="flex items-center gap-4">
             <span class="text-xl font-semibold">Add New Project</span>
 
-            <span class="text-blue-500 cursor-pointer text-sm">Direct Upload</span>
+            <span v-if="step === 1" class="text-blue-500 cursor-pointer text-sm" @click="directUpload">Direct Upload</span>
           </div>
 
           <button type="button" @click="close">
@@ -23,7 +23,7 @@
           </button>
         </div>
       </template>
-      <el-form ref="formRef" :model="form" :rules="rules" label-position="top" size="large">
+      <el-form v-show="step === 1" ref="formRef" :model="form" :rules="rules" label-position="top" size="large">
         <el-form-item prop="project_title" label="Project Name">
           <el-input v-model="form.project_title">
             <template #prefix>
@@ -65,8 +65,8 @@
             <p class="mb-2 font-semibold">Color</p>
 
             <div class="flex items-center gap-2">
-              <div class="pr-color w-4 h-4 rounded-full cursor-pointer peer/black" style="background: rgb(48, 42, 93);">
-                <div class="inner-pr-color peer-checked/black:border peer-checked/black:border-solid peer-checked/black:border-gray-200 p-2" style="border: 1.5px solid transparent;"></div>
+              <div class="pr-color w-4 h-4 rounded-full cursor-pointer" style="background: rgb(48, 42, 93);">
+                <div class="inner-pr-color" style="border: 1.5px solid transparent;"></div>
               </div>
               <div class="pr-color w-4 h-4 rounded-full cursor-pointer" style="background: rgb(174, 165, 248);">
                 <div class="inner-pr-color" style="border: 1.5px solid transparent;"></div>
@@ -150,14 +150,30 @@
           <el-input v-model="form.project_description" type="textarea" :rows="6" />
         </el-form-item>
       </el-form>
+
+      <SelectPrototype v-show="step === 2" v-model="form.projectdevice" />
+
       <template #footer>
         <div class="dialog-footer">
-          <span class="cursor-pointer mr-4 text-gray-500" @click="close">Cancel</span>
-          <button type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            @click="onSubmit">
-            Next
-          </button>
+          <template v-if="step === 1">
+            <span class="cursor-pointer mr-4 text-gray-500" @click="close">Cancel</span>
+            <button type="button"
+              v-if="step === 1"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              @click="nextStep">
+              Next
+            </button>
+          </template>
+          <template v-else>
+            <span class="cursor-pointer mr-4 text-gray-500" @click="back">Back</span>
+            <button type="button"
+              v-if="step === 2"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              @click="createProject">
+              Create Project
+            </button>
+          </template>
+
         </div>
       </template>
     </el-dialog>
@@ -171,8 +187,10 @@ import type { FormInstance, FormRules } from 'element-plus'
 import PencilIcon from '~/assets/images/pencil.png'
 import Private from '~/assets/images/private.png'
 import Public from '~/assets/images/public.png'
+import SelectPrototype from './SelectPrototype.vue'
 
 const dialogFormVisible = ref(false)
+const step = ref<number>(1)
 
 const formInitial = reactive<IProjectCreate>({
   project_title: '',
@@ -183,8 +201,10 @@ const formInitial = reactive<IProjectCreate>({
     icon: '',
   },
   project_description: '',
-  projectdevice: '',
+  projectdevice: 'web',
 })
+
+const emit = defineEmits(['direct-upload'])
 
 const { formRef, form, handleSubmit, resetForm } = useForm(formInitial)
 
@@ -202,15 +222,36 @@ const close = () => {
   dialogFormVisible.value = false
 }
 
-const onSubmit = () => {
+const directUpload = () => {
+  emit('direct-upload')
+}
+
+const nextStep = () => {
   handleSubmit(
     (form) => {
       console.log('submit!', form);
+      step.value = 2;
     },
     () => {
       console.log('Custom error handling');
     }
   );
+}
+
+const createProject = () => {
+  handleSubmit(
+    (form) => {
+      console.log('submit!', form);
+      dialogFormVisible.value = false;
+    },
+    () => {
+      console.log('Custom error handling');
+    }
+  );
+}
+
+const back = () => {
+  step.value = 1
 }
 
 defineExpose({

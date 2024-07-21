@@ -5,9 +5,8 @@
       <template #header="{ close, titleId, titleClass }">
         <div class=" flex items-center justify-between border-b border-solid border-gray-200 px-6 py-6">
           <div class="flex items-center gap-4">
+            <el-button :icon="Back" circle @click="back" />
             <span class="text-xl font-semibold">Add New Project</span>
-
-            <span class="text-blue-500 cursor-pointer text-sm">Direct Upload</span>
           </div>
 
           <button type="button" @click="close">
@@ -39,6 +38,9 @@
                 v-model="form.projecttype"
                 size="large"
               >
+              <template #prefix>
+                <img :src="PrivateIcon" class="mr-2" alt="">
+              </template>
                 <el-option
                   v-for="item in privacyOptions"
                   :key="item.value"
@@ -55,8 +57,11 @@
                 v-model="form.projectdevice"
                 size="large"
               >
+                <template #prefix>
+                  <img :src="PrototypeIcon" class="mr-2" alt="">
+                </template>
                 <el-option
-                  v-for="item in privacyOptions"
+                  v-for="item in prototyOptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -72,13 +77,13 @@
         action=""
         multiple
       >
-        <div class="el-upload__text mb-6">
+        <div class="el-upload__text mb-6 text-sm">
           <p>Drag and Drop files or click Upload to browse from your computer.</p>
         </div>
 
         <div class="btn-upload flex justify-center">
           <button type="button" class="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-            <svg class="mr-2" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"></path></svg>
+            <svg class="mr-2 upload-icon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M400 317.7h73.9V656c0 4.4 3.6 8 8 8h60c4.4 0 8-3.6 8-8V317.7H624c6.7 0 10.4-7.7 6.3-12.9L518.3 163a8 8 0 0 0-12.6 0l-112 141.7c-4.1 5.3-.4 13 6.3 13zM878 626h-60c-4.4 0-8 3.6-8 8v154H214V634c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8v198c0 17.7 14.3 32 32 32h684c17.7 0 32-14.3 32-32V634c0-4.4-3.6-8-8-8z"></path></svg>
             <span>Upload</span>
           </button>
         </div>
@@ -91,7 +96,7 @@
       <template #footer>
         <div class="dialog-footer flex items-center justify-between">
           <div>
-            <span class="text-xs text-blue-400 cursor-pointer">Clear All Uploads</span>
+            <span class="text-xs text-blue-400 cursor-pointer">Clean All Uploads</span>
           </div>
           <div>
             <span class="cursor-pointer mr-4 text-gray-500" @click="close">Cancel</span>
@@ -112,7 +117,12 @@ import { PRIVACY } from '~/constants/project'
 import type { IProjectCreate } from '~/types'
 import type { FormInstance, FormRules } from 'element-plus'
 import PencilIcon from '~/assets/images/pencil.png'
+import PrototypeIcon from '~/assets/images/prototype.svg'
+import PrivateIcon from '~/assets/images/icon-private.svg'
 import type { ILabelValue } from '~/types'
+import { Back } from '@element-plus/icons-vue'
+
+const emit = defineEmits(['normal-upload'])
 
 const dialogFormVisible = ref(false)
 
@@ -137,8 +147,8 @@ const rules = reactive<FormRules<IProjectCreate>>({
 })
 
 const privacyOptions: ILabelValue[] = [
-  { label: 'Private', value: PRIVACY.PRIVATE },
-  { label: 'Public', value: PRIVACY.PUBLIC },
+  { label: 'Private Project', value: PRIVACY.PRIVATE },
+  { label: 'Public Project', value: PRIVACY.PUBLIC },
 ]
 
 const prototyOptions: ILabelValue[] = [
@@ -172,6 +182,10 @@ const onSubmit = () => {
   );
 }
 
+const back = () => {
+  emit('normal-upload')
+}
+
 defineExpose({
   open,
   close,
@@ -192,6 +206,10 @@ defineExpose({
 
   .el-dialog__footer {
     padding: 24px;
+  }
+
+  .upload-icon {
+    color: #fff;
   }
 }
 </style>

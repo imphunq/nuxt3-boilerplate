@@ -78,17 +78,20 @@
 
     <UserDropdown />
 
-    <CreateProjectModal ref="createProjectModalRef" />
+    <CreateProjectModal ref="createProjectModalRef" @direct-upload="directUpload" />
+    <CreateProjectDirectModal ref="createProjectDirectModalRef" @normal-upload="normalUpload" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import UserDropdown from './UserDropdown.vue'
 import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
+import CreateProjectDirectModal from '~/components/project/CreateProjectDirectModal.vue'
 import { initDropdowns } from 'flowbite'
 
 const dropdownNewButtonRef = ref<HTMLElement | null>()
 const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
+const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectModal>>()
 
 onMounted(() => {
   useFlowbite(() => {
@@ -103,6 +106,22 @@ const openModalProject = () => {
 
 const closeDropdown = () => {
   dropdownNewButtonRef.value?.click()
+}
+
+const directUpload = () => {
+  createProjectModalRef?.value?.close()
+
+  setTimeout(() => {
+    createProjectDirectModalRef?.value?.open()
+  }, 250);
+}
+
+const normalUpload = () => {
+  createProjectDirectModalRef?.value?.close()
+
+  setTimeout(() => {
+    createProjectModalRef?.value?.open()
+  }, 250);
 }
 </script>
 
