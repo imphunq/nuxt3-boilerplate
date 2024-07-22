@@ -39,15 +39,17 @@
 
     <div
       :id="`dropdown-click-${keyItem}`"
-      class="hidden py-2 space-y-2 ml-8"
+      class="hidden"
     >
-      <template v-if="hasChildren && !isCollapse">
-        <SidebarItem
-          v-for="(child, index) in item.children"
-          :key="`${index}-${child.to}`"
-          :item="child"
-        />
-      </template>
+      <div :class="[hasChildren ? 'py-2 space-y-2 ml-8' : '']">
+        <template v-if="hasChildren && !isCollapse">
+          <SidebarItem
+            v-for="(child, index) in item.children"
+            :key="`${index}-${child.to}`"
+            :item="child"
+          />
+        </template>
+      </div>
     </div>
   </div>
 </template>
