@@ -1,6 +1,5 @@
 <template>
-  <div>
-  </div>
+  <div />
 </template>
 
 <script lang="ts" setup>
@@ -10,7 +9,7 @@ definePageMeta({
       const router = useRouter()
 
       router.push('overview')
-    }
-  ]
+    },
+  ],
 })
 </script>
