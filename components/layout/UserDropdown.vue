@@ -158,10 +158,10 @@
 
         <li class="flex items-center user-dropdown__item">
           <div class="icon-logout" />
-          <NuxtLink
-            to="/"
-            class="block  text-sm text-gray-700 hover:text-blue-400 dark:text-gray-200 dark:hover:text-white"
-          >Logout</NuxtLink>
+          <div
+            class="block cursor-pointer text-sm text-gray-700 hover:text-blue-400 dark:text-gray-200 dark:hover:text-white"
+            @click="handleLogout"
+          >Logout</div>
         </li>
       </ul>
     </div>
@@ -194,6 +194,12 @@
 
 <script lang="ts" setup>
 import StatusPopover from './StatusPopover.vue'
+
+const authStore = useAuthStore()
+
+const handleLogout = async () => {
+  await authStore.logout()
+}
 </script>
 
 <style lang="scss" scoped>

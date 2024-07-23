@@ -41,6 +41,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth',
+})
+
 const activeIndex = ref<string>('setting')
 
 const handleSelect = (index: string) => {

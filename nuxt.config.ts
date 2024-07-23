@@ -55,7 +55,11 @@ export default defineNuxtConfig({
 
   ssr: false,
 
-  elementPlus: {
+  elementPlus: {},
 
-  }
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+    }
+  },
 })

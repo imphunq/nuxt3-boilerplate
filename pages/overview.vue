@@ -45,6 +45,10 @@ import ListTeam from '~/components/overview/ListTeam.vue'
 import GuideComponent from '~/components/overview/GuideComponent.vue'
 import TaskCompletionRate from '~/components/overview/TaskCompletionRate.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const globalStore = useGlobalStore()
 
 onMounted(() => {

@@ -16,6 +16,10 @@ import HeaderPage from '~/components/project/HeaderPage.vue'
 import ListProject from '~/components/project/ListProject.vue'
 import { PROJECT_TYPE } from '~/constants/project'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const globalStore = useGlobalStore()
 const route = useRoute()
 

@@ -10,3 +10,9 @@ services:
     volumes:
       - ./:/app
     tty: true
+    networks:
+      - hostdesign-remake-network
+
+networks:
+  hostdesign-remake-network:
+    external: true

@@ -38,6 +38,10 @@
 import IconDel from '~/assets/images/icon-del.svg'
 import SortBy from '~/components/common/SortByDropdown.vue'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const tableData = ref([])
 </script>
 
