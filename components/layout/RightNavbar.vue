@@ -193,16 +193,16 @@
     </div>
 
     <UserDropdown />
-
-    <CreateProjectModal
-      ref="createProjectModalRef"
-      @direct-upload="directUpload"
-    />
-    <CreateProjectDirectModal
-      ref="createProjectDirectModalRef"
-      @normal-upload="normalUpload"
-    />
   </div>
+
+  <CreateProjectModal
+    ref="createProjectModalRef"
+    @direct-upload="directUpload"
+  />
+  <CreateProjectDirectModal
+    ref="createProjectDirectModalRef"
+    @normal-upload="normalUpload"
+  />
 </template>
 
 <script lang="ts" setup>
