@@ -5,16 +5,19 @@ import { useMyFetch } from '~/composables/useMyFetch'
 
 interface State {
   user: IUser | null,
+  userLogin: ILoginUserResponse | null
 }
 
 export const useAuthStore = defineStore('auth', {
   state: (): State => ({
     user: null,
+    userLogin: null,
   }),
 
   getters: {
-    isLoggedIn: (state) => !!state.user,
+    getLoggedUser: (state) => localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') as string) : null,
     getCurrentUser: (state) => state.user,
+    isLoggedIn: (state) => !!localStorage.getItem('access_token'),
   },
 
   actions: {
@@ -40,6 +43,7 @@ export const useAuthStore = defineStore('auth', {
             type: 'success',
           })
           this.setToken(data.value.data as AuthResponse)
+          this.setUserLogin(data.value.data.user as ILoginUserResponse)
 
           window.location.href = '/overview'
         }
@@ -76,6 +80,12 @@ export const useAuthStore = defineStore('auth', {
       this.user = user
     },
 
+    setUserLogin(user: ILoginUserResponse) {
+      this.userLogin = user
+
+      localStorage.setItem('user', JSON.stringify(user))
+    },
+
     setToken(data: AuthResponse) {
       const { access_token, refresh_token, expires_in } = data
 
@@ -92,6 +102,7 @@ export const useAuthStore = defineStore('auth', {
 
     clearDataUser() {
       this.user = null
+      this.userLogin = null
 
       localStorage.removeItem('user')
     }
