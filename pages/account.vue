@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-2">
     <div class="head-account block">
       <p class="head-account__title text-lg">
         Account Settings
