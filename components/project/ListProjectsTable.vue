@@ -1,6 +1,10 @@
 <template>
-  <el-table ref="projectTableRef" :data="projects" :default-sort="{ prop: 'project_title', order: 'descending' }"
-    style="width: 100%">
+  <el-table
+    ref="projectTableRef"
+    :data="projects"
+    :default-sort="{ prop: 'project_title', order: 'descending' }"
+    style="width: 100%"
+  >
     <el-table-column type="selection" width="55" />
     <el-table-column prop="project_title" label="Project Name" width="400">
       <template #default="scope">

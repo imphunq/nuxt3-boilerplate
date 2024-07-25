@@ -46,3 +46,13 @@ export interface AuthResponse {
   refresh_token: string;
   user: ILoginUserResponse;
 }
+
+export interface IUserInfo {
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+  username: string;
+  avatar_url: string | null;
+  avatar_url_thumb: string | null;
+}
