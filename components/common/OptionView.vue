@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<{
 })
 
 const projectStore = useProjectStore()
+const screenStore = useScreenStore()
 
 const option = ref<string>(OPTION_VIEW.GRID)
 
@@ -65,6 +66,10 @@ const changeView = (view: string) => {
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.RECENTLY_ADDED) {
     projectStore.setRecentlyAddedOptionView(view)
+  }
+
+  if (props.page === 'screen' && props.type === PROJECT_TYPE.SCREEN) {
+    screenStore.setOptionView(view)
   }
 }
 

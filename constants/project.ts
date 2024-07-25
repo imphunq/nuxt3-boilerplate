@@ -4,6 +4,7 @@ export const PROJECT_TYPE = {
   SHARE: 'share',
   ONGOING: 'on-going',
   RECENTLY_ADDED: 'recently-added',
+  SCREEN: 'screen',
 }
 
 export const PRIVACY = {
