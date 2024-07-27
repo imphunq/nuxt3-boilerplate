@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="font-bold text-xl mb-2">
-          Last Uploads
+          Remote Uploads
         </p>
         <p>Transfer files from links. Use only ( .png, .jpg, .jpeg, .gif, .zip) files direct links.</p>
       </div>
@@ -93,4 +93,4 @@ definePageMeta({
 const tableData = ref([])
 </script>
 
-<style lang="scss" scoped></style>
+  <style lang="scss" scoped></style>

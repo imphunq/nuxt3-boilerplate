@@ -147,12 +147,12 @@ const items = computed(() => {
           title: 'Last Uploads',
         },
         {
-          to: '/',
+          to: '/remote-upload',
           icon: RemoteUploadIcon,
           title: 'Remote Uploads',
         },
         {
-          to: '/uploads/3',
+          to: '/ftp-upload',
           icon: FtpUploadIcon,
           title: 'FTP Uploads',
         },
