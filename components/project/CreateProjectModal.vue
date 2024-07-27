@@ -1,44 +1,91 @@
 <template>
   <div>
-    <el-dialog v-model="dialogFormVisible" class="project-dialog" width="680" :show-close="false"
-      :destroy-on-close="true" :close-on-click-modal="false" @close="resetForm">
+    <el-dialog
+      v-model="dialogFormVisible"
+      class="project-dialog"
+      width="680"
+      :show-close="false"
+      :destroy-on-close="true"
+      :close-on-click-modal="false"
+      @close="resetForm"
+    >
       <template #header="{ close, titleId, titleClass }">
         <div class=" flex items-center justify-between border-b border-solid border-gray-200 px-6 py-6">
           <div class="flex items-center gap-4">
             <span class="text-xl font-semibold">Add New Project</span>
 
-            <span v-if="step === 1" class="text-blue-500 cursor-pointer text-sm" @click="directUpload">Direct Upload</span>
+            <span
+              v-if="step === 1"
+              class="text-blue-500 cursor-pointer text-sm"
+              @click="directUpload"
+            >Direct Upload</span>
           </div>
 
-          <button type="button" @click="close">
-            <svg class="text-xl" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024"
-              height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+          <button
+            type="button"
+            @click="close"
+          >
+            <svg
+              class="text-xl"
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 1024 1024"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
-                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z">
-              </path>
+                d="M685.4 354.8c0-4.4-3.6-8-8-8l-66 .3L512 465.6l-99.3-118.4-66.1-.3c-4.4 0-8 3.5-8 8 0 1.9.7 3.7 1.9 5.2l130.1 155L340.5 670a8.32 8.32 0 0 0-1.9 5.2c0 4.4 3.6 8 8 8l66.1-.3L512 564.4l99.3 118.4 66 .3c4.4 0 8-3.5 8-8 0-1.9-.7-3.7-1.9-5.2L553.5 515l130.1-155c1.2-1.4 1.8-3.3 1.8-5.2z"
+              />
               <path
-                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z">
-              </path>
+                d="M512 65C264.6 65 64 265.6 64 513s200.6 448 448 448 448-200.6 448-448S759.4 65 512 65zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+              />
             </svg>
           </button>
         </div>
       </template>
-      <el-form v-show="step === 1" ref="formRef" :model="form" :rules="rules" label-position="top" size="large">
-        <el-form-item prop="project_title" label="Project Name">
+      <el-form
+        v-show="step === 1"
+        ref="formRef"
+        :model="form"
+        :rules="rules"
+        label-position="top"
+        size="large"
+      >
+        <el-form-item
+          prop="project_title"
+          label="Project Name"
+        >
           <el-input v-model="form.project_title">
             <template #prefix>
-              <img :src="PencilIcon" alt="">
+              <img
+                :src="PencilIcon"
+                alt=""
+              >
             </template>
           </el-input>
         </el-form-item>
 
         <ul class="grid w-full gap-6 md:grid-cols-2">
           <li>
-            <input v-model="form.projecttype" type="radio" id="project-private" name="projecttype" value="private"
-              class="hidden peer" required />
-            <label for="project-private"
-              class="border-solid border-gray-200 flex gap-5 items-center w-full p-5 text-gray-500 bg-white border rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-              <img :src="Private" alt="">
+            <input
+              id="project-private"
+              v-model="form.projecttype"
+              type="radio"
+              name="projecttype"
+              value="private"
+              class="hidden peer"
+              required
+            >
+            <label
+              for="project-private"
+              class="border-solid border-gray-200 flex gap-5 items-center w-full p-5 text-gray-500 bg-white border rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              <img
+                :src="Private"
+                alt=""
+              >
               <div class="block">
                 <div class="w-full font-semibold">Private</div>
                 <div class="w-full text-xs">Only people you invite can see this project. You can choose who can edit.
@@ -47,11 +94,22 @@
             </label>
           </li>
           <li>
-            <input v-model="form.projecttype" type="radio" id="project-public" name="projecttype" value="public"
-              class="hidden peer">
-            <label for="project-public"
-              class="border-solid flex gap-5 items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-              <img :src="Public" alt="">
+            <input
+              id="project-public"
+              v-model="form.projecttype"
+              type="radio"
+              name="projecttype"
+              value="public"
+              class="hidden peer"
+            >
+            <label
+              for="project-public"
+              class="border-solid flex gap-5 items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              <img
+                :src="Public"
+                alt=""
+              >
               <div class="block">
                 <div class="w-full font-semibold">Public</div>
                 <div class="w-full text-xs">Anyone on the internet can see this project.</div>
@@ -62,7 +120,9 @@
 
         <div class="flex items-center justify-between mt-[22px] gap-6">
           <div class="list-colors block w-1/2">
-            <p class="mb-2 font-semibold">Color</p>
+            <p class="mb-2 font-semibold">
+              Color
+            </p>
 
             <div class="flex items-center gap-2">
               <div
@@ -72,22 +132,34 @@
                 class="pr-color w-4 h-4 rounded-full cursor-pointer"
                 @click="selectColor(color)"
               >
-                <div class="inner-pr-color h-full" :style="{ borderBottom: selectedColor === color ? '1.5px solid black' : '1.5px solid transparent' }"></div>
+                <div
+                  class="inner-pr-color h-full"
+                  :style="{ borderBottom: selectedColor === color ? '1.5px solid black' : '1.5px solid transparent' }"
+                />
               </div>
-              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 1024 1024"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z">
-                </path>
+                  d="M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"
+                />
                 <path
-                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z">
-                </path>
+                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                />
               </svg>
             </div>
           </div>
 
           <div class="list-icon block w-1/2">
-            <p class="mb-2 font-semibold">Icon</p>
+            <p class="mb-2 font-semibold">
+              Icon
+            </p>
 
             <div class="flex items-center gap-2">
               <div
@@ -97,48 +169,75 @@
                 class="pr-icon cursor-pointer h-full"
                 :class="{ 'border-bottom-selected': selectedIcon === icon }"
                 @click="selectIcon(icon)"
-              ></div>
-              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
+              />
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 1024 1024"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
-                  d="M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z">
-                </path>
+                  d="M696 480H544V328c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v152H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h152v152c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V544h152c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"
+                />
                 <path
-                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z">
-                </path>
+                  d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                />
               </svg>
             </div>
           </div>
         </div>
 
-        <el-form-item prop="project_description" label="Description (optional)" class="mt-[22px]">
-          <el-input v-model="form.project_description" type="textarea" :rows="6" />
+        <el-form-item
+          prop="project_description"
+          label="Description (optional)"
+          class="mt-[22px]"
+        >
+          <el-input
+            v-model="form.project_description"
+            type="textarea"
+            :rows="6"
+          />
         </el-form-item>
       </el-form>
 
-      <SelectPrototype v-show="step === 2" v-model="form.projectdevice" />
+      <SelectPrototype
+        v-show="step === 2"
+        v-model="form.projectdevice"
+      />
 
       <template #footer>
         <div class="dialog-footer">
           <template v-if="step === 1">
-            <span class="cursor-pointer mr-4 text-gray-500" @click="close">Cancel</span>
-            <button type="button"
+            <span
+              class="cursor-pointer mr-4 text-gray-500"
+              @click="close"
+            >Cancel</span>
+            <button
               v-if="step === 1"
+              type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              @click="nextStep">
+              @click="nextStep"
+            >
               Next
             </button>
           </template>
           <template v-else>
-            <span class="cursor-pointer mr-4 text-gray-500" @click="back">Back</span>
-            <button type="button"
+            <span
+              class="cursor-pointer mr-4 text-gray-500"
+              @click="back"
+            >Back</span>
+            <button
               v-if="step === 2"
+              type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              @click="createProject">
+              @click="createProject"
+            >
               Create Project
             </button>
           </template>
-
         </div>
       </template>
     </el-dialog>
@@ -146,13 +245,13 @@
 </template>
 
 <script lang="ts" setup>
+import type { FormInstance, FormRules } from 'element-plus'
+import SelectPrototype from './SelectPrototype.vue'
 import { PRIVACY } from '~/constants/project'
 import type { IProjectCreate } from '~/types'
-import type { FormInstance, FormRules } from 'element-plus'
 import PencilIcon from '~/assets/images/pencil.png'
 import Private from '~/assets/images/private.png'
 import Public from '~/assets/images/public.png'
-import SelectPrototype from './SelectPrototype.vue'
 
 const dialogFormVisible = ref(false)
 const step = ref<number>(1)
@@ -183,15 +282,15 @@ const rules = reactive<FormRules<IProjectCreate>>({
 })
 
 const colors = [
-  "rgb(48, 42, 93)",
-  "rgb(174, 165, 248)",
-  "rgb(255, 179, 65)",
-  "rgb(109, 190, 179)",
-  "rgb(241, 82, 82)",
-  "rgb(0, 132, 255)",
-  "rgb(144, 162, 180)",
-  "rgb(98, 200, 142)",
-  "rgb(95, 65, 255)",
+  'rgb(48, 42, 93)',
+  'rgb(174, 165, 248)',
+  'rgb(255, 179, 65)',
+  'rgb(109, 190, 179)',
+  'rgb(241, 82, 82)',
+  'rgb(0, 132, 255)',
+  'rgb(144, 162, 180)',
+  'rgb(98, 200, 142)',
+  'rgb(95, 65, 255)',
 ]
 
 const icons = [
@@ -221,25 +320,25 @@ const directUpload = () => {
 const nextStep = () => {
   handleSubmit(
     (form) => {
-      console.log('submit!', form);
-      step.value = 2;
+      console.log('submit!', form)
+      step.value = 2
     },
     () => {
-      console.log('Custom error handling');
-    }
-  );
+      console.log('Custom error handling')
+    },
+  )
 }
 
 const createProject = () => {
   handleSubmit(
     (form) => {
-      console.log('submit!', form);
-      dialogFormVisible.value = false;
+      console.log('submit!', form)
+      dialogFormVisible.value = false
     },
     () => {
-      console.log('Custom error handling');
-    }
-  );
+      console.log('Custom error handling')
+    },
+  )
 }
 
 const back = () => {

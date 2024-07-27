@@ -164,7 +164,7 @@ const items = computed(() => {
       title: 'Comments',
     },
     {
-      to: '/starred',
+      to: '/projects/starred',
       icon: StarIcon,
       title: 'Starred',
     },

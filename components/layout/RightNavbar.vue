@@ -66,7 +66,7 @@
 
     <div
       id="dropdownNewRecord"
-      class="p-4 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 w-52"
+      class="p-4 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 w-52"
     >
       <ul
         class="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -83,7 +83,9 @@
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni2" />
-          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">
+          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500"
+            @click="openCreateTeamModal"
+          >
             New Team
           </div>
         </li>
@@ -203,6 +205,8 @@
     ref="createProjectDirectModalRef"
     @normal-upload="normalUpload"
   />
+
+  <CreateTeamModal ref="createTeamModalRef" />
 </template>
 
 <script lang="ts" setup>
@@ -210,10 +214,12 @@ import { initDropdowns } from 'flowbite'
 import UserDropdown from './UserDropdown.vue'
 import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
 import CreateProjectDirectModal from '~/components/project/CreateProjectDirectModal.vue'
+import CreateTeamModal from '~/components/team/CreateTeamModal.vue'
 
 const dropdownNewButtonRef = ref<HTMLElement | null>()
 const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectModal>>()
+const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 
 onMounted(() => {
   useFlowbite(() => {
@@ -223,6 +229,11 @@ onMounted(() => {
 
 const openModalProject = () => {
   createProjectModalRef?.value?.open()
+  closeDropdown()
+}
+
+const openCreateTeamModal = () => {
+  createTeamModalRef?.value?.open()
   closeDropdown()
 }
 
