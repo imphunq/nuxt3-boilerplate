@@ -69,6 +69,7 @@ import ProjectDrawer from '~/components/screen/ProjectDrawer.vue'
 
 definePageMeta({
   middleware: 'auth',
+  layout: 'project',
 })
 
 const route = useRoute()
