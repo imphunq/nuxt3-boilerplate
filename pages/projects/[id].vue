@@ -1,31 +1,37 @@
 <template>
   <div>
     <div class="py-4 border-b border-solid border-gray-200 project-tabs flex items-center justify-between">
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-project"
-        mode="horizontal"
-        @select="handleSelect">
-        <el-menu-item index="screens"
-      >
-          Screens
-        </el-menu-item>
-        <el-menu-item index="comments">
-          Comments
-        </el-menu-item>
-        <el-menu-item index="people">
-          People
-        </el-menu-item>
-        <el-menu-item index="activity">
-          Activity
-        </el-menu-item>
-        <el-menu-item index="shared">
-          Shared
-        </el-menu-item>
-        <el-menu-item index="settings">
-          Settings
-        </el-menu-item>
-      </el-menu>
+      <div class="flex items-center">
+        <div class="cursor-pointer mr-6" @click="openProjectDrawer">
+          <MoveRightIcon />
+        </div>
+
+        <el-menu
+          :default-active="activeIndex"
+          class="el-menu-project"
+          mode="horizontal"
+          @select="handleSelect">
+          <el-menu-item index="screens"
+        >
+            Screens
+          </el-menu-item>
+          <el-menu-item index="comments">
+            Comments
+          </el-menu-item>
+          <el-menu-item index="people">
+            People
+          </el-menu-item>
+          <el-menu-item index="activity">
+            Activity
+          </el-menu-item>
+          <el-menu-item index="shared">
+            Shared
+          </el-menu-item>
+          <el-menu-item index="settings">
+            Settings
+          </el-menu-item>
+        </el-menu>
+      </div>
 
       <div class="flex items-center gap-5">
         <el-input
@@ -51,11 +57,15 @@
     <div class="mt-4">
       <NuxtPage />
     </div>
+
+    <ProjectDrawer ref="projectDrawerRef" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { Search, Plus } from '@element-plus/icons-vue'
+import MoveRightIcon from '~/components/common/icon/MoveRight.vue'
+import ProjectDrawer from '~/components/screen/ProjectDrawer.vue'
 
 definePageMeta({
   middleware: 'auth',
@@ -63,6 +73,7 @@ definePageMeta({
 
 const route = useRoute()
 
+const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')
 const { id } = route.params
 
@@ -74,6 +85,10 @@ const handleSelect = (index: string) => {
   } else {
     navigateTo(`/projects/${id}/${index}`)
   }
+}
+
+const openProjectDrawer = () => {
+  projectDrawerRef.value?.open()
 }
 </script>
 
