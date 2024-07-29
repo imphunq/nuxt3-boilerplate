@@ -1,0 +1,29 @@
+<template>
+  <div class="flex items-center justify-between gap-2 p-1 border border-solid border-gray-200 rounded-3xl">
+    <el-button :icon="Minus" circle @click="minusScale" />
+    <span>{{ scale }} %</span>
+    <el-button :icon="Plus" circle @click="plusScale" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { Minus, Plus } from '@element-plus/icons-vue'
+
+const emit = defineEmits(['scale'])
+
+const scale = ref<number>(70)
+
+const plusScale = () => {
+  if (scale.value < 100) {
+    scale.value += 10
+    emit('scale', scale.value)
+  }
+}
+
+const minusScale = () => {
+  if (scale.value > 10) {
+    scale.value -= 10
+    emit('scale', scale.value)
+  }
+}
+</script>

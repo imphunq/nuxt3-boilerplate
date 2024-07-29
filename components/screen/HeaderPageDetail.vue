@@ -30,7 +30,58 @@
       </div>
     </div>
 
+    <div>
+      <el-radio-group v-model="mode" size="large" class="screen-option" fill="rgb(66, 128, 235)">
+        <el-radio-button value="comment">
+          <template #default>
+            <div class="flex items-center">
+              <img class="mr-4" :src="CommentIcon" alt="">
+              <span>Comment</span>
+            </div>
+          </template>
+        </el-radio-button>
+        <el-radio-button value="Washington">
+          <template #default>
+            <div class="flex items-center">
+              <img class="mr-4" :src="PrototypeIcon" alt="">
+              <span>Prototype mode</span>
+            </div>
+          </template>
+        </el-radio-button>
+      </el-radio-group>
+    </div>
+
     <div class="flex items-center gap-5">
+      <div class="flex items-center gap-2 cursor-pointer">
+        <img :src="LabelIcon" alt="">
+        <span class="hover:text-blue-500">Add Label</span>
+      </div>
+
+      <ZoomComponent @scale="scaleScreen" />
+
+      <el-dropdown trigger="click">
+        <el-icon><More /></el-icon>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>
+              <img class="mr-4" :src="CreateUserAs" alt="">
+              <span>Create user test</span>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <img class="mr-4" :src="DownloadIcon" alt="">
+              <span>Download as</span>
+            </el-dropdown-item>
+            <el-dropdown-item divided>
+              <span>Background</span>
+
+              <div>
+
+              </div>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
       <button
         type="button"
         class="py-2 px-5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -58,6 +109,29 @@
 </template>
 
 <script lang="ts" setup>
-import { Back, CaretRight } from '@element-plus/icons-vue'
+import { Back, CaretRight, More } from '@element-plus/icons-vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
+import CreateUserAs from '~/assets/images/icons/project/create-user-as.svg'
+import DownloadIcon from '~/assets/images/icons/project/download.svg'
+import CommentIcon from '~/assets/images/icons/project/comment.svg'
+import PrototypeIcon from '~/assets/images/icons/project/prototype.svg'
+import LabelIcon from '~/assets/images/icons/project/label.svg'
+import ZoomComponent from '~/components/common/Zoom.vue'
+
+const mode = ref<string>('comment')
+
+const scaleScreen = (scale: number) => {
+  console.log(scale)
+}
 </script>
+
+<style lang="scss">
+.el-radio-group.screen-option {
+  .el-radio-button.is-active {
+    img {
+      filter: brightness(10) !important;
+    }
+  }
+}
+</style>
+
