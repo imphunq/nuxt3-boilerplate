@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div class="py-4 border-b border-solid border-gray-200 project-tabs flex items-center justify-between">
+    <div
+      v-if="route.name !== excludeChildrenRouteNames"
+      class="py-4 border-b border-solid border-gray-200 project-tabs flex items-center justify-between"
+    >
       <div class="flex items-center">
-        <div class="cursor-pointer mr-6" @click="openProjectDrawer">
+        <div
+          class="cursor-pointer mr-6"
+          @click="openProjectDrawer"
+        >
           <MoveRightIcon />
         </div>
 
@@ -10,9 +16,9 @@
           :default-active="activeIndex"
           class="el-menu-project"
           mode="horizontal"
-          @select="handleSelect">
-          <el-menu-item index="screens"
+          @select="handleSelect"
         >
+          <el-menu-item index="screens">
             Screens
           </el-menu-item>
           <el-menu-item index="comments">
@@ -54,7 +60,7 @@
       </div>
     </div>
 
-    <div class="mt-4">
+    <div :class="[route.name === excludeChildrenRouteNames ? '' : 'mt-4']">
       <NuxtPage />
     </div>
 
@@ -73,6 +79,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const excludeChildrenRouteNames = 'projects-id-screens-id'
 
 const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')
@@ -83,7 +90,8 @@ const handleSelect = (index: string) => {
 
   if (index === 'screens') {
     navigateTo(`/projects/${id}`)
-  } else {
+  }
+  else {
     navigateTo(`/projects/${id}/${index}`)
   }
 }

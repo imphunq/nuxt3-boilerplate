@@ -40,7 +40,7 @@
 import { More } from '@element-plus/icons-vue'
 
 const handleView = () => {
-  navigateTo(`/projects/1`)
+  navigateTo(`/projects/1/screens/1`)
 }
 </script>
 
