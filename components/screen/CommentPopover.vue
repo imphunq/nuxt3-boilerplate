@@ -3,8 +3,6 @@
     <el-popover
       v-model:visible="commentPopOver"
       :width="400"
-      :hide-after="0"
-      :show-after="100"
       :teleported="false"
       :popper-style="{ position: 'absolute', left: `${props.popoverX}px`, top: `${props.popoverY}px` }"
       trigger="click"

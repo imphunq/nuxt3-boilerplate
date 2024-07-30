@@ -20,6 +20,7 @@
         </button>
       </div>
     </div>
+
     <div
       ref="containerRef"
       class="w-full flex items-center justify-center relative mt-10"
@@ -37,12 +38,21 @@
         :popover-y="popoverY"
       />
     </div>
+
+    <div class="w-24 h-24 bg-gray-300 text-white fixed left-0 top-1/2 transform -translate-y-1/2 half-left-circle flex items-center cursor-pointer">
+      <el-icon><ArrowLeftBold /></el-icon>
+    </div>
+
+    <div class="w-24 h-24 bg-gray-300 text-white fixed right-0 top-1/2 transform -translate-y-1/2 half-right-circle flex items-center justify-end cursor-pointer">
+      <el-icon><ArrowRightBold /></el-icon>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
+import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 
 definePageMeta({
   layout: 'blank',
@@ -62,14 +72,34 @@ const handleScale = (scale: number) => {
 const showCommentPopup = async (event: MouseEvent) => {
   await commentPopoverRef.value?.close()
 
-  if (containerRef.value) {
-    const rect = containerRef.value.getBoundingClientRect()
-    popoverX.value = event.clientX - rect.left
-    popoverY.value = event.clientY - rect.top
+  setTimeout(() => {
+    if (containerRef.value) {
+      const rect = containerRef.value.getBoundingClientRect()
+      popoverX.value = event.clientX - rect.left
+      popoverY.value = event.clientY - rect.top
 
-    commentPopoverRef.value?.open()
+      commentPopoverRef.value?.open()
+    }
+  }, 200);
+}
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'ArrowRight') {
+    // Handle arrow right key
+    console.log('right')
+  } else if (event.key === 'ArrowLeft') {
+    // Handle arrow left key
+    console.log('left')
   }
 }
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -80,5 +110,13 @@ const showCommentPopup = async (event: MouseEvent) => {
   max-height: 100%;
   box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.1);
   transition: width 0.3s ease;
+}
+
+.half-left-circle {
+  clip-path: circle(50% at 0 50%);
+}
+
+.half-right-circle {
+  clip-path: circle(50% at 100% 50%);
 }
 </style>
