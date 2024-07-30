@@ -118,10 +118,12 @@ import PrototypeIcon from '~/assets/images/icons/project/prototype.svg'
 import LabelIcon from '~/assets/images/icons/project/label.svg'
 import ZoomComponent from '~/components/common/Zoom.vue'
 
+const emit = defineEmits(['scale'])
+
 const mode = ref<string>('comment')
 
 const scaleScreen = (scale: number) => {
-  console.log(scale)
+  emit('scale', scale)
 }
 </script>
 
@@ -134,4 +136,3 @@ const scaleScreen = (scale: number) => {
   }
 }
 </style>
-
