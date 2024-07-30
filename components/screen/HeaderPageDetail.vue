@@ -5,6 +5,7 @@
         :icon="Back"
         size="large"
         circle
+        @click="navigateTo('/projects')"
       />
 
       <div class="flex items-center gap-4">
@@ -73,10 +74,6 @@
             </el-dropdown-item>
             <el-dropdown-item divided>
               <span>Background</span>
-
-              <div>
-
-              </div>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>

@@ -83,7 +83,8 @@
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni2" />
-          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500"
+          <div
+            class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500"
             @click="openCreateTeamModal"
           >
             New Team
