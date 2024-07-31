@@ -36,6 +36,14 @@
         ref="commentPopoverRef"
         :popover-x="popoverX"
         :popover-y="popoverY"
+        @submit="handleSubmitComment"
+      />
+
+      <CommentIcon
+        v-for="comment in comments"
+        :key="comment.comment"
+        :style="{ top: `${comment.y}px`, left: `${comment.x}px` }"
+        class="absolute cursor-pointer"
       />
     </div>
 
@@ -52,11 +60,18 @@
 <script lang="ts" setup>
 import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
+import CommentIcon from '~/components/screen/CommentIcon.vue'
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 
 definePageMeta({
   layout: 'blank',
 })
+
+interface IComment {
+  comment: string
+  x: number
+  y: number
+}
 
 const screenImageRef = ref<HTMLImageElement | null>(null)
 const containerRef = ref<HTMLImageElement | null>(null)
@@ -64,6 +79,7 @@ const commentPopoverRef = ref<InstanceType<typeof CommentPopover> | null>(null)
 const defaultWidth = ref<string>('50%')
 const popoverX = ref<number>(0)
 const popoverY = ref<number>(0)
+const comments = ref<IComment[]>([])
 
 const handleScale = (scale: number) => {
   defaultWidth.value = `${scale}%`
@@ -80,7 +96,7 @@ const showCommentPopup = async (event: MouseEvent) => {
 
       commentPopoverRef.value?.open()
     }
-  }, 200);
+  }, 0);
 }
 
 const handleKeyDown = (event: KeyboardEvent) => {
@@ -91,6 +107,14 @@ const handleKeyDown = (event: KeyboardEvent) => {
     // Handle arrow left key
     console.log('left')
   }
+}
+
+const handleSubmitComment = (comment: string) => {
+  comments.value.push({
+    comment,
+    x: popoverX.value,
+    y: popoverY.value,
+  })
 }
 
 onMounted(() => {

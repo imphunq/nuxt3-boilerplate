@@ -7,6 +7,10 @@
       type="button"
       class="flex items-center py-1.5 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
     >
+      <el-icon class="mr-1 mb-0.5">
+        <Unlock v-if="currentPrivacy === 'public'" />
+        <Lock v-else />
+      </el-icon>
       <span class="flex-1 mr-5">
         {{ currentLabel }}
       </span>
@@ -52,6 +56,7 @@
 import { initDropdowns } from 'flowbite'
 import _find from 'lodash/find'
 import type { ILabelValue } from '~/types'
+import { Unlock, Lock } from '@element-plus/icons-vue'
 
 const dropdownSelectPrivacyButtonRef = ref<HTMLElement | null>(null)
 const currentPrivacy = ref<string>('public')
