@@ -43,7 +43,7 @@
         v-for="(comment, index) in comments"
         :key="comment.comment"
         v-model:visible="visiblePopovers[index]"
-        placement="bottom"
+        placement="bottom-start"
         :width="400"
         :max-width="400"
         trigger="click"
