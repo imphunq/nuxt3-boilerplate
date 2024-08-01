@@ -89,6 +89,7 @@
       <button
         type="button"
         class="flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        @click="openShareModal"
       >
         <svg
           stroke="currentColor"
@@ -103,6 +104,8 @@
       </button>
     </div>
   </div>
+
+  <ShareScreenModal ref=shareScreenModalRef />
 </template>
 
 <script lang="ts" setup>
@@ -114,13 +117,19 @@ import CommentIcon from '~/assets/images/icons/project/comment.svg'
 import PrototypeIcon from '~/assets/images/icons/project/prototype.svg'
 import LabelIcon from '~/assets/images/icons/project/label.svg'
 import ZoomComponent from '~/components/common/Zoom.vue'
+import ShareScreenModal from '~/components/share/ShareScreenModal.vue'
 
 const emit = defineEmits(['scale'])
 
+const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal>>()
 const mode = ref<string>('comment')
 
 const scaleScreen = (scale: number) => {
   emit('scale', scale)
+}
+
+const openShareModal = () => {
+  shareScreenModalRef.value?.open()
 }
 </script>
 
