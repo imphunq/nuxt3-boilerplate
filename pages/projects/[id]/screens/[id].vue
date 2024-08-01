@@ -39,12 +39,25 @@
         @submit="handleSubmitComment"
       />
 
-      <CommentIcon
-        v-for="comment in comments"
+      <el-popover
+        v-for="(comment, index) in comments"
         :key="comment.comment"
-        :style="{ top: `${comment.y}px`, left: `${comment.x}px` }"
-        class="absolute cursor-pointer"
-      />
+        v-model:visible="visiblePopovers[index]"
+        placement="bottom"
+        :width="400"
+        :max-width="400"
+        trigger="click"
+      >
+        <template #reference>
+          <CommentIcon
+            :style="{ top: `${comment.y}px`, left: `${comment.x}px` }"
+            class="absolute cursor-pointer"
+          />
+        </template>
+        <template #default>
+          <ReplyCommentPopover @close="handleCloseReplyComment(index)" />
+        </template>
+      </el-popover>
     </div>
 
     <div class="w-24 h-24 bg-gray-300 text-white fixed left-0 top-1/2 transform -translate-y-1/2 half-left-circle flex items-center cursor-pointer">
@@ -58,10 +71,11 @@
 </template>
 
 <script lang="ts" setup>
+import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
 import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
-import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
+import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
 
 definePageMeta({
   layout: 'blank',
@@ -80,6 +94,7 @@ const defaultWidth = ref<string>('50%')
 const popoverX = ref<number>(0)
 const popoverY = ref<number>(0)
 const comments = ref<IComment[]>([])
+const visiblePopovers = reactive(Array(comments.value.length).fill(false))
 
 const handleScale = (scale: number) => {
   defaultWidth.value = `${scale}%`
@@ -96,14 +111,15 @@ const showCommentPopup = async (event: MouseEvent) => {
 
       commentPopoverRef.value?.open()
     }
-  }, 0);
+  }, 0)
 }
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key === 'ArrowRight') {
     // Handle arrow right key
     console.log('right')
-  } else if (event.key === 'ArrowLeft') {
+  }
+  else if (event.key === 'ArrowLeft') {
     // Handle arrow left key
     console.log('left')
   }
@@ -115,6 +131,10 @@ const handleSubmitComment = (comment: string) => {
     x: popoverX.value,
     y: popoverY.value,
   })
+}
+
+const handleCloseReplyComment = (index: number) => {
+  visiblePopovers[index] = false
 }
 
 onMounted(() => {
