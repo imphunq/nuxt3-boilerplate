@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="commentPopOver">
     <el-popover
       v-model:visible="commentPopOver"
       :max-width="400"
@@ -7,14 +7,17 @@
       :hide-after="0"
       :teleported="false"
       :popper-style="{
-        position: 'absolute',
-        left: `${props.popoverX}px`,
-        top: `${props.popoverY}px`,
         borderRadius: '15px',
       }"
+      placement="bottom-start"
       trigger="click"
     >
-      <CommentIcon class="absolute -top-8 left-0" />
+      <template #reference>
+        <CommentIcon
+          :style="{ top: `${props.popoverY}px`, left: `${props.popoverX}px` }"
+          class="absolute cursor-pointer"
+        />
+      </template>
       <div class="flex items-center justify-between">
         <SelectPrivacyDropdown />
 
@@ -91,7 +94,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-1">
           <div
-            v-for="(color, index) in commentColors"
+            v-for="color in commentColors"
             :key="`${color}-comment-color`"
             class="w-5 h-5 rounded-full flex items-center justify-center cursor-pointer"
             :class="[selectedColor === color ? `border-2 border-solid border-gray-500` : '']"
@@ -184,13 +187,5 @@ defineExpose({
 <style lang="scss" scoped>
 .textarea-comment {
   resize: none;
-}
-
-.comment-icon {
-  left: v-bind(popoverX);
-  top: v-bind(popoverY);
-  // transform: translate(-50%, -50%);
-  z-index: 1;
-  cursor: pointer;
 }
 </style>
