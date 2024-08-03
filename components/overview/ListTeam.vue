@@ -6,51 +6,43 @@
     />
 
     <div class="relative overflow-auto border border-solid border-gray-200 border-t-0 h-96 rounded-b-lg">
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-500 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th
-              scope="col"
-              class="px-6 py-3"
-            >
-              <div class="flex items-center gap-1">
-                <span>Name</span>
-                <SortableIcon />
+      <el-scrollbar>
+        <el-table :data="teams" style="width: 100%">
+          <el-table-column label="Name" sortable>
+            <template #default="{ row }">
+              <div class="flex items-center gap-2">
+                <img
+                  :src="GroupProjectIcon"
+                  alt=""
+                  class="w-8 h-8"
+                >
+
+                <span>
+                  {{ row.name }}
+                </span>
               </div>
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3"
-            >
-              People
-            </th>
-            <th
-              scope="col"
-              class="px-6 py-3"
-            >
-              Plan
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              new projetct
-            </th>
-            <td class="px-6 py-4">
-              <div>
-                <StackUserGroup />
+            </template>
+          </el-table-column>
+          <el-table-column label="People" header-align="center">
+            <template #default="{ row }">
+              <div class="flex gap-1 items-center justify-center">
+                <el-icon><User /></el-icon>
+                <span>
+                  {{ row.members_count }}
+                </span>
               </div>
-            </td>
-            <td class="px-6 py-4">
-              4
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </template>
+          </el-table-column>
+          <el-table-column label="Plan" width="120">
+            <template #default="{ row }">
+              <span>Free</span>
+            </template>
+          </el-table-column>
+          <el-table-column width="70">
+            <el-icon><More /></el-icon>
+          </el-table-column>
+        </el-table>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -59,7 +51,9 @@
 import HeaderTable from '~/components/overview/HeaderTable.vue'
 import SortableIcon from '~/components/common/SortableIcon.vue'
 import StackUserGroup from '~/components/common/StackUserGroup.vue'
-import type { LinkDetail } from '~/types'
+import type { LinkDetail, ITeam } from '~/types'
+import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
+import { More, User } from '@element-plus/icons-vue'
 
 const linkDetail = computed<LinkDetail>(() => {
   return {
@@ -67,6 +61,46 @@ const linkDetail = computed<LinkDetail>(() => {
     href: '/',
   }
 })
+
+const teams: ITeam[] = [
+  {
+    id: 1,
+    name: "Sample Team",
+    color: "red",
+    archived: false,
+    user_create_id: 123,
+    privacy: "public",
+    description: "Sample description",
+    website_url: "https://example.com",
+    members_count: 10,
+    created_at: "2024-06-26 16:28:09",
+    updated_at: "2024-06-26 16:28:09",
+  }, {
+    id: 2,
+    name: "Hostdesign Team",
+    color: "red",
+    archived: false,
+    user_create_id: 123,
+    privacy: "public",
+    description: "Sample description",
+    website_url: "https://example.com",
+    members_count: 10,
+    created_at: "2024-06-26 16:28:09",
+    updated_at: "2024-06-26 16:28:09",
+  }, {
+    id: 3,
+    name: "Personal Team",
+    color: "red",
+    archived: false,
+    user_create_id: 123,
+    privacy: "public",
+    description: "Sample description",
+    website_url: "https://example.com",
+    members_count: 10,
+    created_at: "2024-06-26 16:28:09",
+    updated_at: "2024-06-26 16:28:09",
+  }
+]
 </script>
 
   <style lang="scss" scoped>
