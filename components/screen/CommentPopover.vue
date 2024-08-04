@@ -140,11 +140,11 @@ const hasError = ref<boolean>(false)
 const comment = ref<string>('')
 const commentPopOver = ref<boolean>(false)
 const commentBoxRef = ref<HTMLTextAreaElement | null>(null)
-const commentColors = [
+const commentColors = ref<string[]>([
   'blue',
   'red',
   'yellow',
-]
+])
 const selectedColor = ref<string>('blue')
 
 const rules: Rules = {
