@@ -21,43 +21,46 @@
       </div>
     </div>
 
-    <div
-      ref="containerRef"
-      class="w-full flex items-center justify-center relative mt-10"
-    >
-      <img
-        ref="screenImageRef"
-        src="https://flowbite.com/docs/images/blog/image-2.jpg"
-        class="image-scale cursor-crosshair"
-        @click="showCommentPopup"
+    <div class="flex items-center justify-center">
+      <div
+        ref="containerRef"
+        class="image-scale relative mt-10"
       >
+        <img
+          ref="screenImageRef"
+          src="https://flowbite.com/docs/images/blog/image-2.jpg"
+          class="w-full cursor-crosshair"
+          @load="onImageLoad"
+          @click="showCommentPopup"
+        >
 
-      <CommentPopover
-        ref="commentPopoverRef"
-        :popover-x="popoverX"
-        :popover-y="popoverY"
-        @submit="handleSubmitComment"
-      />
+        <CommentPopover
+          ref="commentPopoverRef"
+          :popover-x="popoverX"
+          :popover-y="popoverY"
+          @submit="handleSubmitComment"
+        />
 
-      <el-popover
-        v-for="(comment, index) in comments"
-        :key="comment.comment"
-        v-model:visible="visiblePopovers[index]"
-        placement="bottom-start"
-        :width="400"
-        :max-width="400"
-        trigger="click"
-      >
-        <template #reference>
-          <CommentIcon
-            :style="{ top: `${comment.y}px`, left: `${comment.x}px` }"
-            class="absolute cursor-pointer"
-          />
-        </template>
-        <template #default>
-          <ReplyCommentPopover @close="handleCloseReplyComment(index)" />
-        </template>
-      </el-popover>
+        <el-popover
+          v-for="(comment, index) in comments"
+          :key="comment.comment"
+          v-model:visible="visiblePopovers[index]"
+          placement="bottom-start"
+          :width="400"
+          :max-width="400"
+          trigger="click"
+        >
+          <template #reference>
+            <CommentIcon
+              :style="{ top: `${comment.displayY}%`, left: `${comment.displayX}%` }"
+              class="absolute cursor-pointer"
+            />
+          </template>
+          <template #default>
+            <ReplyCommentPopover @close="handleCloseReplyComment(index)" />
+          </template>
+        </el-popover>
+      </div>
     </div>
 
     <div class="w-24 h-24 bg-gray-300 text-white fixed left-0 top-1/2 transform -translate-y-1/2 half-left-circle flex items-center cursor-pointer">
@@ -85,14 +88,18 @@ interface IComment {
   comment: string
   x: number
   y: number
+  displayX: number
+  displayY: number
 }
 
 const screenImageRef = ref<HTMLImageElement | null>(null)
-const containerRef = ref<HTMLImageElement | null>(null)
+const containerRef = ref<HTMLDivElement | null>(null)
 const commentPopoverRef = ref<InstanceType<typeof CommentPopover> | null>(null)
 const defaultWidth = ref<string>('50%')
 const popoverX = ref<number>(0)
 const popoverY = ref<number>(0)
+const originalWidth = ref<number>(0)
+const originalHeight = ref<number>(0);
 const comments = ref<IComment[]>([])
 const visiblePopovers = reactive(Array(comments.value.length).fill(false))
 
@@ -126,16 +133,44 @@ const handleKeyDown = (event: KeyboardEvent) => {
 }
 
 const handleSubmitComment = (comment: string) => {
+  const imageRect = containerRef.value!.getBoundingClientRect();
+  const xPercent = (popoverX.value / imageRect.width) * 100;
+  const yPercent = (popoverY.value / imageRect.height) * 100;
+
   comments.value.push({
     comment,
     x: popoverX.value,
     y: popoverY.value,
+    displayX: xPercent,
+    displayY: yPercent,
   })
+
+  visiblePopovers.push(false)
 }
 
 const handleCloseReplyComment = (index: number) => {
   visiblePopovers[index] = false
 }
+
+const onImageLoad = () => {
+  if (screenImageRef.value) {
+    originalWidth.value = screenImageRef.value.naturalWidth
+    originalHeight.value = screenImageRef.value.naturalHeight
+
+    console.log('Original width:', originalWidth.value)
+    console.log('Original height:', originalHeight.value)
+  }
+}
+
+// const updateCommentPositions = () => {
+//   if (screenImageRef.value) {
+//     comments.value = comments.value.map(comment => ({
+//       ...comment,
+//       displayX: (comment.x / originalWidth.value) * 100,
+//       displayY: (comment.y / originalHeight.value) * 100,
+//     }))
+//   }
+// }
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)

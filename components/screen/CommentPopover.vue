@@ -47,6 +47,7 @@
                   class="sr-only"
                 >Add a comment</label>
                 <textarea
+                  ref="commentBoxRef"
                   id="comment"
                   v-model="comment"
                   rows="1"
@@ -138,6 +139,7 @@ const emit = defineEmits(['submit'])
 const hasError = ref<boolean>(false)
 const comment = ref<string>('')
 const commentPopOver = ref<boolean>(false)
+const commentBoxRef = ref<HTMLTextAreaElement | null>(null)
 const commentColors = [
   'blue',
   'red',
@@ -161,6 +163,10 @@ watch(comment, (val: string) => {
 
 const open = () => {
   commentPopOver.value = true
+
+  nextTick(() => {
+    commentBoxRef.value?.focus()
+  })
 }
 
 const close = () => {
