@@ -24,7 +24,7 @@
 
     <div
       v-if="currentView === OPTION_VIEW.GRID"
-      class="grid grid-cols-4 gap-8 mt-8">
+      class="grid grid-cols-4 mt-8 gap-8">
       <ScreenOverlay
         v-for="index in 6"
         :key="`${index}-screen-overlay`"
