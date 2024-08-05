@@ -236,7 +236,16 @@ const close = () => {
   dialogFormVisible.value = false
 }
 
-const copyToClipboard = () => {}
+const copyToClipboard = () => {
+  const el = document.getElementById('share-input') as HTMLInputElement
+
+  navigator.clipboard.writeText(el.value).then(() => {
+    ElMessage({
+      message: 'Copy successfully',
+      type: 'success',
+    })
+  })
+}
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // activeTab.value = tab

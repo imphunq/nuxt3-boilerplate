@@ -47,76 +47,82 @@
         <el-tab-pane
           label="Public"
           name="public"
-        />
+        >
+          <div class="mt-2">
+            <img
+              :src="ShareIcon"
+              alt=""
+              class="my-6"
+            >
+
+            <div class="text-sm">
+              <span>
+                Use public share link to share your screen with others. People can view or leave feedback without having an account.
+              </span>
+              <span class="text-blue-500 cursor-pointer">Update public link settings</span>
+            </div>
+
+            <div class="mt-6">
+              <div>
+                <label
+                  for="share-input"
+                  class="flex items-center justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  <span>Public Share Link</span>
+                  <!-- <span class="text-blue-500 text-xs cursor-pointer">Create New Share Link</span> -->
+                </label>
+                <div class="relative mb-6">
+                  <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                    <svg
+                      class="text-xl"
+                      stroke="currentColor"
+                      fill="currentColor"
+                      stroke-width="0"
+                      viewBox="0 0 16 16"
+                      height="1em"
+                      width="1em"
+                      xmlns="http://www.w3.org/2000/svg"
+                    ><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" /><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" /></svg>
+                  </div>
+                  <input
+                    id="share-input"
+                    type="text"
+                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    value="hostdesignfront.vnjack.com/sharelink/1"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <label class="inline-flex items-center cursor-pointer">
+              <span class="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disable Comments</span>
+              <input
+                type="checkbox"
+                value=""
+                class="sr-only peer"
+              >
+              <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+            </label>
+          </div>
+        </el-tab-pane>
         <el-tab-pane
           label="Embed"
           name="second"
-        />
-      </el-tabs>
-
-      <div class="mt-2">
-        <img
-          :src="ShareIcon"
-          alt=""
-          class="my-6"
         >
-
-        <div class="text-sm">
-          <span>
-            Use public share link to share your screen with others. People can view or leave feedback without having an account.
-          </span>
-          <span class="text-blue-500 cursor-pointer">Update public link settings</span>
-        </div>
-
-        <div class="mt-6">
-          <div>
-            <label
-              for="share-input"
-              class="flex items-center justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              <span>Public Share Link</span>
-              <!-- <span class="text-blue-500 text-xs cursor-pointer">Create New Share Link</span> -->
-            </label>
-            <div class="relative mb-6">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <svg
-                  class="text-xl"
-                  stroke="currentColor"
-                  fill="currentColor"
-                  stroke-width="0"
-                  viewBox="0 0 16 16"
-                  height="1em"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                ><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" /><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" /></svg>
-              </div>
-              <input
-                id="share-input"
-                type="text"
-                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value="hostdesignfront.vnjack.com/sharelink/1"
-              >
-            </div>
-          </div>
-        </div>
-
-        <label class="inline-flex items-center cursor-pointer">
-          <span class="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disable Comments</span>
-          <input
-            type="checkbox"
-            value=""
-            class="sr-only peer"
+          <div
+            ref="embedCodeRef"
+            class="mt-2 border border-solid border-gray-200 rounded-lg p-4"
           >
-          <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
-        </label>
-      </div>
+            {{ embedCode }}
+          </div>
+        </el-tab-pane>
+      </el-tabs>
 
       <template #footer>
         <div
-          class="dialog-footer"
-          :class="[privacy === PRIVACY.PUBLIC ? 'flex items-center justify-between' : '']"
+          class="dialog-footer flex items-center justify-between"
         >
-          <div v-if="privacy === PRIVACY.PUBLIC">
+          <div>
             <span class="text-xs text-blue-400 cursor-pointer">Manage Shared Links</span>
           </div>
           <div>
@@ -125,20 +131,11 @@
               @click="close"
             >Cancel</span>
             <button
-              v-if="privacy === PRIVACY.PUBLIC"
               type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               @click="copyToClipboard"
             >
               Copy to Clipboard
-            </button>
-
-            <button
-              v-else
-              type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-            >
-              Add
             </button>
           </div>
         </div>
@@ -149,21 +146,14 @@
 
 <script lang="ts" setup>
 import type { TabsPaneContext } from 'element-plus'
-import { PRIVACY } from '~/constants/project'
-import type { ILabelValue } from '~/types'
 import ShareIcon from '~/assets/images/icons/project/share.svg'
-import SharePrivate from '~/assets/images/icons/project/share-private.png'
 
 const emit = defineEmits(['normal-upload'])
 
 const dialogFormVisible = ref(false)
 const activeTab = ref<string>('public')
-const privacy = ref<string>(PRIVACY.PUBLIC)
-
-const privacyOptions: ILabelValue[] = [
-  { label: 'Public Share', value: PRIVACY.PUBLIC },
-  { label: 'Private Share', value: PRIVACY.PRIVATE },
-]
+const embedCode = ref<string>('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+const embedCodeRef = ref<InstanceType<typeof HTMLDivElement> | null>(null)
 
 const open = () => {
   dialogFormVisible.value = true
@@ -173,7 +163,30 @@ const close = () => {
   dialogFormVisible.value = false
 }
 
-const copyToClipboard = () => {}
+const copyToClipboard = () => {
+  if (activeTab.value === 'public') {
+    const el = document.getElementById('share-input') as HTMLInputElement
+
+    navigator.clipboard.writeText(el.value).then(() => {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+      })
+    })
+  }
+  else {
+    const el = embedCodeRef.value?.textContent as string
+
+    navigator.clipboard.writeText(el).then(() => {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+      })
+    }).catch((err) => {
+      console.error('error: ', err)
+    })
+  }
+}
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // activeTab.value = tab
