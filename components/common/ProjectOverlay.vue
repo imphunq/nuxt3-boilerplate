@@ -7,7 +7,8 @@
       >
         <div class="group relative">
           <div
-            class="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+            class="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center"
+          >
             <button
               type="button"
               class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -19,9 +20,12 @@
 
           <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <el-dropdown trigger="click">
-              <button type="button" class=" text-white bg-slate-400	flex justify-center items-center p-0.5 rounded-md">
-                  <el-icon><More /></el-icon>
-                </button>
+              <button
+                type="button"
+                class=" text-white bg-slate-400	flex justify-center items-center p-0.5 rounded-md"
+              >
+                <el-icon><More /></el-icon>
+              </button>
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item @click="">
@@ -65,7 +69,10 @@
             </el-dropdown>
           </div>
 
-          <div class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div
+            class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            @click="openShareProjectModal"
+          >
             <div class="flex items-center gap-2 text-white cursor-pointer text-sm">
               <svg
                 stroke="currentColor"
@@ -81,7 +88,10 @@
               </span>
             </div>
           </div>
-          <img src="https://flowbite.com/docs/images/blog/image-2.jpg" class="rounded-lg" />
+          <img
+            src="https://flowbite.com/docs/images/blog/image-2.jpg"
+            class="rounded-lg"
+          >
         </div>
 
         <div class="flex items-center justify-between">
@@ -96,10 +106,16 @@
           </div>
 
           <div class="flex flex-col justify-center items-center gap-1">
-            <img class="w-4 h-4 flex justify-center" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAIVJREFUKFNjnL987QVGBgZ9BjLA////AxkXLF/7PyEyGGgGaQBocQNIx6gBo2EATgcUp0Rs6Q+cyv4zOCRGBTuA5PGlVqxJmGwD5i9bM4GREZSxGBWALhBgYPx/AeJCRqBL/h8Asf7/Yy5MjA6EigNlkL0AtDkByFfAn62YFiRGBj6AqQEA2AVpnXScLSkAAAAASUVORK5CYII=" alt="">
+            <img
+              class="w-4 h-4 flex justify-center"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAIVJREFUKFNjnL987QVGBgZ9BjLA////AxkXLF/7PyEyGGgGaQBocQNIx6gBo2EATgcUp0Rs6Q+cyv4zOCRGBTuA5PGlVqxJmGwD5i9bM4GREZSxGBWALhBgYPx/AeJCRqBL/h8Asf7/Yy5MjA6EigNlkL0AtDkByFfAn62YFiRGBj6AqQEA2AVpnXScLSkAAAAASUVORK5CYII="
+              alt=""
+            >
             <span class="text-xs text-gray-500">4 Screens</span>
           </div>
         </div>
+
+        <ShareProjectModal ref="shareProjectModalRef" />
       </el-card>
     </div>
   </div>
@@ -107,9 +123,16 @@
 
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
+import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
+
+const shareProjectModalRef = ref<InstanceType<typeof ShareProjectModal> | null>(null)
 
 const handleView = () => {
   navigateTo(`/projects/1`)
+}
+
+const openShareProjectModal = () => {
+  shareProjectModalRef.value?.open()
 }
 </script>
 

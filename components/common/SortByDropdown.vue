@@ -106,7 +106,7 @@ const overview = computed<ILabelValue[]>(() => {
 
 onMounted(() => {
   useFlowbite(() => {
-    // initDropdowns()
+    initDropdowns()
   })
 })
 </script>

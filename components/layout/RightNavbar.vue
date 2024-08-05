@@ -224,7 +224,7 @@ const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 
 onMounted(() => {
   useFlowbite(() => {
-    // initDropdowns()
+    initDropdowns()
   })
 })
 

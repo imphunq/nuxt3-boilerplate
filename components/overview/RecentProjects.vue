@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import ProjectOverlay from '~/components/common/ScreenOverlay.vue'
+import ProjectOverlay from '~/components/common/ProjectOverlay.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
 
 const data = ref([])

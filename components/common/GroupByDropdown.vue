@@ -98,7 +98,7 @@ const project = computed<ILabelValue[]>(() => {
 
 onMounted(() => {
   useFlowbite(() => {
-    // initDropdowns()
+    initDropdowns()
   })
 })
 </script>
