@@ -224,7 +224,7 @@ const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 
 onMounted(() => {
   useFlowbite(() => {
-    initDropdowns()
+    // initDropdowns()
   })
 })
 
@@ -285,10 +285,6 @@ const normalUpload = () => {
       width: max(30px, 2vw);
       height: max(30px, 2vw);
     }
-  }
-
-  #dropdownNew {
-    padding: 15px 20px;
   }
 
   .ni1 {

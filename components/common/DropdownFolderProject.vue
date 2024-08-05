@@ -95,7 +95,7 @@ const selectItem = (item: ILabelValue) => {
 
 onMounted(() => {
   useFlowbite(() => {
-    initDropdowns()
+    // initDropdowns()
   })
 })
 </script>

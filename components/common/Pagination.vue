@@ -1,14 +1,21 @@
 <template>
-  <vue-awesome-paginate
-    :total-items="props.data.total"
-    :items-per-page="props.data.per_page"
-    :max-pages-shown="5"
-    v-model="currentPage"
-    @click="go"
-  />
+  <div class="flex justify-end">
+    <div class="flex justify-center border border-solid border-gray-200 px-6 py-3 rounded-full">
+      <el-pagination
+        hide-on-single-page
+        background
+        layout="prev, pager, next"
+        :page-size="data.per_page"
+        :current-page="data.current_page"
+        :pager-count="5"
+        :total="data.total"
+        @current-change="go"
+      />
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import _omit from 'lodash/omit'
 import _assign from 'lodash/assign'
 import type { IPagination } from '~/types'
@@ -24,10 +31,6 @@ const props = withDefaults(defineProps<PaginationProps>(), {
 
 const router = useRouter()
 const route = useRoute()
-
-const pageQuery = route.query.page ? parseInt(route.query.page as string) : 1;
-
-const currentPage = ref<number>(pageQuery)
 
 const go = (page: number) => {
   router.push(to(page))
@@ -45,42 +48,20 @@ const to = (page: number) => {
 }
 </script>
 
-<style>
-  .pagination-container {
-    display: flex;
-
-    column-gap: 10px;
+<style lang="scss">
+.el-pagination {
+  ul li {
+    border-radius: 50%;
+    padding: 4px;
   }
 
-  .paginate-buttons {
-    height: 40px;
-
-    width: 40px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    background-color: rgb(242, 242, 242);
-
-    border: 1px solid rgb(217, 217, 217);
-
-    color: black;
+  ul li.is-active {
+    outline: 1px solid #409eff;
+    outline-offset: 2px;
   }
 
-  .paginate-buttons:hover {
-    background-color: #d8d8d8;
+  .btn-prev, .btn-next {
+    border-radius: 50%;
   }
-
-  .active-page {
-    background-color: #3498db;
-
-    border: 1px solid #3498db;
-
-    color: white;
-  }
-
-  .active-page:hover {
-    background-color: #2988c8;
-  }
+}
 </style>

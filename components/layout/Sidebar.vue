@@ -81,13 +81,6 @@ import FtpUploadIcon from '~/assets/images/icons/ftp-upload.svg'
 
 const globalStore = useGlobalStore()
 
-onMounted(() => {
-  useFlowbite(() => {
-    initFlowbite()
-    initDropdowns()
-  })
-})
-
 const isCollapse = computed(() => {
   return globalStore.getIsCollapse
 })

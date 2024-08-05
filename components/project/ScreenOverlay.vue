@@ -3,11 +3,12 @@
     <div class="flex flex-col gap-1">
       <el-card
         :body-style="{ padding: '0' }"
-        class="flex flex-col w-full leading-1.5 p-1 border-gray-200 bg-gray-50 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+        class="flex flex-col w-full leading-1.5 p-1 border-gray-200 bg-gray-50 rounded-2xl dark:bg-gray-700"
       >
         <div class="group relative">
           <div
-            class="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+            class="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center"
+          >
             <button
               type="button"
               class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -19,9 +20,12 @@
 
           <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <el-dropdown trigger="click">
-              <button type="button" class=" text-white bg-slate-400	flex justify-center items-center p-0.5 rounded-md">
-                  <el-icon><More /></el-icon>
-                </button>
+              <button
+                type="button"
+                class=" text-white bg-slate-400	flex justify-center items-center p-0.5 rounded-md"
+              >
+                <el-icon><More /></el-icon>
+              </button>
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item @click="">
@@ -81,7 +85,10 @@
               </span>
             </div>
           </div>
-          <img src="https://flowbite.com/docs/images/blog/image-2.jpg" class="rounded-lg" />
+          <img
+            src="https://flowbite.com/docs/images/blog/image-2.jpg"
+            class="rounded-lg"
+          >
         </div>
 
         <div class="flex flex-col mb-2 mt-3 px-4">
