@@ -69,7 +69,10 @@
             </el-dropdown>
           </div>
 
-          <div class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div
+            class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            @click="openModalShare"
+          >
             <div class="flex items-center gap-2 text-white cursor-pointer text-sm">
               <svg
                 stroke="currentColor"
@@ -100,6 +103,8 @@
             06/26/2024 11:28 PM
           </span>
         </div>
+
+        <ShareScreenModal ref="shareScreenModalRef" />
       </el-card>
     </div>
   </div>
@@ -107,9 +112,16 @@
 
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
+import ShareScreenModal from '~/components/share/ShareScreenModal.vue'
+
+const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal> | null>(null)
 
 const handleView = () => {
   navigateTo(`/projects/1/screens/1`)
+}
+
+const openModalShare = () => {
+  shareScreenModalRef.value?.open()
 }
 </script>
 

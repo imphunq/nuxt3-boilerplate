@@ -44,22 +44,40 @@
         class="demo-tabs"
         @tab-click="handleClick"
       >
-        <el-tab-pane label="Share Link" name="share_link"></el-tab-pane>
-        <el-tab-pane label="Embed" name="second"></el-tab-pane>
-        <el-tab-pane label="Publish to Community" name="third"></el-tab-pane>
+        <el-tab-pane
+          label="Share Link"
+          name="share_link"
+        />
+        <el-tab-pane
+          label="Embed"
+          name="second"
+        />
+        <el-tab-pane
+          label="Publish to Community"
+          name="third"
+        />
       </el-tabs>
 
       <div class="mt-2">
-        <el-radio-group v-model="privacy" size="large" class="privacy-group">
+        <el-radio-group
+          v-model="privacy"
+          size="large"
+          class="privacy-group"
+        >
           <el-radio-button
             v-for="privacy in privacyOptions"
+            :key="privacy.value"
             :label="privacy.label"
             :value="privacy.value"
           />
         </el-radio-group>
 
         <template v-if="privacy === PRIVACY.PUBLIC">
-          <img :src="ShareIcon" alt="" class="my-6">
+          <img
+            :src="ShareIcon"
+            alt=""
+            class="my-6"
+          >
 
           <div class="text-sm">
             <span>
@@ -79,11 +97,20 @@
               </label>
               <div class="relative mb-6">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                  <svg class="text-xl" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg>
+                  <svg
+                    class="text-xl"
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 16 16"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  ><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" /><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" /></svg>
                 </div>
                 <input
-                  type="text"
                   id="share-input"
+                  type="text"
                   class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   value="hostdesignfront.vnjack.com/sharelink/1"
                 >
@@ -93,13 +120,21 @@
 
           <label class="inline-flex items-center cursor-pointer">
             <span class="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disable Comments</span>
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            <input
+              type="checkbox"
+              value=""
+              class="sr-only peer"
+            >
+            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
           </label>
         </template>
 
         <template v-else>
-          <img :src="SharePrivate" alt="" class="my-6">
+          <img
+            :src="SharePrivate"
+            alt=""
+            class="my-6"
+          >
 
           <div class="text-sm">
             <span>
@@ -109,19 +144,28 @@
           </div>
 
           <div class="mt-6">
-            <label for="share-group-private" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label
+              for="share-group-private"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
               People to invite
             </label>
             <div class="relative mb-6">
               <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-                    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
+                <svg
+                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 16"
+                >
+                  <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                  <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
                 </svg>
               </div>
               <input
-                type="text"
                 id="share-group-private"
+                type="text"
                 class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Add email address or username"
               >
@@ -131,7 +175,10 @@
       </div>
 
       <template #footer>
-        <div class="dialog-footer" :class="[privacy === PRIVACY.PUBLIC ? 'flex items-center justify-between' : '']">
+        <div
+          class="dialog-footer"
+          :class="[privacy === PRIVACY.PUBLIC ? 'flex items-center justify-between' : '']"
+        >
           <div v-if="privacy === PRIVACY.PUBLIC">
             <span class="text-xs text-blue-400 cursor-pointer">Manage Shared Links</span>
           </div>
