@@ -26,8 +26,12 @@
 
       <SortByDropdown />
     </div>
-    <div class="h-96 p-6">
-      <MarkCommentComplete />
+    <div class="h-96 p-6 flex flex-col gap-5">
+      <el-scrollbar>
+        <MarkCommentComplete />
+
+        <MentionInComment />
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -36,6 +40,7 @@
 import SortByDropdown from '~/components/common/SortByDropdown.vue'
 import DropdownFromUser from '~/components/common/DropdownFromUser.vue'
 import MarkCommentComplete from '~/components/comments/MarkCommentComplete.vue'
+import MentionInComment from '~/components/comments/MentionInComment.vue';
 </script>
 
 <style lang="scss" scoped></style>
