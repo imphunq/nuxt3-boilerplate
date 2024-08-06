@@ -35,6 +35,8 @@
         <AddMemberToProjectVue />
 
         <AssignTask />
+
+        <AddComment />
       </div>
     </el-scrollbar>
   </div>
@@ -47,6 +49,7 @@ import MarkCommentComplete from '~/components/comments/MarkCommentComplete.vue'
 import MentionInComment from '~/components/comments/MentionInComment.vue'
 import AddMemberToProjectVue from '~/components/notification/AddMemberToProject.vue'
 import AssignTask from '~/components/notification/AssignTask.vue'
+import AddComment from '~/components/comments/AddComment.vue'
 </script>
 
 <style lang="scss" scoped></style>

@@ -9,7 +9,7 @@
       <div>
         <span>Jese Leos</span>
         <span class="text-gray-500 dark:text-gray-400">
-          mention you in a 1 new comment on
+          added a new comment on
         </span>
         <span class="cursor-pointer text-blue-500">
           Login
@@ -30,24 +30,11 @@
               :src="CommentIcon"
               alt=""
             >
-            <span class="text-xs text-black font-semibold">@AndresB</span>
             <span class="text-xs">
-              Change this to white
+              This is a new comment
             </span>
           </div>
         </div>
-      </div>
-
-      <div
-        v-if="props.showImage"
-        class="mt-2"
-      >
-        <el-image
-          style="width: 240px; height: 130px"
-          src="https://flowbite.com/docs/images/blog/image-2.jpg"
-          fit="cover"
-          class="rounded-lg"
-        />
       </div>
     </div>
   </div>
@@ -55,12 +42,4 @@
 
 <script lang="ts" setup>
 import CommentIcon from '~/assets/images/icons/comment.png'
-
-interface Props {
-  showImage: boolean
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  showImage: true,
-})
 </script>

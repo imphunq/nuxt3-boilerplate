@@ -12,10 +12,8 @@
           marked a comment as completed on
         </span>
         <span class="cursor-pointer text-blue-500">
-          Login
+          Products
         </span>
-        <span class="text-gray-500 dark:text-gray-400"> in </span>
-        <span class="cursor-pointer text-blue-500">Webinars</span>
       </div>
       <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
         November 04, 2021 9:21AM
