@@ -26,13 +26,16 @@
 
       <SortByDropdown />
     </div>
-    <div class="h-96"></div>
+    <div class="h-96 p-6">
+      <MarkCommentComplete />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import SortByDropdown from '~/components/common/SortByDropdown.vue'
 import DropdownFromUser from '~/components/common/DropdownFromUser.vue'
+import MarkCommentComplete from '~/components/comments/MarkCommentComplete.vue'
 </script>
 
 <style lang="scss" scoped></style>
