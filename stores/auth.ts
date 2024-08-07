@@ -51,8 +51,6 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      const runtimeConfig = useRuntimeConfig()
-
       await useMyFetch('logout', {
         method: 'POST',
       }).then(({ data, error }) => {
@@ -75,6 +73,14 @@ export const useAuthStore = defineStore('auth', {
         }
       })
     },
+
+    async fetchUser() {
+      await useMyFetch('user/me', {}).then(({ data }) => {
+        this.setUser(data.value.data as IUser)
+        console.log(this.user)
+      })
+    },
+
 
     setUser(user: IUser) {
       this.user = user

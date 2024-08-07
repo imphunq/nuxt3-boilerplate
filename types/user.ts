@@ -6,23 +6,16 @@ export interface ILogin {
 
 export interface IUser {
   id: number;
-  name: string;
-  lastname: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  username: string;
-  email_verified_at: string;
+  email_verified_at: string | null;
   privacy: string;
   status: string;
-  duracy: string | null;
-  type: string | null;
-  active: number;
-  job_role: string | null;
-  plan_id: string | null;
-  group: string | null;
   created_at: string;
   updated_at: string;
-  deleted_at: string | null;
-  // userdetails: string | null;
+  detail: any | null;
+  avatar_url?: string
 }
 
 export interface ILoginUserResponse {
@@ -35,7 +28,6 @@ export interface ILoginUserResponse {
   status: string;
   created_at: string;
   updated_at: string;
-
 }
 
 

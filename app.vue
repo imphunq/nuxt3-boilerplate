@@ -5,13 +5,21 @@
   </NuxtLayout>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { initFlowbite } from 'flowbite'
+
+const authStore = useAuthStore()
+const route = useRoute()
 
 onMounted(() => {
   useFlowbite(() => {
     initFlowbite()
   })
-  // initFlowbite()
+})
+
+onMounted(async () => {
+  if (route.name !== 'login') {
+    await authStore.fetchUser()
+  }
 })
 </script>
