@@ -48,10 +48,23 @@ export interface IIcon {
 }
 
 export interface IProjectCreate {
-  project_title: string
-  projecttype: Privacy
-  project_description?: string
-  background_color?: string
-  projectdevice?: string
-  icon_id?: IIcon
+  name: string
+  privacy?: Privacy
+  folder_id?: number
+  description?: string
+  device?: string
+}
+
+export interface INewProjects {
+  id: number;
+  type: string;
+  name: string;
+  folder_id: number | null;
+  archived: number;
+  privacy: string;
+  original_id: number | null;
+  status: string;
+  user_create_id: number;
+  created_at: string;
+  updated_at: string;
 }

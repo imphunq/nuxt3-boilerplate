@@ -18,6 +18,7 @@ export const useMyFetch = (url: string, customOptions = {}) => {
         ...options.headers,
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
+        'Content-Type': 'application/json',
       }
 
       return { options }
@@ -31,6 +32,13 @@ export const useMyFetch = (url: string, customOptions = {}) => {
         authStore.clearDataUser()
 
         window.location.href = '/login'
+      }
+
+      if (response?.status === 500) {
+        ElMessage({
+          message: 'Something went wrong, please try again',
+          type: 'error',
+        })
       }
 
       return ctx

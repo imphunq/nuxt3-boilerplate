@@ -11,15 +11,13 @@ import { initFlowbite } from 'flowbite'
 const authStore = useAuthStore()
 const route = useRoute()
 
+if (route.name !== 'login') {
+  await authStore.fetchUser()
+}
+
 onMounted(() => {
   useFlowbite(() => {
     initFlowbite()
   })
-})
-
-onMounted(async () => {
-  if (route.name !== 'login') {
-    await authStore.fetchUser()
-  }
 })
 </script>

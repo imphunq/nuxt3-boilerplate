@@ -1,13 +1,13 @@
 <template>
   <div
-    v-if="data.length"
+    v-if="projects.length"
     class="mt-8"
   >
     <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5">
       <ProjectOverlay
-        v-for="index in 6"
+        v-for="(project, index) in projects"
         :key="`${index}-project-overlay`"
-      />
+        :project="project" />
     </div>
 
     <div v-else>
@@ -27,17 +27,19 @@ import ProjectOverlay from '~/components/common/ProjectOverlay.vue'
 import ListProjectsTable from '~/components/project/ListProjectsTable.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
 import Pagination from '~/components/common/Pagination.vue'
-import type { IPagination } from '~/types'
+import type { IPagination, INewProjects } from '~/types'
 import { OPTION_VIEW } from '~/constants/common'
 import { PROJECT_TYPE } from '~/constants/project'
 
+interface Props {
+  type?: string
+  projects: INewProjects[],
+  meta: IPagination,
+}
+
 const projectStore = useProjectStore()
 
-const data = ref([1])
-
-const props = withDefaults(defineProps<{
-  type: string
-}>(), {
+const props = withDefaults(defineProps<Props>(), {
   type: PROJECT_TYPE.ALL,
 })
 

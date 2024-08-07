@@ -54,10 +54,10 @@
         size="large"
       >
         <el-form-item
-          prop="project_title"
+          prop="name"
           label="Project Name"
         >
-          <el-input v-model="form.project_title">
+          <el-input v-model="form.name">
             <template #prefix>
               <img
                 :src="PencilIcon"
@@ -71,9 +71,9 @@
           <li>
             <input
               id="project-private"
-              v-model="form.projecttype"
+              v-model="form.privacy"
               type="radio"
-              name="projecttype"
+              name="privacy"
               value="private"
               class="hidden peer"
               required
@@ -96,9 +96,9 @@
           <li>
             <input
               id="project-public"
-              v-model="form.projecttype"
+              v-model="form.privacy"
               type="radio"
-              name="projecttype"
+              name="privacy"
               value="public"
               class="hidden peer"
             >
@@ -191,12 +191,12 @@
         </div>
 
         <el-form-item
-          prop="project_description"
+          prop="description"
           label="Description (optional)"
           class="mt-[22px]"
         >
           <el-input
-            v-model="form.project_description"
+            v-model="form.description"
             type="textarea"
             :rows="6"
           />
@@ -205,7 +205,7 @@
 
       <SelectPrototype
         v-show="step === 2"
-        v-model="form.projectdevice"
+        v-model="form.device"
       />
 
       <template #footer>
@@ -233,7 +233,8 @@
               v-if="step === 2"
               type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              @click="createProject"
+              :disabled="loading"
+              @click="handleCreateProject"
             >
               Create Project
             </button>
@@ -252,22 +253,24 @@ import type { IProjectCreate } from '~/types'
 import PencilIcon from '~/assets/images/pencil.png'
 import Private from '~/assets/images/private.png'
 import Public from '~/assets/images/public.png'
+import { createProject } from '~/api/projects'
 
 const dialogFormVisible = ref(false)
 const step = ref<number>(1)
 
 const formInitial = reactive<IProjectCreate>({
-  project_title: '',
-  projecttype: 'private',
-  background_color: '',
-  icon_id: {
-    id: 0,
-    icon: '',
-  },
-  project_description: '',
-  projectdevice: 'web',
+  name: '',
+  privacy: 'private',
+  // background_color: '',
+  // icon_id: {
+  //   id: 0,
+  //   icon: '',
+  // },
+  description: '',
+  device: 'web',
 })
 
+const loading = ref<boolean>(false)
 const selectedColor = ref<string>('')
 const selectedIcon = ref<string>('')
 
@@ -276,7 +279,7 @@ const emit = defineEmits(['direct-upload'])
 const { formRef, form, handleSubmit, resetForm } = useForm(formInitial)
 
 const rules = reactive<FormRules<IProjectCreate>>({
-  project_title: [
+  name: [
     { required: true, message: 'Please input project name', trigger: 'blur' },
   ],
 })
@@ -329,16 +332,20 @@ const nextStep = () => {
   )
 }
 
-const createProject = () => {
-  handleSubmit(
-    (form) => {
-      console.log('submit!', form)
-      dialogFormVisible.value = false
-    },
-    () => {
-      console.log('Custom error handling')
-    },
-  )
+const handleCreateProject = async () => {
+    loading.value = true
+
+    await createProject(form.value)
+
+    loading.value = false
+    dialogFormVisible.value = false
+
+    navigateTo('/projects')
+
+    ElMessage({
+      message: 'Project created successfully',
+      type: 'success',
+    })
 }
 
 const back = () => {
@@ -348,7 +355,7 @@ const back = () => {
 const selectColor = (color: string) => {
   selectedColor.value = color
 
-  form.value.background_color = color
+  // form.value.background_color = color
 }
 
 const selectIcon = (icon: string) => {

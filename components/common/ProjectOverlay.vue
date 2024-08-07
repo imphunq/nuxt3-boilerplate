@@ -97,11 +97,11 @@
         <div class="flex items-center justify-between">
           <div class="flex flex-col mb-2 mt-3 px-4">
             <span class="text-sm font-normal text-black dark:text-gray-400">
-              Project title
+              {{ props.project.name }}
             </span>
 
             <span class="text-xs font-normal text-gray-500 dark:text-gray-400">
-              06/26/2024 11:28 PM
+              {{ moment(project.created_at).format('MM/DD/YYYY hh:mm A') }}
             </span>
           </div>
 
@@ -124,11 +124,19 @@
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
 import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
+import type { INewProjects } from '~/types'
+import moment from 'moment'
+
+interface Props {
+  project: INewProjects
+}
+
+const props = defineProps<Props>()
 
 const shareProjectModalRef = ref<InstanceType<typeof ShareProjectModal> | null>(null)
 
 const handleView = () => {
-  navigateTo(`/projects/1`)
+  navigateTo(`/projects/${props.project.id}`)
 }
 
 const openShareProjectModal = () => {

@@ -3,10 +3,10 @@
     v-if="data.length"
     class="mt-8 grid grid-cols-4 gap-x-5"
   >
-    <ProjectOverlay
+    <!-- <ProjectOverlay
       v-for="index in 4"
       :key="`${index}-project-overlay`"
-    />
+    /> -->
   </div>
 
   <NoProjects v-else />
