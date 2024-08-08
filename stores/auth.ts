@@ -76,10 +76,9 @@ export const useAuthStore = defineStore('auth', {
 
     async fetchUser() {
       await useMyFetch('user/me', {}).then(({ data }) => {
-        this.setUser(data.value.data as IUser)
+        this.setUser(data.value?.data as IUser)
       })
     },
-
 
     setUser(user: IUser) {
       this.user = user
