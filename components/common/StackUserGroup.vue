@@ -4,19 +4,19 @@
     :class="[withoutSpace ? 'gap-1' : '-space-x-2']"
   >
     <img
-      class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800"
+      class="border-2 border-white rounded-full dark:border-gray-800"
       :class="[size === 'medium' ? 'w-6 h-6' : 'w-8 h-8']"
       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
       alt=""
     >
     <img
-      class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800"
+      class="border-2 border-white rounded-full dark:border-gray-800"
       :class="[size === 'medium' ? 'w-6 h-6' : 'w-8 h-8']"
       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
       alt=""
     >
     <img
-      class="w-6 h-6 border-2 border-white rounded-full dark:border-gray-800"
+      class="border-2 border-white rounded-full dark:border-gray-800"
       :class="[size === 'medium' ? 'w-6 h-6' : 'w-8 h-8']"
       src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
       alt=""

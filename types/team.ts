@@ -18,3 +18,11 @@ export interface ITeam {
   created_at: string;
   updated_at: string;
 }
+
+export interface ITeamMember {
+  id: number;
+  name: string;
+  username: string;
+  created_at?: string;
+  updated_at?: string;
+}
