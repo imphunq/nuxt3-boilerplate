@@ -89,15 +89,15 @@
             </div>
           </div>
           <img
-            src="https://flowbite.com/docs/images/blog/image-2.jpg"
-            class="rounded-lg"
+            :src="project.cover_url_thumb ?? NoImage"
+            class="rounded-lg w-full aspect-[4/3] object-cover"
           >
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="flex flex-col mb-2 mt-3 px-4">
+        <div class="flex items-center justify-between px-4">
+          <div class="flex flex-col mb-2 mt-3">
             <span class="text-sm font-normal text-black dark:text-gray-400">
-              {{ props.project.name }}
+              {{ props.project.project_title }}
             </span>
 
             <span class="text-xs font-normal text-gray-500 dark:text-gray-400">
@@ -111,7 +111,7 @@
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAIVJREFUKFNjnL987QVGBgZ9BjLA////AxkXLF/7PyEyGGgGaQBocQNIx6gBo2EATgcUp0Rs6Q+cyv4zOCRGBTuA5PGlVqxJmGwD5i9bM4GREZSxGBWALhBgYPx/AeJCRqBL/h8Asf7/Yy5MjA6EigNlkL0AtDkByFfAn62YFiRGBj6AqQEA2AVpnXScLSkAAAAASUVORK5CYII="
               alt=""
             >
-            <span class="text-xs text-gray-500">4 Screens</span>
+            <span class="text-xs text-gray-500">{{ project.screen_count }} Screens</span>
           </div>
         </div>
 
@@ -124,11 +124,12 @@
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
 import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
-import type { INewProjects } from '~/types'
+import type { IProject } from '~/types'
 import moment from 'moment'
+import NoImage from '~/assets/images/no-image.jpg'
 
 interface Props {
-  project: INewProjects
+  project: IProject
 }
 
 const props = defineProps<Props>()

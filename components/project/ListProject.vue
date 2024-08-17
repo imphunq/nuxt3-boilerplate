@@ -11,11 +11,11 @@
     </div>
 
     <div v-else>
-      <ListProjectsTable />
+      <ListProjectsTable :projects="projects" />
     </div>
 
     <div class="w-full flex justify-center mt-8">
-      <Pagination :data="meta" />
+      <Pagination :data="props.meta" />
     </div>
   </div>
 
@@ -27,13 +27,13 @@ import ProjectOverlay from '~/components/common/ProjectOverlay.vue'
 import ListProjectsTable from '~/components/project/ListProjectsTable.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
 import Pagination from '~/components/common/Pagination.vue'
-import type { IPagination, INewProjects } from '~/types'
+import type { IPagination, IProject } from '~/types'
 import { OPTION_VIEW } from '~/constants/common'
 import { PROJECT_TYPE } from '~/constants/project'
 
 interface Props {
   type?: string
-  projects: INewProjects[],
+  projects: IProject[],
   meta: IPagination,
 }
 
@@ -42,7 +42,7 @@ const projectStore = useProjectStore()
 const props = withDefaults(defineProps<Props>(), {
   type: PROJECT_TYPE.ALL,
 })
-
+console.log('props', props.meta)
 const optionView = computed(() => {
   if (props.type === PROJECT_TYPE.STARRED) {
     return projectStore.getStarredOptionView

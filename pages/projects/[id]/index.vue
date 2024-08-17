@@ -26,13 +26,14 @@
       v-if="currentView === OPTION_VIEW.GRID"
       class="grid grid-cols-4 mt-8 gap-8">
       <ScreenOverlay
-        v-for="index in 6"
+        v-for="(screen, index) in screens"
         :key="`${index}-screen-overlay`"
+        :screen="screen"
       />
     </div>
 
     <div v-else class="mt-8">
-      <ListScreenTable />
+      <ListScreenTable :screens="screens" />
     </div>
   </div>
 </template>
@@ -46,8 +47,18 @@ import RangeSlider from '~/components/common/RangeSlider.vue'
 import FilterProject from '~/components/common/FilterProject.vue'
 import ListScreenTable from '~/components/screen/ListScreenTable.vue'
 import { OPTION_VIEW } from '~/constants/common'
+import { getScreensInProject } from '~/api/screens'
+import type { IScreen } from '~/types'
 
 const screenStore = useScreenStore()
+const route = useRoute()
+const { id } = route.params
+
+const screens = ref<IScreen[]>([])
+
+const { data } = await getScreensInProject(id as string)
+
+screens.value = data.value
 
 const currentView = computed(() => {
   return screenStore.getOptionView
