@@ -126,7 +126,7 @@ const props = defineProps<Props>()
 const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal> | null>(null)
 
 const handleView = () => {
-  navigateTo(`/projects/1/screens/${props.screen.id}`)
+  navigateTo(`/projects/${props.screen.project_id}/screens/${props.screen.id}`)
 }
 
 const openModalShare = () => {

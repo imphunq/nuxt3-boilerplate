@@ -1,6 +1,10 @@
 <template>
   <div>
-    <HeaderPageDetail @scale="handleScale" />
+    <HeaderPageDetail
+      :project="project"
+      :screen="currentScreen"
+      @scale="handleScale"
+    />
 
     <div class="flex items-center justify-between py-4 px-8">
       <div class="ml-auto">
@@ -16,7 +20,7 @@
           type="button"
           class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-400 dark:border-gray-500"
         >
-          1 of 5
+          {{ currentScreen?.orders}} of {{ screens.length }}
         </button>
       </div>
     </div>
@@ -28,7 +32,7 @@
       >
         <img
           ref="screenImageRef"
-          src="https://flowbite.com/docs/images/blog/image-2.jpg"
+          :src="currentScreen?.screen_url_thumb"
           class="w-full cursor-crosshair"
           @load="onImageLoad"
           @click="showCommentPopup"
@@ -79,6 +83,7 @@ import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
 import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
+import type { IScreen } from '~/types'
 
 definePageMeta({
   layout: 'blank',
@@ -91,6 +96,30 @@ interface IComment {
   displayX: number
   displayY: number
 }
+
+const route = useRoute()
+const router = useRouter()
+const screenStore = useScreenStore()
+
+const screenId = parseInt(route.params.screenId as string)
+
+if(screenStore.previewScreens.length === 0) {
+  useAsyncData('preview-screens', async () => {
+    await screenStore.fetchPreviewScreens(route.params.id as string)
+  })
+}
+
+const screens = computed(() => {
+  return screenStore.getPreviewScreens
+})
+
+const currentScreen = computed(() => {
+  return screens.value.find((screen: IScreen) => screen.id === screenId)
+})
+
+const project = computed(() => {
+  return screenStore.getCurrentProject
+})
 
 const screenImageRef = ref<HTMLImageElement | null>(null)
 const containerRef = ref<HTMLDivElement | null>(null)
@@ -122,14 +151,23 @@ const showCommentPopup = async (event: MouseEvent) => {
 }
 
 const handleKeyDown = (event: KeyboardEvent) => {
+  let screen: IScreen | undefined
+
   if (event.key === 'ArrowRight') {
     // Handle arrow right key
-    console.log('right')
+    screen = nextScreen(currentScreen.value!.orders)
+
+
   }
   else if (event.key === 'ArrowLeft') {
     // Handle arrow left key
-    console.log('left')
+
+    screen = previousScreen(currentScreen.value!.orders)
   }
+
+  router.replace({
+    params: { screenId: screen?.id.toString() },
+  });
 }
 
 const handleSubmitComment = (comment: string) => {
@@ -162,15 +200,13 @@ const onImageLoad = () => {
   }
 }
 
-// const updateCommentPositions = () => {
-//   if (screenImageRef.value) {
-//     comments.value = comments.value.map(comment => ({
-//       ...comment,
-//       displayX: (comment.x / originalWidth.value) * 100,
-//       displayY: (comment.y / originalHeight.value) * 100,
-//     }))
-//   }
-// }
+const nextScreen = (currentOrder: number) => {
+  return screens.value.find((screen: IScreen) => screen.orders > currentOrder )
+}
+
+const previousScreen = (currentOrder: number) => {
+  return screens.value.slice().reverse().find((screen: IScreen) => screen.orders < currentOrder )
+}
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)

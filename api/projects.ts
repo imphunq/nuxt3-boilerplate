@@ -16,7 +16,3 @@ export const getProjects = (params: any = {}) => {
     },
   })
 }
-
-export const getPreviewProjects = (id: string) => {
-  return useMyFetch(`user/project/${id}/preview`)
-}

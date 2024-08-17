@@ -79,7 +79,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const excludeChildrenRouteNames = 'projects-id-screens-id'
+const excludeChildrenRouteNames = 'projects-id-screens-screenId'
 
 const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')

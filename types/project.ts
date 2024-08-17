@@ -1,3 +1,5 @@
+import type { IScreen } from "./screen";
+
 type Privacy = 'private' | 'public'
 
 export interface IProject {
@@ -28,6 +30,7 @@ export interface IProject {
   cover_url_thumb: string;
   screen_count: number;
   members: IProjectMember[];
+  screens?: IScreen[]
 }
 
 export interface IProjectMember {

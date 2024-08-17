@@ -5,7 +5,7 @@
         :icon="Back"
         size="large"
         circle
-        @click="navigateTo('/projects')"
+        @click="navigateTo(`/projects/${project?.id}`)"
       />
 
       <div class="flex items-center gap-4">
@@ -17,15 +17,19 @@
 
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-2">
-            <span class="font-semibold text-black">Project Title</span>
+            <span class="font-semibold text-black">
+              {{ project?.project_title }}
+            </span>
 
             <el-icon><CaretRight /></el-icon>
 
-            <span class="font-semibold text-black">Screen Detail</span>
+            <span class="font-semibold text-black truncate ...">
+              {{ screen?.name }}
+            </span>
           </div>
 
           <p class="text-xs">
-            Updated 4 mins ago
+            Updated {{ moment(project?.updated_at).fromNow() }}
           </p>
         </div>
       </div>
@@ -39,7 +43,9 @@
               <img class="mr-1" :src="CommentIcon" alt="">
               <span class="mr-1">Comment</span>
               <div class="w-4 h-4 flex items-center justify-center rounded-full bg-white">
-                <span class="text-black text-xs">1</span>
+                <span class="text-black text-xs">
+                  {{ screen?.comments.length }}
+                </span>
               </div>
             </div>
           </template>
@@ -187,6 +193,7 @@
 </template>
 
 <script lang="ts" setup>
+import moment from 'moment'
 import { Back, CaretRight, More, ArrowRight } from '@element-plus/icons-vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
 import CreateUserAs from '~/assets/images/icons/project/create-user-as.svg'
@@ -200,7 +207,14 @@ import LabelBlue from '~/assets/images/icons/project/label-blue.svg'
 import LabelRed from '~/assets/images/icons/project/label-red.svg'
 import LabelGreen from '~/assets/images/icons/project/label-green.svg'
 import LabelYellow from '~/assets/images/icons/project/label-yellow.svg'
+import type { IProject, IScreen } from '~/types'
 
+interface Props {
+  project: IProject | undefined
+  screen: IScreen | undefined
+}
+
+const props = defineProps<Props>()
 const emit = defineEmits(['scale'])
 
 const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal>>()

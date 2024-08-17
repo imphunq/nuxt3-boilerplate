@@ -5,3 +5,7 @@ export const getScreensInProject = (id: string) => {
     refetch: true,
   })
 }
+
+export const getPreviewScreens = (id: string) => {
+  return useMyFetch(`user/project/${id}/preview`)
+}
