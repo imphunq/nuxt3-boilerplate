@@ -52,10 +52,10 @@
         size="large"
       >
         <el-form-item
-          prop="name"
+          prop="project_title"
           label="Project Name"
         >
-          <el-input v-model="form.name">
+          <el-input v-model="form.project_title">
             <template #prefix>
               <img
                 :src="PencilIcon"
@@ -190,21 +190,21 @@ const emit = defineEmits(['normal-upload'])
 const dialogFormVisible = ref(false)
 
 const formInitial = reactive<IProjectCreate>({
-  name: '',
+  project_title: '',
   privacy: 'private',
-  // background_color: '',
+  background_color: '',
   // icon_id: {
   //   id: 0,
   //   icon: '',
   // },
-  // project_description: '',
-  // projectdevice: 'web',
+  project_description: '',
+  projectdevice: 'web',
 })
 
 const { formRef, form, handleSubmit, resetForm } = useForm(formInitial)
 
 const rules = reactive<FormRules<IProjectCreate>>({
-  name: [
+  project_title: [
     { required: true, message: 'Please input project name', trigger: 'blur' },
   ],
 })

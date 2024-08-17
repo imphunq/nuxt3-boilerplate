@@ -8,8 +8,8 @@
     <el-table-column type="selection" width="55" />
     <el-table-column prop="project_title" label="Project Name" width="400">
       <template #default="scope">
-        <div class="flex items-center">
-          <img :src="scope.row.cover_url_thumb" class="w-16 md:w-32 max-w-full max-h-full mr-2" alt="Thumb">
+        <div class="flex items-center cursor-pointer" @click="gotoDetail(scope.row.id)">
+          <img :src="scope.row.cover_url_thumb ?? NoImage" class="w-16 md:w-32 max-w-full max-h-full mr-2" alt="Thumb">
 
           <span class="text-black">{{ scope.row.project_title }}</span>
         </div>
@@ -120,50 +120,17 @@ import Archive from '~/components/common/icon/Archive.vue'
 import Duplicate from '~/components/common/icon/Duplicate.vue'
 import Export from '~/components/common/icon/Export.vue'
 import Cancel from '~/components/common/icon/Cancel.vue'
+import NoImage from '~/assets/images/no-image.jpg'
 
-const projects: IProject[] = [
-  {
-    id: 1,
-    watermark_id: null,
-    project_title: "vsdvsdv",
-    project_folder: "11db455abf93d54cbee24ccfe7f98c342171872862373",
-    project_description: null,
-    color: null,
-    archived: 0,
-    projecttype_id: 1,
-    projectdevice_id: 1,
-    projectable_id: 1,
-    team_id: null,
-    projectable_type: "App\\Models\\User",
-    privacy: "1111",
-    folder_id: null,
-    finished: "false",
-    completed_date: null,
-    icon_id: null,
-    background_color: null,
-    cover_id: null,
-    last_activity: null,
-    created_at: "2024-06-18T16:37:03.000000Z",
-    updated_at: "2024-06-18T16:37:03.000000Z",
-    deleted_at: null,
-    cover_url: "http://localhost:7002/view?id=00320032b521906b32cefa8f145d649b255480f40014",
-    cover_url_thumb: "http://localhost:7002/view?id=00320032b521906b32cefa8f145d649b255480f40014&thumb=true",
-    screen_count: 4,
-    members: [
-      {
-        id: 1,
-        name: "Admin",
-        lastname: "Mr",
-        email: "hostdesign.com@gmail.com",
-        username: "admin",
-        role: null,
-        project_id: 1,
-        avatar_url: null,
-        avatar_url_thumb: null
-      }
-    ]
-  }
-]
+interface Props {
+  projects: IProject[]
+}
+
+const props = defineProps<Props>()
+
+const gotoDetail = (id: number) => {
+  navigateTo(`/projects/${id}`)
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -6,28 +6,44 @@ export interface ILogin {
 
 export interface IUser {
   id: number;
-  first_name: string;
-  last_name: string;
+  name: string;
+  lastname: string;
   email: string;
-  email_verified_at: string | null;
+  username: string;
+  email_verified_at: string;
   privacy: string;
   status: string;
+  duracy: any | null;
+  type: any | null;
+  active: number;
+  job_role: any | null;
+  plan_id: any | null;
+  group: any | null;
   created_at: string;
   updated_at: string;
-  detail: any | null;
+  deleted_at: string | null;
+  userdetails: any | null;
   avatar_url?: string
 }
 
 export interface ILoginUserResponse {
   id: number;
-  first_name: string;
-  last_name: string;
+  name: string;
+  lastname: string;
   email: string;
-  email_verified_at: string | null;
+  username: string;
+  email_verified_at: string;
   privacy: string;
   status: string;
+  duracy: any | null;
+  type: any | null;
+  active: number;
+  job_role: any | null;
+  plan_id: any | null;
+  group: any | null;
   created_at: string;
   updated_at: string;
+  deleted_at: string | null;
 }
 
 
@@ -35,7 +51,7 @@ export interface AuthResponse {
   access_token: string;
   token_type: string;
   expires_in: string;
-  refresh_token: string;
+  refresh_token?: string;
   user: ILoginUserResponse;
 }
 

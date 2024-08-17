@@ -48,11 +48,11 @@ export interface IIcon {
 }
 
 export interface IProjectCreate {
-  name: string
-  privacy?: Privacy
-  folder_id?: number
-  description?: string
-  device?: string
+  project_title: string
+  privacy: Privacy
+  project_description?: string
+  background_color?: string
+  projectdevice?: string
 }
 
 export interface INewProjects {

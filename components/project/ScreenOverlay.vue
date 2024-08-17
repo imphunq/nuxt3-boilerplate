@@ -89,18 +89,18 @@
             </div>
           </div>
           <img
-            src="https://flowbite.com/docs/images/blog/image-2.jpg"
-            class="rounded-lg"
+            :src="screen.screen_url_thumb ?? NoImage"
+            class="rounded-lg w-full aspect-[4/3] object-cover"
           >
         </div>
 
         <div class="flex flex-col mb-2 mt-3 px-4">
-          <span class="text-sm font-normal text-black dark:text-gray-400">
-            Screen title
+          <span class="truncate text-sm font-normal text-black dark:text-gray-400">
+            {{ screen.name }}
           </span>
 
           <span class="text-xs font-normal text-gray-500 dark:text-gray-400">
-            06/26/2024 11:28 PM
+            {{ moment(screen.created_at).format('MM/DD/YYYY hh:mm A') }}
           </span>
         </div>
 
@@ -111,13 +111,22 @@
 </template>
 
 <script lang="ts" setup>
+import moment from 'moment'
 import { More } from '@element-plus/icons-vue'
 import ShareScreenModal from '~/components/share/ShareScreenModal.vue'
+import type { IScreen } from '~/types'
+import NoImage from '~/assets/images/no-image.jpg'
+
+interface Props {
+  screen: IScreen
+}
+
+const props = defineProps<Props>()
 
 const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal> | null>(null)
 
 const handleView = () => {
-  navigateTo(`/projects/1/screens/1`)
+  navigateTo(`/projects/1/screens/${props.screen.id}`)
 }
 
 const openModalShare = () => {

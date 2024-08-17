@@ -42,8 +42,9 @@ export const useAuthStore = defineStore('auth', {
             message: 'Login success',
             type: 'success',
           })
-          this.setToken(data.value.data as AuthResponse)
-          this.setUserLogin(data.value.data.user as ILoginUserResponse)
+
+          this.setToken(data.value as AuthResponse)
+          this.setUserLogin(data.value.user as ILoginUserResponse)
 
           window.location.href = '/overview'
         }
@@ -51,7 +52,7 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      await useMyFetch('logout', {
+      await useMyFetch('user/logout', {
         method: 'POST',
       }).then(({ data, error }) => {
         if (error.value) {
@@ -76,7 +77,7 @@ export const useAuthStore = defineStore('auth', {
 
     async fetchUser() {
       await useMyFetch('user/me', {}).then(({ data }) => {
-        this.setUser(data.value?.data as IUser)
+        this.setUser(data.value as IUser)
       })
     },
 
@@ -91,16 +92,14 @@ export const useAuthStore = defineStore('auth', {
     },
 
     setToken(data: AuthResponse) {
-      const { access_token, refresh_token, expires_in } = data
+      const { access_token, expires_in } = data
 
       localStorage.setItem('access_token', access_token)
-      localStorage.setItem('refresh_token', refresh_token)
       localStorage.setItem('expires_in', expires_in)
     },
 
     clearToken() {
       localStorage.removeItem('access_token')
-      localStorage.removeItem('refresh_token')
       localStorage.removeItem('expires_in')
     },
 

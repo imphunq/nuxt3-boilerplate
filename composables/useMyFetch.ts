@@ -1,10 +1,18 @@
-import { useFetch } from '@vueuse/core'
+import { useFetch, type AfterFetchContext } from '@vueuse/core'
 
-export const useMyFetch = (url: string, customOptions = {}) => {
+export const useMyFetch = (url: string, customOptions: any = {}) => {
   const config = useRuntimeConfig()
   const authStore = useAuthStore()
 
-  return useFetch(`${config.public.apiBase}${url}`, {
+  const buildQueryParams = (params: Record<string, any>)  => {
+    const queryString = new URLSearchParams(params).toString();
+    return queryString ? `?${queryString}` : '';
+  }
+
+  const queryParams = buildQueryParams(customOptions.query || {})
+  const fullUrl = `${config.public.apiBase}${url}${queryParams}`
+
+  return useFetch(`${fullUrl}`, {
     ...customOptions,
 
     beforeFetch({ options }) {
@@ -24,24 +32,37 @@ export const useMyFetch = (url: string, customOptions = {}) => {
       return { options }
     },
 
-    onFetchError(ctx) {
-      const { response } = ctx
+    afterFetch(ctx: AfterFetchContext) {
+      const { data } = ctx
 
-      if (response?.status === 401) {
+      if (data.status === 'Token is Invalid' || data.status === 'Token is Expired') {
         authStore.clearToken()
         authStore.clearDataUser()
 
         window.location.href = '/login'
       }
 
-      if (response?.status === 500) {
-        ElMessage({
-          message: 'Something went wrong, please try again',
-          type: 'error',
-        })
-      }
-
       return ctx
-    }
+    },
+
+    // onFetchError(ctx: AfterFetchContext) {
+    //   const { response } = ctx
+
+    //   if (response?.status === 401) {
+    //     authStore.clearToken()
+    //     authStore.clearDataUser()
+
+    //     window.location.href = '/login'
+    //   }
+
+    //   if (response?.status === 500) {
+    //     ElMessage({
+    //       message: 'Something went wrong, please try again',
+    //       type: 'error',
+    //     })
+    //   }
+
+    //   return ctx
+    // }
   }).json()
 }

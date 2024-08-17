@@ -183,7 +183,7 @@ const currentUser = computed(() => {
 })
 
 const name = computed(() => {
-  return authStore.getCurrentUser?.first_name + ' ' + authStore.getCurrentUser?.last_name
+  return authStore.getCurrentUser?.lastname + ' ' + authStore.getCurrentUser?.name
 })
 
 const handleLogout = async () => {
