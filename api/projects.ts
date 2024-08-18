@@ -1,4 +1,5 @@
 import { useMyFetch } from '~/composables/useMyFetch'
+import { useFetch } from '@vueuse/core'
 import type { IProjectCreate } from '~/types'
 
 export const createProject = (data: IProjectCreate) => {
@@ -15,4 +16,21 @@ export const getProjects = (params: any = {}) => {
       page: params?.page,
     },
   })
+}
+
+export const requestUploadScreenToProject = (projectId: string, data: any) => {
+  return useMyFetch(`user/project/${projectId}/fileuploadrequest`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export const uploadScreenToFileServer = (url: string, file: File) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return useFetch(url, {
+    method: 'POST',
+    body: formData,
+  }).json()
 }

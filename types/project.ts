@@ -71,3 +71,13 @@ export interface INewProjects {
   created_at: string;
   updated_at: string;
 }
+
+export interface IUploadRequestResponse {
+  file_md5: string | null;
+  type: string;
+  file_name: string | null;
+  file_size: number | null;
+  folder_id: number | null;
+  upload_id: string;
+  upload_url: string;
+}

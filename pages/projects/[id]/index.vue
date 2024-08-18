@@ -56,9 +56,11 @@ const { id } = route.params
 
 const screens = ref<IScreen[]>([])
 
-const { data } = await getScreensInProject(id as string)
+useAsyncData('screens', async () => {
+  const { data } = await getScreensInProject(id as string)
 
-screens.value = data.value
+  screens.value = data.value
+})
 
 const currentView = computed(() => {
   return screenStore.getOptionView

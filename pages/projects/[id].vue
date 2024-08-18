@@ -74,6 +74,8 @@ import { Search, Plus } from '@element-plus/icons-vue'
 import MoveRightIcon from '~/components/common/icon/MoveRight.vue'
 import ProjectDrawer from '~/components/screen/ProjectDrawer.vue'
 import { useFileDialog } from '@vueuse/core'
+import { requestUploadScreenToProject, uploadScreenToFileServer } from '~/api/projects'
+import type { IUploadRequestResponse } from '~/types'
 
 definePageMeta({
   middleware: 'auth',
@@ -91,8 +93,21 @@ const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*',
 })
 
-onChange((files: FileList | null) => {
-  console.log(files)
+onChange(async (files: FileList | null) => {
+  if (files && files.length > 0) {
+    const { data } = await requestUploadScreenToProject(id as string, files[0]);
+    const response = data.value.data as IUploadRequestResponse
+    const { upload_url: uploadUrl } = response
+
+    await uploadScreenToFileServer(uploadUrl, files[0])
+
+    await refreshNuxtData()
+
+    ElMessage.success({
+      message: 'Screen uploaded successfully',
+      type: 'success',
+    })
+  }
 })
 
 const handleSelect = (index: string) => {
