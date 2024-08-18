@@ -53,6 +53,7 @@
           size="large"
           round
           class="project-tabs__btn-add flex items-center gap-5"
+          @click="open()"
         >
           <el-icon><Plus /></el-icon>
           <span>Add new</span>
@@ -72,6 +73,7 @@
 import { Search, Plus } from '@element-plus/icons-vue'
 import MoveRightIcon from '~/components/common/icon/MoveRight.vue'
 import ProjectDrawer from '~/components/screen/ProjectDrawer.vue'
+import { useFileDialog } from '@vueuse/core'
 
 definePageMeta({
   middleware: 'auth',
@@ -84,6 +86,14 @@ const excludeChildrenRouteNames = 'projects-id-screens-screenId'
 const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')
 const { id } = route.params
+
+const { files, open, reset, onChange } = useFileDialog({
+  accept: 'image/*',
+})
+
+onChange((files: FileList | null) => {
+  console.log(files)
+})
 
 const handleSelect = (index: string) => {
   activeIndex.value = index

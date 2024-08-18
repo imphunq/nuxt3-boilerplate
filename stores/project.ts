@@ -1,5 +1,8 @@
 import { defineStore } from "pinia"
 import { OPTION_VIEW } from '~/constants/common'
+import { getProjects } from '~/api/projects'
+import type { IProject, IPagination } from "~/types"
+import { DEFAULT_META } from '~/constants/common'
 
 interface State {
   optionView: string
@@ -7,6 +10,8 @@ interface State {
   optionViewShared: string
   optionViewOnGoing: string
   optionViewRecentlyAdded: string
+  projects: IProject[]
+  meta: IPagination
 }
 
 export const useProjectStore = defineStore('project-store', {
@@ -16,7 +21,9 @@ export const useProjectStore = defineStore('project-store', {
       optionViewStarred: OPTION_VIEW.GRID,
       optionViewShared: OPTION_VIEW.GRID,
       optionViewOnGoing: OPTION_VIEW.GRID,
-      optionViewRecentlyAdded: OPTION_VIEW.GRID
+      optionViewRecentlyAdded: OPTION_VIEW.GRID,
+      projects: [],
+      meta: DEFAULT_META,
     }
   },
 
@@ -35,6 +42,12 @@ export const useProjectStore = defineStore('project-store', {
     },
     getRecentlyAddedOptionView(): string {
       return this.optionViewRecentlyAdded
+    },
+    getProjects(): IProject[] {
+      return this.projects
+    },
+    getMeta(): IPagination {
+      return this.meta
     }
   },
 
@@ -57,6 +70,21 @@ export const useProjectStore = defineStore('project-store', {
 
     setRecentlyAddedOptionView(option: string): void {
       this.optionViewRecentlyAdded = option
+    },
+
+    async fetchProjects (page: string) {
+      const response = await usePaginationCache(
+        `projects-${page}`, () => getProjects({ page })
+      )
+      const { data } = response
+
+      this.projects = data.value.data
+      Object.assign(this.meta, {
+        current_page: data.value.current_page,
+        total: data.value.projects_count,
+        per_page: data.value.limit,
+        last_page: data.value.total_page
+      })
     }
   }
 })

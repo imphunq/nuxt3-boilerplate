@@ -25,23 +25,32 @@ definePageMeta({
 
 const globalStore = useGlobalStore()
 const route = useRoute()
+const projectStore = useProjectStore()
 
-const projects = ref<IProject[]>([])
-const meta = reactive<IPagination>(DEFAULT_META)
+// const projects = ref<IProject[]>([])
+// const meta = reactive<IPagination>(DEFAULT_META)
 
-const fetchProjects = async (page: string) => {
-  const { data } = await getProjects({ page })
+// const fetchProjects = async (page: string) => {
+//   const { data } = await getProjects({ page })
 
-  projects.value = data.value.data
-  Object.assign(meta, {
-    current_page: data.value.current_page,
-    total: data.value.projects_count,
-    per_page: data.value.limit,
-    last_page: data.value.total_page
-  })
-}
+//   projects.value = data.value.data
+//   Object.assign(meta, {
+//     current_page: data.value.current_page,
+//     total: data.value.projects_count,
+//     per_page: data.value.limit,
+//     last_page: data.value.total_page
+//   })
+// }
 
-useRefetch(() => fetchProjects(route.query.page as string ?? '1'))
+useRefetch(() => projectStore.fetchProjects(route.query.page as string ?? '1'))
+
+const projects = computed(() => {
+  return projectStore.getProjects
+})
+
+const meta = computed(() => {
+  return projectStore.getMeta
+})
 
 onMounted(() => {
   globalStore.setBreadcrumbs([
