@@ -67,11 +67,17 @@
       </div>
     </div>
 
-    <div class="w-24 h-24 bg-gray-300 text-white fixed left-0 top-1/2 transform -translate-y-1/2 half-left-circle flex items-center cursor-pointer">
+    <div
+      class="w-24 h-24 bg-gray-300 text-white fixed left-0 top-1/2 transform -translate-y-1/2 half-left-circle flex items-center cursor-pointer"
+      @click="handlePreviousScreen"
+    >
       <el-icon><ArrowLeftBold /></el-icon>
     </div>
 
-    <div class="w-24 h-24 bg-gray-300 text-white fixed right-0 top-1/2 transform -translate-y-1/2 half-right-circle flex items-center justify-end cursor-pointer">
+    <div
+      class="w-24 h-24 bg-gray-300 text-white fixed right-0 top-1/2 transform -translate-y-1/2 half-right-circle flex items-center justify-end cursor-pointer"
+      @click="handleNextScreen"
+    >
       <el-icon><ArrowRightBold /></el-icon>
     </div>
   </div>
@@ -164,6 +170,22 @@ const handleKeyDown = (event: KeyboardEvent) => {
 
     screen = previousScreen(currentScreen.value!.orders)
   }
+
+  router.replace({
+    params: { screenId: screen?.id.toString() },
+  });
+}
+
+const handlePreviousScreen = () => {
+  const screen = previousScreen(currentScreen.value!.orders)
+
+  router.replace({
+    params: { screenId: screen?.id.toString() },
+  });
+}
+
+const handleNextScreen = () => {
+  const screen = nextScreen(currentScreen.value!.orders)
 
   router.replace({
     params: { screenId: screen?.id.toString() },
