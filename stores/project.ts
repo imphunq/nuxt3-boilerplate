@@ -74,7 +74,6 @@ export const useProjectStore = defineStore('project-store', {
 
     async fetchProjects (page: string, query: any = {}): Promise<void> {
       const key = `projects-${page}-${JSON.stringify(query)}`
-      console.log(key)
 
       const response = await usePaginationCache(
         key, () => getProjects({ page, ...query })
