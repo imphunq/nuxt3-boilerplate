@@ -98,7 +98,10 @@
         </li>
         <li class="flex items-center gap-x-4 mb-3">
           <div class="new-icon ni4" />
-          <div class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500">
+          <div
+            class="cursor-pointer block px-4 py-2 text-xs hover:text-blue-500"
+            @click="openCreateFolderModal"
+          >
             New Folder
           </div>
         </li>
@@ -208,6 +211,8 @@
   />
 
   <CreateTeamModal ref="createTeamModalRef" />
+
+  <CreateFolderModal ref="createFolderModalRef" />
 </template>
 
 <script lang="ts" setup>
@@ -216,11 +221,13 @@ import UserDropdown from './UserDropdown.vue'
 import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
 import CreateProjectDirectModal from '~/components/project/CreateProjectDirectModal.vue'
 import CreateTeamModal from '~/components/team/CreateTeamModal.vue'
+import CreateFolderModal from '~/components/folder/CreateFolderModal.vue'
 
 const dropdownNewButtonRef = ref<HTMLElement | null>()
 const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectModal>>()
 const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
+const createFolderModalRef = ref<InstanceType<typeof CreateFolderModal>>()
 
 onMounted(() => {
   useFlowbite(() => {
@@ -235,6 +242,11 @@ const openModalProject = () => {
 
 const openCreateTeamModal = () => {
   createTeamModalRef?.value?.open()
+  closeDropdown()
+}
+
+const openCreateFolderModal = () => {
+  createFolderModalRef?.value?.open()
   closeDropdown()
 }
 
