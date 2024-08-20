@@ -13,7 +13,7 @@ export const getProjects = (params: any = {}) => {
   return useMyFetch('user/projects', {
     refetch: true,
     query: {
-      page: params?.page,
+      ...params
     },
   })
 }

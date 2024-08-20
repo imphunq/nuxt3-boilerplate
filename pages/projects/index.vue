@@ -41,8 +41,12 @@ const projectStore = useProjectStore()
 //     last_page: data.value.total_page
 //   })
 // }
-
-useRefetch(() => projectStore.fetchProjects(route.query.page as string ?? '1'))
+useRefetch(
+  () => projectStore.fetchProjects(
+    route.query.page as string ?? '1',
+    route.query
+  )
+)
 
 const projects = computed(() => {
   return projectStore.getProjects

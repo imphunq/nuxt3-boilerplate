@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data.total > 1" class="flex justify-end">
+  <div v-if="data.last_page > 1" class="flex justify-end">
     <div class="flex justify-center border border-solid border-gray-200 px-6 py-3 rounded-full">
       <el-pagination
         hide-on-single-page

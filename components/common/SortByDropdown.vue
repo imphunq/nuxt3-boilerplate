@@ -21,7 +21,7 @@
         d="M0 0h24v24H0V0z"
       /><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z" /></svg>
       <span class="flex-1 mr-5">
-        Sort by
+        {{ selectedItem }}
       </span>
       <svg
         stroke="currentColor"
@@ -51,6 +51,7 @@
             v-for="(item, index) in sortByItems"
             :key="`${index}-${item.value}`"
             class="cursor-pointer hover:text-blue-400 block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+            @click="selectItem(item)"
           >
             {{ item.label }}
           </div>
@@ -63,6 +64,7 @@
 <script lang="ts" setup>
 import { initDropdowns } from 'flowbite'
 import type { ILabelValue } from '~/types'
+import _find from 'lodash/find'
 
 type Key = 'overview' | 'project'
 
@@ -72,10 +74,22 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const router = useRouter()
+const route = useRoute()
+
+const selectedItem = computed(() => {
+  const item = _find(sortByItems.value, { value: route.query.sort_by }) as ILabelValue
+
+  return item?.label || 'Sort by'
+})
+
 const sortByItems = computed<ILabelValue[]>(() => {
   switch (props.type) {
     case 'overview':
       return overview.value
+      break
+    case 'project':
+      return allProjects.value
       break
     default:
       return overview.value
@@ -103,6 +117,31 @@ const overview = computed<ILabelValue[]>(() => {
     },
   ]
 })
+
+const allProjects = computed<ILabelValue[]>(() => {
+  return [
+    {
+      value: 'name_az',
+      label: 'Name(A-Z)',
+    },
+    {
+      value: 'last_update',
+      label: 'Last Update',
+    },
+    {
+      value: 'date_created',
+      label: 'Date Created',
+    },
+    {
+      value: 'name_za',
+      label: 'Name(Z-A)',
+    },
+  ]
+})
+
+const selectItem = (item: ILabelValue) => {
+  router.push({ query: { sort_by: item.value } })
+}
 
 onMounted(() => {
   useFlowbite(() => {

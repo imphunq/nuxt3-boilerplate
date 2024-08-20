@@ -20,4 +20,5 @@ export interface IPagination {
   per_page: number
   to: number
   total: number
+  total_page?: number
 }

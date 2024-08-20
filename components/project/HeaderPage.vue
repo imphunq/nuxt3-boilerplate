@@ -16,7 +16,7 @@
 
       <GroupByDropdown type="project" />
 
-      <SortByDropdown />
+      <SortByDropdown type="project" />
 
       <OptionView page="project" type="all" :current-view="currentView" />
     </div>

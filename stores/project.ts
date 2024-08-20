@@ -72,9 +72,12 @@ export const useProjectStore = defineStore('project-store', {
       this.optionViewRecentlyAdded = option
     },
 
-    async fetchProjects (page: string) {
+    async fetchProjects (page: string, query: any = {}): Promise<void> {
+      const key = `projects-${page}-${JSON.stringify(query)}`
+      console.log(key)
+
       const response = await usePaginationCache(
-        `projects-${page}`, () => getProjects({ page })
+        key, () => getProjects({ page, ...query })
       )
       const { data } = response
 
@@ -83,7 +86,7 @@ export const useProjectStore = defineStore('project-store', {
         current_page: data.value.current_page,
         total: data.value.projects_count,
         per_page: data.value.limit,
-        last_page: data.value.total_page
+        last_page: data.value.total_page,
       })
     }
   }

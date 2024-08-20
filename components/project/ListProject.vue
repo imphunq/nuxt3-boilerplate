@@ -63,15 +63,6 @@ const optionView = computed(() => {
   return projectStore.getOptionView
 })
 
-const meta: IPagination = {
-  current_page: 1,
-  from: 1,
-  last_page: 2,
-  per_page: 1,
-  to: 1,
-  total: 10,
-}
-
 onMounted(() => {
 })
 </script>
