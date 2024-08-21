@@ -3,6 +3,13 @@
     v-if="projects.length"
     class="mt-8"
   >
+    <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5 mb-5">
+      <FolderCard
+        v-for="index in 4"
+        :key="`${index}-folder-card`"
+      />
+    </div>
+
     <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5">
       <ProjectOverlay
         v-for="(project, index) in projects"
@@ -24,6 +31,7 @@
 
 <script lang="ts" setup>
 import ProjectOverlay from '~/components/common/ProjectOverlay.vue'
+import FolderCard from '~/components/folder/FolderCard.vue'
 import ListProjectsTable from '~/components/project/ListProjectsTable.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
 import Pagination from '~/components/common/Pagination.vue'
