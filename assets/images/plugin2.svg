@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="33.601" height="30.801" viewBox="0 0 33.601 30.801">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.053" y1="0.218" x2="0.874" y2="0.635" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g id="_2993662_app_brand_brands_logo_logos_icon" data-name="2993662_app_brand_brands_logo_logos_icon" transform="translate(0 0)">
+    <path id="Fill-1" d="M16.8,1,7.331,2.034,0,11.5,16.8,31.8,33.6,11.5,26.27,2.034Z" transform="translate(0 -1)" fill="#fdb300"/>
+    <path id="Fill-2" d="M0,8.5,16.8,28.8h0L6.8,8.5Z" transform="translate(0 1.999)" fill="#ea6c00"/>
+    <path id="Fill-3" d="M22,8.5,12,28.8h0L28.8,8.5Z" transform="translate(4.801 1.999)" fill="#ea6c00"/>
+    <path id="Fill-5" d="M5.386,2.034,4.861,11.5l10-10.5Z" transform="translate(1.944 -1)" fill="#fdd231"/>
+    <path id="Fill-6" d="M22,11.5,21.47,2.034,12,1Z" transform="translate(4.8 -1)" fill="#fdd231"/>
+    <path id="Fill-7" d="M19.29,11.2h6.8L18.764,1.738Z" transform="translate(7.506 -0.705)" fill="#fdad00"/>
+    <path id="Fill-8" d="M0,11.2H6.8l.526-9.463Z" transform="translate(0 -0.705)" fill="#fdad00"/>
+    <path id="Fill-9" d="M14.856,1l-10,10.5H24.851Z" transform="translate(1.944 -1)" fill="#feeeb7"/>
+    <path id="Fill-4" d="M4.86,8.5l10,20.3h0L24.852,8.5Z" transform="translate(1.944 1.999)" fill="#fdad00"/>
+    <path id="Fill-1_1_" d="M16.8,1,7.331,2.034,0,11.5,16.8,31.8,33.6,11.5,26.27,2.034Z" transform="translate(0 -1)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>

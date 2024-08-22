@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="screens.length">
     <div class="project-screen-header flex items-center justify-between">
       <div>
         <span class="text-sm text-black font-semibold">Project title</span>
@@ -36,6 +36,8 @@
       <ListScreenTable :screens="screens" />
     </div>
   </div>
+
+  <EmptyScreen v-else :project_title="`Project title`" />
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +48,7 @@ import OptionView from '~/components/common/OptionView.vue'
 import RangeSlider from '~/components/common/RangeSlider.vue'
 import FilterProject from '~/components/common/FilterProject.vue'
 import ListScreenTable from '~/components/screen/ListScreenTable.vue'
+import EmptyScreen from '~/components/screen/EmptyScreen.vue'
 import { OPTION_VIEW } from '~/constants/common'
 import { getScreensInProject } from '~/api/screens'
 import type { IScreen } from '~/types'

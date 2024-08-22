@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29.56" height="29.562" viewBox="0 0 29.56 29.562">
+  <g id="Layer_2" data-name="Layer 2" transform="translate(0 0)">
+    <path id="Path_12" data-name="Path 12" d="M16.268,2.84V16.377a5.911,5.911,0,0,1-.828,2.956h9.4A14.778,14.778,0,0,0,16.268,2.84Z" transform="translate(4.423 -1.596)" fill="#111b4f"/>
+    <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="3.397" cy="3.397" rx="3.397" ry="3.397" transform="translate(11.325 11.323)" fill="#111b4f"/>
+    <path id="Path_13" data-name="Path 13" d="M2.84,10.868H16.377a5.912,5.912,0,0,1,2.956.828V2.3A14.779,14.779,0,0,0,2.84,10.868Z" transform="translate(-1.599 -1.998)" fill="#111b4f"/>
+    <path id="Path_14" data-name="Path 14" d="M2,12.956a14.778,14.778,0,0,0,8.867,13.537V12.956A5.911,5.911,0,0,1,11.695,10H2.3A14.778,14.778,0,0,0,2,12.956Z" transform="translate(-2 1.825)" fill="#111b4f"/>
+    <path id="Path_15" data-name="Path 15" d="M12.956,16.268A5.912,5.912,0,0,1,10,15.44v9.4a14.779,14.779,0,0,0,16.493-8.571Z" transform="translate(1.823 4.425)" fill="#111b4f"/>
+  </g>
+</svg>
