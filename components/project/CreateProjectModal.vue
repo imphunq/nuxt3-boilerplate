@@ -333,19 +333,19 @@ const nextStep = () => {
 }
 
 const handleCreateProject = async () => {
-    loading.value = true
+  loading.value = true
 
-    await createProject(form.value)
+  await createProject(form.value)
 
-    loading.value = false
-    dialogFormVisible.value = false
+  loading.value = false
+  dialogFormVisible.value = false
 
-    navigateTo('/projects')
+  navigateTo('/projects')
 
-    ElMessage({
-      message: 'Project created successfully',
-      type: 'success',
-    })
+  ElMessage({
+    message: 'Project created successfully',
+    type: 'success',
+  })
 }
 
 const back = () => {

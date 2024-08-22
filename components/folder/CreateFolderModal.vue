@@ -87,9 +87,10 @@
               @click="close"
             >Cancel</span>
             <button
+              :disabled="loading"
               type="button"
               class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              @click="createFolder"
+              @click="handleCreateFolder"
             >
               Create
             </button>
@@ -104,9 +105,10 @@
 import type { FormRules } from 'element-plus'
 import type { ICreateFolder } from '~/types'
 import PencilIcon from '~/assets/images/pencil.png'
-import GroupUserIcon from '~/assets/images/group-user.svg'
+import { createFolder } from '~/api/folder'
 
-const dialogFormVisible = ref(false)
+const dialogFormVisible = ref<boolean>(false)
+const loading = ref<boolean>(false)
 
 const formInitial = reactive<ICreateFolder>({
   folder_name: '',
@@ -129,14 +131,24 @@ const close = () => {
   dialogFormVisible.value = false
 }
 
-const createFolder = () => {
+const handleCreateFolder = () => {
   handleSubmit(
-    (form) => {
-      console.log('submit!', form)
+    async (form) => {
+      loading.value = true
+
+      await createFolder(form)
+
+      loading.value = false
       dialogFormVisible.value = false
+
+      navigateTo('/projects')
+
+      ElMessage({
+        message: 'Folder created successfully',
+        type: 'success',
+      })
     },
     () => {
-      console.log('Custom error handling')
     },
   )
 }
