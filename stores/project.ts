@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { OPTION_VIEW } from '~/constants/common'
-import { getProjects } from '~/api/projects'
+import { getProjects, showProject } from '~/api/projects'
 import type { IProject, IPagination } from "~/types"
 import { DEFAULT_META } from '~/constants/common'
 
@@ -12,6 +12,7 @@ interface State {
   optionViewRecentlyAdded: string
   projects: IProject[]
   meta: IPagination
+  project: IProject | null
 }
 
 export const useProjectStore = defineStore('project-store', {
@@ -24,6 +25,7 @@ export const useProjectStore = defineStore('project-store', {
       optionViewRecentlyAdded: OPTION_VIEW.GRID,
       projects: [],
       meta: DEFAULT_META,
+      project: null
     }
   },
 
@@ -48,6 +50,9 @@ export const useProjectStore = defineStore('project-store', {
     },
     getMeta(): IPagination {
       return this.meta
+    },
+    getProject(): IProject | null {
+      return this.project
     }
   },
 
@@ -87,6 +92,18 @@ export const useProjectStore = defineStore('project-store', {
         per_page: data.value.limit,
         last_page: data.value.total_page,
       })
+    },
+
+    async fetchProject (projectId: string): Promise<void> {
+      const key = 'show-project'
+
+      const response = await usePaginationCache(
+        key, () => showProject(projectId)
+      )
+
+      const { data } = response
+
+      this.project = data.value
     }
   }
 })

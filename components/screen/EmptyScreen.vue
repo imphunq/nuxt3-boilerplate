@@ -17,7 +17,11 @@
             <p>Get started by adding any .PNG, .JPG, .GIF file & Video (MP4, MOV) or click Upload Image button to browse from your computer.</p>
           </div>
 
-          <button type="button" class="w-1/3 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button
+            type="button"
+            class="w-1/3 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            @click="open()"
+          >
             Upload Image
           </button>
         </div>
@@ -121,12 +125,40 @@ import SyncIcon from '~/assets/images/sync-icon.svg'
 import Plugin1 from '~/assets/images/plugin1.svg'
 import Plugin2 from '~/assets/images/plugin2.svg'
 import Plugin3 from '~/assets/images/plugin3.svg'
+import { useFileDialog } from '@vueuse/core'
+import { requestUploadScreenToProject, uploadScreenToFileServer } from '~/api/projects'
+import type { IUploadRequestResponse } from '~/types'
 
 interface Props {
   project_title: string
 }
 
 const props = defineProps<Props>()
+
+const route = useRoute()
+
+const { id } = route.params
+
+const { files, open, reset, onChange } = useFileDialog({
+  accept: 'image/*',
+})
+
+onChange(async (files: FileList | null) => {
+  if (files && files.length > 0) {
+    const { data } = await requestUploadScreenToProject(id as string, files[0]);
+    const response = data.value.data as IUploadRequestResponse
+    const { upload_url: uploadUrl } = response
+
+    await uploadScreenToFileServer(uploadUrl, files[0])
+
+    await refreshNuxtData()
+
+    ElMessage.success({
+      message: 'Screen uploaded successfully',
+      type: 'success',
+    })
+  }
+})
 </script>
 
 <style lang="scss">

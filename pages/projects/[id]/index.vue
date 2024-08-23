@@ -2,7 +2,9 @@
   <div v-if="screens.length">
     <div class="project-screen-header flex items-center justify-between">
       <div>
-        <span class="text-sm text-black font-semibold">Project title</span>
+        <span class="text-sm text-black font-semibold">
+          {{ project.project_title }}
+        </span>
       </div>
 
       <div class="flex items-center gap-5">
@@ -37,7 +39,9 @@
     </div>
   </div>
 
-  <EmptyScreen v-else :project_title="`Project title`" />
+  <template v-if="screens.length === 0">
+    <EmptyScreen :project_title="`${project?.project_title}`" />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -51,18 +55,27 @@ import ListScreenTable from '~/components/screen/ListScreenTable.vue'
 import EmptyScreen from '~/components/screen/EmptyScreen.vue'
 import { OPTION_VIEW } from '~/constants/common'
 import { getScreensInProject } from '~/api/screens'
-import type { IScreen } from '~/types'
+import type { IScreen, IProject } from '~/types'
 
 const screenStore = useScreenStore()
+const projectStore = useProjectStore()
 const route = useRoute()
 const { id } = route.params
 
 const screens = ref<IScreen[]>([])
 
-useAsyncData('screens', async () => {
+await useAsyncData('screens', async () => {
   const { data } = await getScreensInProject(id as string)
 
   screens.value = data.value
+})
+
+await useAsyncData('project', async () => {
+  return await projectStore.fetchProject(id as string)
+})
+
+const project = computed((): IProject => {
+  return projectStore.getProject as IProject
 })
 
 const currentView = computed(() => {

@@ -31,9 +31,11 @@
             <img :src="GroupProjectIcon" alt="" class="w-8 h-8">
 
             <div class="flex flex-col gap-1">
-              <span class="text-lg font-bold text-black">Project Title</span>
+              <span class="text-lg font-bold text-black">
+                {{ project?.project_title }}
+              </span>
 
-              <p class="text-xs">Updated 4 mins ago</p>
+              <p class="text-xs">Updated {{ moment(project?.updated_at).fromNow() }}</p>
             </div>
           </div>
 
@@ -60,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import moment from 'moment'
 import { initDrawers } from 'flowbite'
 import { Plus } from '@element-plus/icons-vue'
 import RightNavbar from './RightNavbar.vue'
@@ -74,8 +77,13 @@ onMounted(() => {
 })
 
 const globleStore = useGlobalStore()
+const projectStore = useProjectStore()
 
 const openDrawer = ref<boolean>(false)
+
+const project = computed(() => {
+  return projectStore.getProject
+})
 
 onMounted(() => {
   window.addEventListener('resize', onResize)

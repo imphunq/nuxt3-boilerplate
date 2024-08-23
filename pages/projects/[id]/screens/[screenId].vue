@@ -159,13 +159,13 @@ const showCommentPopup = async (event: MouseEvent) => {
 const handleKeyDown = (event: KeyboardEvent) => {
   let screen: IScreen | undefined
 
-  if (event.key === 'ArrowRight') {
+  if (event.key === 'ArrowRight' || event.key === 'd' || event.key === 'D') {
     // Handle arrow right key
     screen = nextScreen(currentScreen.value!.orders)
 
 
   }
-  else if (event.key === 'ArrowLeft') {
+  else if (event.key === 'ArrowLeft' || event.key === 'a' || event.key === 'A') {
     // Handle arrow left key
 
     screen = previousScreen(currentScreen.value!.orders)
