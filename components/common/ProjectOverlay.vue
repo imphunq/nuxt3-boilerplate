@@ -61,7 +61,7 @@
                   <el-dropdown-item @click="">
                     <span class="ml-2 text-base">Stats</span>
                   </el-dropdown-item>
-                  <el-dropdown-item @click="">
+                  <el-dropdown-item @click="openModalConfirmDelete">
                     <span class="ml-2 text-base text-red-500">Delete</span>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -116,6 +116,11 @@
         </div>
 
         <ShareProjectModal ref="shareProjectModalRef" />
+        <ModalConfirmDelete
+          ref="modalConfirmDeleteRef"
+          type="project"
+          @delete="handleDelete"
+        />
       </el-card>
     </div>
   </div>
@@ -124,9 +129,11 @@
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
 import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
+import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
 import type { IProject } from '~/types'
 import moment from 'moment'
 import NoImage from '~/assets/images/no-image.jpg'
+import { deleteProject } from '~/api/projects'
 
 interface Props {
   project: IProject
@@ -134,7 +141,11 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const projectStore = useProjectStore()
+const route = useRoute()
+
 const shareProjectModalRef = ref<InstanceType<typeof ShareProjectModal> | null>(null)
+const modalConfirmDeleteRef = ref<InstanceType<typeof ModalConfirmDelete> | null>(null)
 
 const handleView = () => {
   navigateTo(`/projects/${props.project.id}`)
@@ -142,6 +153,35 @@ const handleView = () => {
 
 const openShareProjectModal = () => {
   shareProjectModalRef.value?.open()
+}
+
+const openModalConfirmDelete = () => {
+  modalConfirmDeleteRef.value?.open(props.project.project_title)
+}
+
+const handleDelete = async () => {
+  try {
+    await deleteProject(props.project.id)
+
+    ElMessage({
+      message: 'Project deleted successfully.',
+      type: 'success'
+    })
+
+    modalConfirmDeleteRef.value?.close()
+
+    clearCacheStartWith('projects')
+
+    projectStore.fetchProjects(
+      route.query.page as string ?? '1',
+      route.query
+    )
+  } catch (e) {
+    ElMessage({
+      message: 'Something went wrong. Please try again later.',
+      type: 'error'
+    })
+  }
 }
 </script>
 

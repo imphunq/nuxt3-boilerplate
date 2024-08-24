@@ -19,7 +19,7 @@
           </div>
 
           <div class="flex flex-col justify-center items-center rounded-lg w-full aspect-[4/3] bg-white">
-            <img class="w-24 h-24" :src="FolderImage" alt="">
+            <img class="max-w-24 max-h-24" :src="FolderImage" alt="">
 
             <span class="text-lg text-black mt-5">Folder name</span>
             <span class="text-gray-500 text-xs mt-2">43 Projects</span>

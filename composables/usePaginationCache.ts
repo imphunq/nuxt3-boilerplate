@@ -18,3 +18,11 @@ export const usePaginationCache = async (
 
   return data
 }
+
+export const clearCacheStartWith = (key: string) => {
+  cache.forEach((value, cacheKey) => {
+    if (cacheKey.startsWith('projects')) {
+      cache.delete(cacheKey)
+    }
+  })
+}

@@ -38,3 +38,9 @@ export const uploadScreenToFileServer = (url: string, file: File) => {
 export const showProject = (projectId: string) => {
   return useMyFetch(`user/project/${projectId}`)
 }
+
+export const deleteProject = (projectId: number) => {
+  return useMyFetch(`user/project/${projectId}/delete`, {
+    method: 'DELETE',
+  })
+}

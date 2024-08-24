@@ -61,7 +61,7 @@
                   <el-dropdown-item @click="">
                     <span class="ml-2 text-base">Stats</span>
                   </el-dropdown-item>
-                  <el-dropdown-item @click="">
+                  <el-dropdown-item @click="openModalConfirmDelete">
                     <span class="ml-2 text-base text-red-500">Delete</span>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -105,6 +105,12 @@
         </div>
 
         <ShareScreenModal ref="shareScreenModalRef" />
+
+        <ModalConfirmDelete
+          ref="modalConfirmDeleteRef"
+          type="screen"
+          @delete="handleDelete"
+        />
       </el-card>
     </div>
   </div>
@@ -114,8 +120,10 @@
 import moment from 'moment'
 import { More } from '@element-plus/icons-vue'
 import ShareScreenModal from '~/components/share/ShareScreenModal.vue'
+import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
 import type { IScreen } from '~/types'
 import NoImage from '~/assets/images/no-image.jpg'
+import { deleteScreen } from '~/api/screens'
 
 interface Props {
   screen: IScreen
@@ -123,7 +131,12 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const projectStore = useProjectStore()
+const route = useRoute()
+const { id } = route.params
+
 const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal> | null>(null)
+const modalConfirmDeleteRef = ref<InstanceType<typeof ModalConfirmDelete> | null>(null)
 
 const handleView = () => {
   navigateTo(`/projects/${props.screen.project_id}/screens/${props.screen.id}`)
@@ -131,6 +144,30 @@ const handleView = () => {
 
 const openModalShare = () => {
   shareScreenModalRef.value?.open()
+}
+
+const openModalConfirmDelete = () => {
+  modalConfirmDeleteRef.value?.open(props.screen.name)
+}
+
+const handleDelete = async () => {
+  try {
+    await deleteScreen(id as string, props.screen.id)
+
+    ElMessage({
+      message: 'Screen deleted successfully',
+      type: 'success'
+    })
+
+    modalConfirmDeleteRef.value?.close()
+
+    refreshNuxtData('screens')
+  } catch (e) {
+    ElMessage({
+      message: 'Something went wrong, please try again later',
+      type: 'error'
+    })
+  }
 }
 </script>
 
