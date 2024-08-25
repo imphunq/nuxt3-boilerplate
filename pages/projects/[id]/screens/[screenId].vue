@@ -61,7 +61,7 @@
             />
           </template>
           <template #default>
-            <ReplyCommentPopover @close="handleCloseReplyComment(index)" />
+            <ReplyCommentPopover :comment-prop="comment" @close="handleCloseReplyComment(index)" />
           </template>
         </el-popover>
       </div>

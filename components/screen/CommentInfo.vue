@@ -7,18 +7,31 @@
 
     <div class="flex-1 mb-4">
       <div class="flex items-center gap-2">
-        <span class="text-sm text-black">Louis Morris</span>
+        <span class="text-sm text-black">{{ name }}</span>
         <div class="w-2 h-2 bg-gray-500 rounded-full flex items-center justify-center"></div>
         <span class="text-gray-400 text-xs">
-          15 minutes ago
+          {{ moment(comment.created_at).fromNow() }}
         </span>
       </div>
 
       <div class="mt-2">
-        We can try this blue
+        {{ comment.comment }}
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import moment from 'moment'
+import type { IComment } from '~/types'
+
+interface Props {
+  comment: IComment
+}
+
+const props = defineProps<Props>()
+
+const name = computed(() => {
+  return props.comment.user_info?.lastname + ' ' + props.comment.user_info?.name
+})
+</script>

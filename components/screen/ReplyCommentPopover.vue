@@ -12,7 +12,7 @@
     </div>
 
     <div class="mt-4">
-      <CommentInfo />
+      <CommentInfo :comment="commentProp" />
     </div>
 
     <div class="mt-4 flex gap-4 w-full">
@@ -94,7 +94,13 @@ import { Close } from '@element-plus/icons-vue'
 import type { Rules } from 'async-validator'
 import { useAsyncValidator } from '@vueuse/integrations/useAsyncValidator'
 import CommentInfo from './CommentInfo.vue'
+import type { IComment } from '~/types'
 
+interface Props {
+  commentProp: IComment
+}
+
+const props = defineProps<Props>()
 const emit = defineEmits(['reply', 'close'])
 
 const commentPopOver = ref<boolean>(false)
