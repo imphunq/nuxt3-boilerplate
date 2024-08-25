@@ -89,19 +89,11 @@ import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
 import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
-import type { IScreen } from '~/types'
+import type { IScreen, IComment } from '~/types'
 
 definePageMeta({
   layout: 'blank',
 })
-
-interface IComment {
-  comment: string
-  x: number
-  y: number
-  displayX: number
-  displayY: number
-}
 
 const route = useRoute()
 const router = useRouter()
@@ -196,14 +188,28 @@ const handleSubmitComment = (comment: string) => {
   const imageRect = containerRef.value!.getBoundingClientRect();
   const xPercent = (popoverX.value / imageRect.width) * 100;
   const yPercent = (popoverY.value / imageRect.height) * 100;
+console.log('imageRect', imageRect)
 
   comments.value.push({
     comment,
-    x: popoverX.value,
-    y: popoverY.value,
+    position_x: popoverX.value,
+    position_y: popoverY.value,
     displayX: xPercent,
     displayY: yPercent,
-  })
+    id: 0,
+    parent_id: 0,
+    mentions: null,
+    resolved: 0,
+    user_id: 0,
+    screens_id: 0,
+    number: 0,
+    commenttype_id: 0,
+    comment_start: null,
+    comment_end: null,
+    created_at: '',
+    updated_at: '',
+    deleted_at: null
+})
 
   visiblePopovers.push(false)
 }
@@ -216,6 +222,20 @@ const onImageLoad = () => {
   if (screenImageRef.value) {
     originalWidth.value = screenImageRef.value.naturalWidth
     originalHeight.value = screenImageRef.value.naturalHeight
+
+    const screenComments = currentScreen.value?.comments || []
+    const imageRect = containerRef.value!.getBoundingClientRect();
+
+  comments.value = screenComments.map((comment: IComment) => {
+    const xPercent = (comment.position_x / imageRect.width) * 100;
+    const yPercent = (comment.position_y / imageRect.height) * 100;
+
+    return {
+      ...comment,
+      displayX: xPercent,
+      displayY: yPercent,
+    }
+  })
 
     console.log('Original width:', originalWidth.value)
     console.log('Original height:', originalHeight.value)

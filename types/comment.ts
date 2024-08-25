@@ -17,5 +17,7 @@ export interface IComment {
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
-  user_info: IUserInfo;
+  user_info?: IUserInfo | null;
+  displayX?: number
+  displayY?: number
 }
