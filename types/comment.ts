@@ -21,3 +21,12 @@ export interface IComment {
   displayX?: number
   displayY?: number
 }
+
+export interface ICommentCreate {
+  comment: string;
+  position_x: number;
+  position_y: number;
+  screens_id: number;
+  parent_id?: number;
+  commenttype_id: number;
+}

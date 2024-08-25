@@ -89,6 +89,7 @@ import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
 import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
+import { createComment } from '~/api/comment'
 import type { IScreen, IComment } from '~/types'
 
 definePageMeta({
@@ -98,12 +99,14 @@ definePageMeta({
 const route = useRoute()
 const router = useRouter()
 const screenStore = useScreenStore()
+const authStore = useAuthStore()
 
 const screenId = parseInt(route.params.screenId as string)
+const projectId = route.params.id as string
 
 if(screenStore.previewScreens.length === 0) {
   useAsyncData('preview-screens', async () => {
-    await screenStore.fetchPreviewScreens(route.params.id as string)
+    await screenStore.fetchPreviewScreens(projectId)
   })
 }
 
@@ -117,6 +120,10 @@ const currentScreen = computed(() => {
 
 const project = computed(() => {
   return screenStore.getCurrentProject
+})
+
+const user = computed(() => {
+  return authStore.getCurrentUser
 })
 
 const screenImageRef = ref<HTMLImageElement | null>(null)
@@ -184,13 +191,12 @@ const handleNextScreen = () => {
   });
 }
 
-const handleSubmitComment = (comment: string) => {
+const handleSubmitComment = async (comment: any) => {
   const imageRect = containerRef.value!.getBoundingClientRect();
   const xPercent = (popoverX.value / imageRect.width) * 100;
   const yPercent = (popoverY.value / imageRect.height) * 100;
-console.log('imageRect', imageRect)
 
-  comments.value.push({
+  const data = {
     comment,
     position_x: popoverX.value,
     position_y: popoverY.value,
@@ -209,9 +215,34 @@ console.log('imageRect', imageRect)
     created_at: '',
     updated_at: '',
     deleted_at: null
-})
+  }
+
+  comments.value.push(data)
 
   visiblePopovers.push(false)
+
+  const { error } = await createComment(projectId, {
+    comment: comment.value,
+    position_x: popoverX.value,
+    position_y: popoverY.value,
+    screens_id: screenId,
+    parent_id: 0,
+    commenttype_id: user.value!.id,
+  })
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again',
+      type: 'error',
+    })
+  } else {
+    ElMessage({
+      message: 'Comment has been added successfully',
+      type: 'success',
+    })
+
+    refreshNuxtData('preview-screens')
+  }
 }
 
 const handleCloseReplyComment = (index: number) => {

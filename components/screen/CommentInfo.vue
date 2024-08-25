@@ -6,12 +6,19 @@
     >
 
     <div class="flex-1 mb-4">
-      <div class="flex items-center gap-2">
-        <span class="text-sm text-black">{{ name }}</span>
-        <div class="w-2 h-2 bg-gray-500 rounded-full flex items-center justify-center"></div>
-        <span class="text-gray-400 text-xs">
-          {{ moment(comment.created_at).fromNow() }}
-        </span>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-black">{{ name }}</span>
+          <div class="w-2 h-2 bg-gray-500 rounded-full flex items-center justify-center"></div>
+          <span class="text-gray-400 text-xs">
+            {{ moment(comment.created_at).fromNow() }}
+          </span>
+        </div>
+
+        <div v-if="user?.id === comment.user_id" class="flex items-center gap-2">
+          <el-icon class="cursor-pointer"><Delete /></el-icon>
+          <el-icon class="cursor-pointer"><EditPen /></el-icon>
+        </div>
       </div>
 
       <div class="mt-2">
@@ -23,6 +30,7 @@
 
 <script lang="ts" setup>
 import moment from 'moment'
+import { Delete, EditPen } from '@element-plus/icons-vue'
 import type { IComment } from '~/types'
 
 interface Props {
@@ -30,6 +38,12 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const authStore = useAuthStore()
+
+const user = computed(() => {
+  return authStore.getCurrentUser
+})
 
 const name = computed(() => {
   return props.comment.user_info?.lastname + ' ' + props.comment.user_info?.name
