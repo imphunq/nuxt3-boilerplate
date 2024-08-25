@@ -7,3 +7,7 @@ export const createFolder = (data: ICreateFolder) => {
     body: JSON.stringify(data),
   })
 }
+
+export const getFolders = () => {
+  return useMyFetch(`user/folders`)
+}

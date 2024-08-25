@@ -21,8 +21,8 @@
           <div class="flex flex-col justify-center items-center rounded-lg w-full aspect-[4/3] bg-white">
             <img class="max-w-24 max-h-24" :src="FolderImage" alt="">
 
-            <span class="text-lg text-black mt-5">Folder name</span>
-            <span class="text-gray-500 text-xs mt-2">43 Projects</span>
+            <span class="text-lg text-black mt-5">{{ folder.folder_name }}</span>
+            <span class="text-gray-500 text-xs mt-2">{{ folder.projects_count }} Projects</span>
           </div>
         </div>
       </el-card>
@@ -32,6 +32,13 @@
 
 <script lang="ts" setup>
 import FolderImage from '~/assets/images/folder.svg'
+import type { IFolder } from '~/types'
+
+interface Props {
+  folder: IFolder
+}
+
+const props = defineProps<Props>()
 
 const handleView = () => {}
 </script>

@@ -3,13 +3,6 @@
     v-if="projects.length"
     class="mt-8"
   >
-    <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5 mb-5">
-      <FolderCard
-        v-for="index in 4"
-        :key="`${index}-folder-card`"
-      />
-    </div>
-
     <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5">
       <ProjectOverlay
         v-for="(project, index) in projects"
@@ -50,7 +43,7 @@ const projectStore = useProjectStore()
 const props = withDefaults(defineProps<Props>(), {
   type: PROJECT_TYPE.ALL,
 })
-console.log('props', props.meta)
+
 const optionView = computed(() => {
   if (props.type === PROJECT_TYPE.STARRED) {
     return projectStore.getStarredOptionView

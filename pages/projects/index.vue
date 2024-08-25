@@ -2,6 +2,12 @@
   <div>
     <HeaderPage :key="route.path" :type="PROJECT_TYPE.ALL" />
 
+    <ListFolders
+      v-if="folders.length"
+      :key="route.path"
+      :folders="folders"
+    />
+
     <ListProject
       v-if="projects.length"
       :key="route.path"
@@ -14,10 +20,8 @@
 <script lang="ts" setup>
 import HeaderPage from '~/components/project/HeaderPage.vue'
 import ListProject from '~/components/project/ListProject.vue'
+import ListFolders from '~/components/folder/ListFolders.vue'
 import { PROJECT_TYPE } from '~/constants/project'
-import { getProjects } from '~/api/projects'
-import type { IProject, IPagination } from '~/types'
-import { DEFAULT_META } from '~/constants/common'
 
 definePageMeta({
   middleware: 'auth',
@@ -26,27 +30,22 @@ definePageMeta({
 const globalStore = useGlobalStore()
 const route = useRoute()
 const projectStore = useProjectStore()
+const folderStore = useFolderStore()
 
-// const projects = ref<IProject[]>([])
-// const meta = reactive<IPagination>(DEFAULT_META)
+await useAsyncData('folders', async () => {
+  await folderStore.fetchFolders()
+})
 
-// const fetchProjects = async (page: string) => {
-//   const { data } = await getProjects({ page })
-
-//   projects.value = data.value.data
-//   Object.assign(meta, {
-//     current_page: data.value.current_page,
-//     total: data.value.projects_count,
-//     per_page: data.value.limit,
-//     last_page: data.value.total_page
-//   })
-// }
 useRefetch(
   () => projectStore.fetchProjects(
     route.query.page as string ?? '1',
     route.query
   )
 )
+
+const folders = computed(() => {
+  return folderStore.getFolders
+})
 
 const projects = computed(() => {
   return projectStore.getProjects
