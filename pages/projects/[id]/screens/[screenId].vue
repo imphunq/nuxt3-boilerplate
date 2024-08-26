@@ -61,7 +61,11 @@
             />
           </template>
           <template #default>
-            <ReplyCommentPopover :comment-prop="comment" @close="handleCloseReplyComment(index)" />
+            <ReplyCommentPopover
+              :comment-prop="comment"
+              @close="handleCloseReplyComment(index)"
+              @delete="handleDeleteComment"
+            />
           </template>
         </el-popover>
       </div>
@@ -243,6 +247,12 @@ const handleSubmitComment = async (comment: any) => {
 
     refreshNuxtData('preview-screens')
   }
+}
+
+const handleDeleteComment = (id: number) => {
+  comments.value = comments.value.filter((comment: IComment) => comment.id !== id)
+
+  refreshNuxtData('preview-screens')
 }
 
 const handleCloseReplyComment = (index: number) => {

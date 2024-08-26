@@ -16,7 +16,15 @@
         </div>
 
         <div v-if="user?.id === comment.user_id" class="flex items-center gap-2">
-          <el-icon class="cursor-pointer"><Delete /></el-icon>
+          <el-popconfirm
+            title="Are you sure to delete this comment?"
+            :teleported="false"
+            @confirm="confirmDelete"
+          >
+            <template #reference>
+              <el-icon class="cursor-pointer"><Delete /></el-icon>
+            </template>
+          </el-popconfirm>
           <el-icon class="cursor-pointer"><EditPen /></el-icon>
         </div>
       </div>
@@ -32,14 +40,17 @@
 import moment from 'moment'
 import { Delete, EditPen } from '@element-plus/icons-vue'
 import type { IComment } from '~/types'
+import { deleteComment } from '~/api/comment'
 
 interface Props {
   comment: IComment
 }
 
+const emit = defineEmits(['delete'])
 const props = defineProps<Props>()
 
 const authStore = useAuthStore()
+const route = useRoute()
 
 const user = computed(() => {
   return authStore.getCurrentUser
@@ -48,4 +59,15 @@ const user = computed(() => {
 const name = computed(() => {
   return props.comment.user_info?.lastname + ' ' + props.comment.user_info?.name
 })
+
+const confirmDelete = async () => {
+  const { error } = await deleteComment(route.params.id as string, props.comment.id)
+
+  if (error.value) {
+    ElMessage.error('Something went wrong, please try again.')
+  } else {
+    ElMessage.success('Comment deleted successfully')
+    emit('delete', props.comment.id)
+  }
+}
 </script>

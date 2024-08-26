@@ -7,3 +7,9 @@ export const createComment = (projectId: string, data: ICommentCreate) => {
     body: JSON.stringify(data),
   })
 }
+
+export const deleteComment = (projectId: string, commentId: number) => {
+  return useMyFetch(`user/project/${projectId}/comment/${commentId}`, {
+    method: 'DELETE',
+  })
+}

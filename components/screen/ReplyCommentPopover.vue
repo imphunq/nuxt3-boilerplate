@@ -12,7 +12,7 @@
     </div>
 
     <div class="mt-4">
-      <CommentInfo :comment="commentProp" />
+      <CommentInfo :comment="commentProp" @delete="handleDeleteComment" />
     </div>
 
     <div class="mt-4 flex gap-4 w-full">
@@ -101,7 +101,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits(['reply', 'close'])
+const emit = defineEmits(['reply', 'close', 'delete'])
 
 const commentPopOver = ref<boolean>(false)
 const comment = ref<string>('')
@@ -138,6 +138,10 @@ const submitComment = () => {
     comment.value = ''
     close()
   }
+}
+
+const handleDeleteComment = (id: number) => {
+  emit('delete', id)
 }
 
 defineExpose({
