@@ -226,7 +226,7 @@ const scaleScreen = (scale: number) => {
 }
 
 const openShareModal = () => {
-  shareScreenModalRef.value?.open()
+  shareScreenModalRef.value?.open(1, 1)
 }
 </script>
 

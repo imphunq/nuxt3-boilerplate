@@ -112,7 +112,7 @@
                   id="share-input"
                   type="text"
                   class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  value="hostdesignfront.vnjack.com/sharelink/1"
+                  :value="shareLink"
                 >
               </div>
             </div>
@@ -213,22 +213,44 @@
 <script lang="ts" setup>
 import type { TabsPaneContext } from 'element-plus'
 import { PRIVACY } from '~/constants/project'
-import type { IProjectCreate, ILabelValue } from '~/types'
+import type { ICreateShare, ILabelValue } from '~/types'
 import ShareIcon from '~/assets/images/icons/project/share.svg'
 import SharePrivate from '~/assets/images/icons/project/share-private.png'
+import { shareScreen } from '~/api/share'
 
 const emit = defineEmits(['normal-upload'])
+
+const route = useRoute()
 
 const dialogFormVisible = ref(false)
 const activeTab = ref<string>('share_link')
 const privacy = ref<string>(PRIVACY.PUBLIC)
+const shareData = ref<ICreateShare>({} as ICreateShare)
+const shareLink = ref<string>(window.location.host)
 
 const privacyOptions: ILabelValue[] = [
   { label: 'Public Share', value: PRIVACY.PUBLIC },
   { label: 'Private Share', value: PRIVACY.PRIVATE },
 ]
 
-const open = () => {
+const open = async (projectId: number, screenId: number) => {
+  const { data, error } = await shareScreen(projectId, {
+    screen_ids: screenId
+  })
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again',
+      type: 'error',
+    })
+
+    return
+  }
+
+  shareData.value = data.value.data
+
+  shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
+
   dialogFormVisible.value = true
 }
 

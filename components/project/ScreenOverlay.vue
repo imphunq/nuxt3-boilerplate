@@ -143,7 +143,7 @@ const handleView = () => {
 }
 
 const openModalShare = () => {
-  shareScreenModalRef.value?.open()
+  shareScreenModalRef.value?.open(props.screen.project_id, props.screen.id)
 }
 
 const openModalConfirmDelete = () => {
