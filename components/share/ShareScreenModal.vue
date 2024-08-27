@@ -121,8 +121,9 @@
           <label class="inline-flex items-center cursor-pointer">
             <span class="mr-2 text-sm font-medium text-gray-900 dark:text-gray-300">Disable Comments</span>
             <input
+              v-model="disableComment"
               type="checkbox"
-              value=""
+              :value="disableComment"
               class="sr-only peer"
             >
             <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
@@ -227,6 +228,9 @@ const activeTab = ref<string>('share_link')
 const privacy = ref<string>(PRIVACY.PUBLIC)
 const shareData = ref<ICreateShare>({} as ICreateShare)
 const shareLink = ref<string>(window.location.host)
+const disableComment = ref<boolean>(false)
+const currentProjectId = ref<number>(0)
+const currentScreenId = ref<number>(0)
 
 const privacyOptions: ILabelValue[] = [
   { label: 'Public Share', value: PRIVACY.PUBLIC },
@@ -234,6 +238,16 @@ const privacyOptions: ILabelValue[] = [
 ]
 
 const open = async (projectId: number, screenId: number) => {
+  currentProjectId.value = projectId
+  currentScreenId.value = screenId
+
+  if (localStorage.getItem(`screenKey_${projectId}_${screenId}`)) {
+    shareLink.value = `${window.location.host}/sharelink/${localStorage.getItem(`screenKey_${projectId}_${screenId}`)}`
+    dialogFormVisible.value = true
+
+    return
+  }
+
   const { data, error } = await shareScreen(projectId, {
     screen_ids: screenId
   })
@@ -251,8 +265,27 @@ const open = async (projectId: number, screenId: number) => {
 
   shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
 
+  localStorage.setItem(`screenKey_${projectId}_${screenId}`, shareData.value.share_key)
+
   dialogFormVisible.value = true
 }
+
+watch(disableComment, async (value) => {
+  const { data, error } = await shareScreen(currentProjectId.value, {
+    screen_ids: currentScreenId.value,
+    show_comments: !disableComment,
+  })
+
+  if (error.value) {
+    return
+  }
+
+  shareData.value = data.value.data
+
+  shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
+
+  localStorage.setItem(`screenKey_${currentProjectId.value}_${currentScreenId.value}`, shareData.value.share_key)
+})
 
 const close = () => {
   dialogFormVisible.value = false
