@@ -6,3 +6,7 @@ export const shareScreen = (projectId: number, data: any) => {
     body: JSON.stringify(data),
   })
 }
+
+export const viewShareKeyPage = (shareKey: string) => {
+  return useMyFetch(`share/page/${shareKey}`)
+}
