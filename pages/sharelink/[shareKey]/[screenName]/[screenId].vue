@@ -1,38 +1,13 @@
 <template>
-  <div>
-    <HeaderPageDetail
-      :project="project"
-      :screen="currentScreen"
-      @scale="handleScale"
-    />
-
-    <div class="flex items-center justify-between py-4 px-8">
-      <div class="ml-auto">
-        <button
-          type="button"
-          class="focus:outline-none text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2 dark:bg-green-600 dark:hover:bg-green-400 dark:focus:ring-green-600"
-        >
-          Replace Screen
-        </button>
-      </div>
-      <div class="absolute left-1/2 transform -translate-x-1/2">
-        <button
-          type="button"
-          class="text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 dark:bg-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-400 dark:border-gray-500"
-        >
-          {{ currentScreen?.orders}} of {{ screens.length }}
-        </button>
-      </div>
-    </div>
-
+  <div class="w-full h-full">
     <div class="flex items-center justify-center">
       <div
         ref="containerRef"
-        class="image-scale relative mt-10"
+        class="w-full h-full relative"
       >
         <img
           ref="screenImageRef"
-          :src="currentScreen?.screen_url"
+          :src="currentScreen?.screen_url_thumb"
           class="w-full cursor-crosshair"
           @load="onImageLoad"
           @click="showCommentPopup"
@@ -64,7 +39,6 @@
             <ReplyCommentPopover
               :comment-prop="comment"
               @close="handleCloseReplyComment(index)"
-              @delete="handleDeleteComment"
             />
           </template>
         </el-popover>
@@ -89,12 +63,13 @@
 
 <script lang="ts" setup>
 import { ArrowLeftBold, ArrowRightBold } from '@element-plus/icons-vue'
-import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
 import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
-import { createComment } from '~/api/comment'
+import { viewShareKeyPage } from '~/api/share'
 import type { IScreen, IComment } from '~/types'
+import { createComment } from '~/api/comment'
+import _get from 'lodash/get'
 
 definePageMeta({
   layout: 'blank',
@@ -102,38 +77,14 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
-const screenStore = useScreenStore()
-const authStore = useAuthStore()
 
+const shareKey = route.params.shareKey as string
 const screenId = parseInt(route.params.screenId as string)
-const projectId = route.params.id as string
 
-if(screenStore.previewScreens.length === 0) {
-  useAsyncData('preview-screens', async () => {
-    await screenStore.fetchPreviewScreens(projectId)
-  })
-}
-
-const screens = computed(() => {
-  return screenStore.getPreviewScreens
-})
-
-const currentScreen = computed(() => {
-  return screens.value.find((screen: IScreen) => screen.id === screenId)
-})
-
-const project = computed(() => {
-  return screenStore.getCurrentProject
-})
-
-const user = computed(() => {
-  return authStore.getCurrentUser
-})
-
+const screens = ref<IScreen[]>([])
 const screenImageRef = ref<HTMLImageElement | null>(null)
 const containerRef = ref<HTMLDivElement | null>(null)
 const commentPopoverRef = ref<InstanceType<typeof CommentPopover> | null>(null)
-const defaultWidth = ref<string>('50%')
 const popoverX = ref<number>(0)
 const popoverY = ref<number>(0)
 const originalWidth = ref<number>(0)
@@ -141,9 +92,11 @@ const originalHeight = ref<number>(0);
 const comments = ref<IComment[]>([])
 const visiblePopovers = reactive(Array(comments.value.length).fill(false))
 
-const handleScale = (scale: number) => {
-  defaultWidth.value = `${scale}%`
-}
+const { data: response } = await useAsyncData('view-share-key', async () => {
+  return await viewShareKeyPage(shareKey)
+})
+
+screens.value = _get(response, 'value.data.screens.data', [])
 
 const showCommentPopup = async (event: MouseEvent) => {
   await commentPopoverRef.value?.close()
@@ -158,6 +111,18 @@ const showCommentPopup = async (event: MouseEvent) => {
     }
   }, 0)
 }
+
+const nextScreen = (currentOrder: number) => {
+  return screens.value.find((screen: IScreen) => screen.orders > currentOrder )
+}
+
+const previousScreen = (currentOrder: number) => {
+  return screens.value.slice().reverse().find((screen: IScreen) => screen.orders < currentOrder )
+}
+
+const currentScreen = computed(() => {
+  return screens.value.find((screen: IScreen) => screen.id === screenId)
+})
 
 const handleKeyDown = (event: KeyboardEvent) => {
   let screen: IScreen | undefined
@@ -175,7 +140,7 @@ const handleKeyDown = (event: KeyboardEvent) => {
   }
 
   router.replace({
-    params: { screenId: screen?.id.toString() },
+    params: { screenId: screen?.id.toString(), screenName: screen?.name },
   });
 }
 
@@ -183,7 +148,7 @@ const handlePreviousScreen = () => {
   const screen = previousScreen(currentScreen.value!.orders)
 
   router.replace({
-    params: { screenId: screen?.id.toString() },
+    params: { screenId: screen?.id.toString(), screenName: screen?.name },
   });
 }
 
@@ -191,7 +156,7 @@ const handleNextScreen = () => {
   const screen = nextScreen(currentScreen.value!.orders)
 
   router.replace({
-    params: { screenId: screen?.id.toString() },
+    params: { screenId: screen?.id.toString(), screenName: screen?.name },
   });
 }
 
@@ -225,34 +190,28 @@ const handleSubmitComment = async (comment: any) => {
 
   visiblePopovers.push(false)
 
-  const { error } = await createComment(projectId, {
-    comment: comment.value,
-    position_x: popoverX.value,
-    position_y: popoverY.value,
-    screens_id: screenId,
-    parent_id: 0,
-    commenttype_id: user.value!.id,
-  })
+  // const { error } = await createComment(projectId, {
+  //   comment: comment.value,
+  //   position_x: popoverX.value,
+  //   position_y: popoverY.value,
+  //   screens_id: screenId,
+  //   parent_id: 0,
+  //   commenttype_id: user.value!.id,
+  // })
 
-  if (error.value) {
-    ElMessage({
-      message: 'Something went wrong, please try again',
-      type: 'error',
-    })
-  } else {
-    ElMessage({
-      message: 'Comment has been added successfully',
-      type: 'success',
-    })
+  // if (error.value) {
+  //   ElMessage({
+  //     message: 'Something went wrong, please try again',
+  //     type: 'error',
+  //   })
+  // } else {
+  //   ElMessage({
+  //     message: 'Comment has been added successfully',
+  //     type: 'success',
+  //   })
 
-    refreshNuxtData('preview-screens')
-  }
-}
-
-const handleDeleteComment = (id: number) => {
-  comments.value = comments.value.filter((comment: IComment) => comment.id !== id)
-
-  refreshNuxtData('preview-screens')
+  //   refreshNuxtData('preview-screens')
+  // }
 }
 
 const handleCloseReplyComment = (index: number) => {
@@ -264,31 +223,23 @@ const onImageLoad = () => {
     originalWidth.value = screenImageRef.value.naturalWidth
     originalHeight.value = screenImageRef.value.naturalHeight
 
-    const screenComments = currentScreen.value?.comments || []
-    const imageRect = containerRef.value!.getBoundingClientRect();
+  //   const screenComments = currentScreen.value?.comments || []
+  //   const imageRect = containerRef.value!.getBoundingClientRect();
 
-  comments.value = screenComments.map((comment: IComment) => {
-    const xPercent = (comment.position_x / imageRect.width) * 100;
-    const yPercent = (comment.position_y / imageRect.height) * 100;
+  // comments.value = screenComments.map((comment: IComment) => {
+  //   const xPercent = (comment.position_x / imageRect.width) * 100;
+  //   const yPercent = (comment.position_y / imageRect.height) * 100;
 
-    return {
-      ...comment,
-      displayX: xPercent,
-      displayY: yPercent,
-    }
-  })
+  //   return {
+  //     ...comment,
+  //     displayX: xPercent,
+  //     displayY: yPercent,
+  //   }
+  // })
 
     console.log('Original width:', originalWidth.value)
     console.log('Original height:', originalHeight.value)
   }
-}
-
-const nextScreen = (currentOrder: number) => {
-  return screens.value.find((screen: IScreen) => screen.orders > currentOrder )
-}
-
-const previousScreen = (currentOrder: number) => {
-  return screens.value.slice().reverse().find((screen: IScreen) => screen.orders < currentOrder )
 }
 
 onMounted(() => {
@@ -301,15 +252,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.image-scale {
-  width: v-bind(defaultWidth);
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  box-shadow: 0 0 1.25rem 0 rgba(0, 0, 0, 0.1);
-  transition: width 0.3s ease;
-}
-
 .half-left-circle {
   clip-path: circle(50% at 0 50%);
 }

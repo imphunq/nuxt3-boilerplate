@@ -13,7 +13,14 @@
       <span class="text-gray-500">{{ data.length }} screen</span>
     </div>
 
-    <el-button type="primary" round size="large">View Screen</el-button>
+    <el-button
+      type="primary"
+      round
+      size="large"
+      @click="viewScreens"
+    >
+      View Screen
+    </el-button>
 
     <div class="screen-preview__image flex items-center justify-center relative">
       <div class="view-light"></div>
@@ -34,6 +41,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const router = useRouter()
 
 const shareKey = route.params.shareKey as string
 
@@ -45,7 +53,19 @@ const { data: response } = await useAsyncData('view-share-key', async () => {
 
 data.value = _get(response, 'value.data.screens.data', [])
 
-console.log(data.value)
+const viewScreens = () => {
+  const screenId = _get(data.value, '[0].id', '')
+  const screenName = _get(data.value, '[0].name', '')
+
+  router.push({
+    name: 'sharelink-shareKey-screenName-screenId',
+    params: {
+      shareKey,
+      screenName,
+      screenId,
+    },
+  })
+}
 </script>
 
 <style lang="scss" scoped>
