@@ -1,19 +1,29 @@
 <template>
   <div>
-    <HeaderPage :key="route.path" :type="PROJECT_TYPE.ALL" />
-
-    <ListFolders
-      v-if="folders.length"
+    <HeaderPage
       :key="route.path"
-      :folders="folders"
+      :type="PROJECT_TYPE.ALL"
     />
 
-    <ListProject
-      v-if="projects.length"
-      :key="route.path"
-      :projects="projects"
-      :meta="meta"
-    />
+    <template v-if="folders.length || projects.length">
+      <ListFolders
+        v-if="folders.length"
+        :key="route.path"
+        :folders="folders"
+      />
+
+      <ListProject
+        v-if="projects.length"
+        :key="route.path"
+        :projects="projects"
+        :meta="meta"
+      />
+    </template>
+    <template v-else>
+      <div>
+        <NoProjects />
+      </div>
+    </template>
   </div>
 </template>
 
@@ -22,6 +32,7 @@ import HeaderPage from '~/components/project/HeaderPage.vue'
 import ListProject from '~/components/project/ListProject.vue'
 import ListFolders from '~/components/folder/ListFolders.vue'
 import { PROJECT_TYPE } from '~/constants/project'
+import NoProjects from '~/components/common/NoProjects.vue'
 
 definePageMeta({
   middleware: 'auth',
@@ -39,8 +50,8 @@ await useAsyncData('folders', async () => {
 useRefetch(
   () => projectStore.fetchProjects(
     route.query.page as string ?? '1',
-    route.query
-  )
+    route.query,
+  ),
 )
 
 const folders = computed(() => {

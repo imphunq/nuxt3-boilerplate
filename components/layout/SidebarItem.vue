@@ -55,6 +55,8 @@
 </template>
 
 <script lang="ts" setup>
+import { initDropdowns } from 'flowbite'
+
 interface MenuItem {
   to: string
   icon: string
@@ -65,6 +67,12 @@ interface MenuItem {
 interface Props {
   item: MenuItem
 }
+
+onMounted(() => {
+  useFlowbite(() => {
+    initDropdowns()
+  })
+})
 
 const globalStore = useGlobalStore()
 const route = useRoute()

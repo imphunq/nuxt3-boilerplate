@@ -249,7 +249,7 @@ const open = async (projectId: number, screenId: number) => {
   }
 
   const { data, error } = await shareScreen(projectId, {
-    screen_ids: screenId
+    screen_ids: screenId,
   })
 
   if (error.value) {

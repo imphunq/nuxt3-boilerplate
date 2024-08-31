@@ -128,10 +128,10 @@
 
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
+import moment from 'moment'
 import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
 import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
 import type { IProject } from '~/types'
-import moment from 'moment'
 import NoImage from '~/assets/images/no-image.jpg'
 import { deleteProject } from '~/api/projects'
 
@@ -152,7 +152,7 @@ const handleView = () => {
 }
 
 const openShareProjectModal = () => {
-  shareProjectModalRef.value?.open()
+  shareProjectModalRef.value?.open(props.project.id)
 }
 
 const openModalConfirmDelete = () => {
@@ -165,7 +165,7 @@ const handleDelete = async () => {
 
     ElMessage({
       message: 'Project deleted successfully.',
-      type: 'success'
+      type: 'success',
     })
 
     modalConfirmDeleteRef.value?.close()
@@ -174,12 +174,13 @@ const handleDelete = async () => {
 
     projectStore.fetchProjects(
       route.query.page as string ?? '1',
-      route.query
+      route.query,
     )
-  } catch (e) {
+  }
+  catch (e) {
     ElMessage({
       message: 'Something went wrong. Please try again later.',
-      type: 'error'
+      type: 'error',
     })
   }
 }
