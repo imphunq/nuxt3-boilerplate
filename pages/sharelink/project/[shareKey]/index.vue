@@ -34,7 +34,7 @@
     <div class="screen-preview__image flex items-center justify-center relative">
       <div class="view-light" />
       <div class="view-img-inner" />
-      <div class="view-thumb absolute" />
+      <div class="view-thumb absolute" :style="{ backgroundImage: `url(${thumb})` }" />
     </div>
   </div>
 </template>
@@ -112,7 +112,6 @@ const viewScreens = () => {
     border-radius: 10px;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-    background: url(v-bind(thumb));
   }
 
   @media screen and (max-width: 1024px) {

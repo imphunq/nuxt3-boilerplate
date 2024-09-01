@@ -63,28 +63,34 @@
 <script lang="ts" setup>
 import { initDropdowns } from 'flowbite'
 import _find from 'lodash/find'
-import type { ILabelValue } from '~/types'
+import _get from 'lodash/get'
+import type { ILabelValue, IFolder } from '~/types'
+import { getFolders } from '~/api/folder'
 
-const currentValue = ref<string>('personal_project')
+const folders = ref<IFolder[]>([])
+
+const { data } = await useAsyncData('folders', async () => {
+  return await getFolders()
+})
+
+folders.value = _get(data.value, 'data.data', [])
+
+const items = computed<ILabelValue[]>(() => {
+  return folders.value.map((folder) => {
+    return {
+      label: folder.folder_name,
+      value: folder.id,
+    }
+  })
+})
+
+const currentValue = ref<string>(items.value[0].value as string)
 const dropdownFolderProjectButtonRef = ref<HTMLElement | null>(null)
 
 const currentLabel = computed(() => {
   const item = _find(items.value, { value: currentValue.value })
 
   return item?.label
-})
-
-const items = computed<ILabelValue[]>(() => {
-  return [
-    {
-      value: 'shared_project',
-      label: 'Shared Projects',
-    },
-    {
-      value: 'personal_project',
-      label: 'Personal Projects',
-    },
-  ]
 })
 
 const selectItem = (item: ILabelValue) => {

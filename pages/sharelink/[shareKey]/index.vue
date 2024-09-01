@@ -25,7 +25,7 @@
     <div class="screen-preview__image flex items-center justify-center relative">
       <div class="view-light"></div>
       <div class="view-img-inner"></div>
-      <div class="view-thumb absolute"></div>
+      <div class="view-thumb absolute" :style="{ backgroundImage: `url(${thumb})` }"></div>
     </div>
   </div>
 </template>
@@ -44,6 +44,7 @@ const route = useRoute()
 const router = useRouter()
 
 const shareKey = route.params.shareKey as string
+const thumb = ref<string>('')
 
 const data = ref<IViewSharePage[]>([])
 
@@ -52,6 +53,7 @@ const { data: response } = await useAsyncData('view-share-key', async () => {
 })
 
 data.value = _get(response, 'value.data.screens.data', [])
+thumb.value = _get(data.value, '[0].screen_url_thumb', '')
 
 const viewScreens = () => {
   const screenId = _get(data.value, '[0].id', '')
@@ -101,7 +103,6 @@ const viewScreens = () => {
   border-radius: 10px;
   background-repeat: no-repeat !important;
   background-size: cover !important;
-  background: url('http://localhost:7002/view?id=00320032b521906b32cefa8f145d649b255480f40014&thumb=true');
 }
 
 @media screen and (max-width: 1024px) {
