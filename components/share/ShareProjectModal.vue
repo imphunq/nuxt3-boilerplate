@@ -232,6 +232,7 @@ import type { TabsPaneContext } from 'element-plus'
 import { Lock, InfoFilled } from '@element-plus/icons-vue'
 import ShareIcon from '~/assets/images/icons/project/share.svg'
 import { shareProject } from '~/api/share'
+import { useClipboard } from '@vueuse/core'
 
 type DisplayScreen = 'setting' | 'shareLink'
 
@@ -244,6 +245,8 @@ const dialogFormVisible = ref(false)
 const activeTab = ref<string>('public')
 const embedCode = ref<string>('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
 const embedCodeRef = ref<InstanceType<typeof HTMLDivElement> | null>(null)
+
+const { copy } = useClipboard()
 
 const open = async (projectId: number) => {
   if (localStorage.getItem(`screenProject_${projectId}`)) {
@@ -289,14 +292,22 @@ const copyToClipboard = () => {
   else {
     el = shareLink.value
   }
-  navigator.clipboard.writeText(el).then(() => {
+
+    if (navigator.clipboard) {
+    navigator.clipboard.writeText(el).then(() => {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+      })
+    })
+  } else {
+    copy(el)
+
     ElMessage({
       message: 'Copy successfully',
       type: 'success',
     })
-  }).catch((err) => {
-    console.error('error: ', err)
-  })
+  }
 }
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {

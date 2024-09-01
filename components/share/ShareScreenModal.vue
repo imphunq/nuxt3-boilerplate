@@ -218,6 +218,7 @@ import type { ICreateShare, ILabelValue } from '~/types'
 import ShareIcon from '~/assets/images/icons/project/share.svg'
 import SharePrivate from '~/assets/images/icons/project/share-private.png'
 import { shareScreen } from '~/api/share'
+import { useClipboard } from '@vueuse/core'
 
 const emit = defineEmits(['normal-upload'])
 
@@ -231,6 +232,8 @@ const shareLink = ref<string>(window.location.host)
 const disableComment = ref<boolean>(false)
 const currentProjectId = ref<number>(0)
 const currentScreenId = ref<number>(0)
+
+const { copy } = useClipboard()
 
 const privacyOptions: ILabelValue[] = [
   { label: 'Public Share', value: PRIVACY.PUBLIC },
@@ -294,12 +297,21 @@ const close = () => {
 const copyToClipboard = () => {
   const el = document.getElementById('share-input') as HTMLInputElement
 
-  navigator.clipboard.writeText(el.value).then(() => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(el.value).then(() => {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+      })
+    })
+  } else {
+    copy(el.value)
+
     ElMessage({
       message: 'Copy successfully',
       type: 'success',
     })
-  })
+  }
 }
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {

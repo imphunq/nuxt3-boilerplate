@@ -86,11 +86,11 @@ const selectPrivacy = (item: ILabelValue) => {
   dropdownSelectPrivacyButtonRef.value?.click()
 }
 
-// onMounted(() => {
+onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-// })
+})
 </script>
 
 <style lang="scss" scoped></style>

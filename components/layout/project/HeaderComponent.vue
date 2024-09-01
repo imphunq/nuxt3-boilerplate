@@ -70,11 +70,11 @@ import DrawerSidebar from '../DrawerSidebar.vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
 import StackUserGroup from '~/components/common/StackUserGroup.vue'
 
-// onMounted(() => {
+onMounted(() => {
   useFlowbite(() => {
     initDrawers()
   })
-// })
+})
 
 const globleStore = useGlobalStore()
 const projectStore = useProjectStore()

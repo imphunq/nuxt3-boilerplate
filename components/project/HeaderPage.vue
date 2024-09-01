@@ -33,9 +33,9 @@ import FilterProject from '~/components/common/FilterProject.vue'
 import { PROJECT_TYPE } from '~/constants/project'
 
 interface Props {
-  title: string
-  subTitle: string
-  type: string
+  title?: string
+  subTitle?: string
+  type?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {

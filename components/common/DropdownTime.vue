@@ -62,11 +62,11 @@
 <script lang="ts" setup>
 import { initDropdowns } from 'flowbite'
 
-// onMounted(() => {
+onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-// })
+})
 </script>
 
     <style lang="scss" scoped></style>

@@ -99,11 +99,11 @@ const selectItem = (item: ILabelValue) => {
   dropdownFolderProjectButtonRef.value?.click()
 }
 
-// onMounted(() => {
+onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-// })
+})
 </script>
 
 <style lang="scss" scoped></style>

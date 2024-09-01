@@ -76,11 +76,11 @@ import LastUploadIcon from '~/assets/images/icons/last-upload.svg'
 import RemoteUploadIcon from '~/assets/images/icons/remote-upload.svg'
 import FtpUploadIcon from '~/assets/images/icons/ftp-upload.svg'
 
-// onMounted(() => {
+onMounted(() => {
   useFlowbite(() => {
     initDrawers()
   })
-// })
+})
 
 const items = computed(() => {
   return [
