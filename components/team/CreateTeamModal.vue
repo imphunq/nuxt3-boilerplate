@@ -78,7 +78,7 @@
           label="Type"
         >
           <el-select
-            v-model="form.type"
+            v-model="form.public"
             size="large"
           >
             <template #prefix>
@@ -172,7 +172,7 @@
                 v-if="step === 2"
                 type="button"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                @click="createTeam"
+                @click="handleCreateTeam"
               >
                 Create Team
               </button>
@@ -186,17 +186,17 @@
 
 <script lang="ts" setup>
 import type { FormRules } from 'element-plus'
-import { PRIVACY } from '~/constants/project'
 import type { ITeamCreate, ILabelValue } from '~/types'
 import PencilIcon from '~/assets/images/pencil.png'
 import GroupUserIcon from '~/assets/images/group-user.svg'
+import { createTeam } from '~/api/team'
 
 const dialogFormVisible = ref(false)
 const step = ref<number>(1)
 
 const formInitial = reactive<ITeamCreate>({
   name: '',
-  type: 'private',
+  public: 0,
   description: '',
   emails: '',
 })
@@ -210,8 +210,8 @@ const rules = reactive<FormRules<ITeamCreate>>({
 })
 
 const privacyOptions: ILabelValue[] = [
-  { label: 'Private Team', value: PRIVACY.PRIVATE },
-  { label: 'Public Team', value: PRIVACY.PUBLIC },
+  { label: 'Private Team', value: 0 },
+  { label: 'Public Team', value: 1 },
 ]
 
 const open = () => {
@@ -235,16 +235,24 @@ const nextStep = () => {
   )
 }
 
-const createTeam = () => {
-  handleSubmit(
-    (form) => {
-      console.log('submit!', form)
-      dialogFormVisible.value = false
-    },
-    () => {
-      console.log('Custom error handling')
-    },
-  )
+const handleCreateTeam = async () => {
+  const { data, error } = await createTeam(form.value)
+
+  if (error.value) {
+    ElMessage({
+      type: 'error',
+      message: 'Something went wrong, please try again',
+    })
+
+    return
+  }
+
+  navigateTo('/teams')
+
+  ElMessage({
+    type: 'success',
+    message: 'Created team successfully',
+  })
 }
 
 const back = () => {

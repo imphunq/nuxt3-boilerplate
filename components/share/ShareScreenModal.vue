@@ -273,7 +273,7 @@ const open = async (projectId: number, screenId: number) => {
 watch(disableComment, async (value) => {
   const { data, error } = await shareScreen(currentProjectId.value, {
     screen_ids: currentScreenId.value,
-    show_comments: !disableComment,
+    show_comments: !disableComment.value,
   })
 
   if (error.value) {

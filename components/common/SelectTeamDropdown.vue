@@ -94,7 +94,7 @@ const teams = computed<ILabelValue[]>(() => {
 })
 
 const selectTeam = (item: ILabelValue) => {
-  currentTeam.value = item.value
+  currentTeam.value = item.value as string
 
   dropdownSelectTeamButtonRef.value?.click()
 }

@@ -80,7 +80,7 @@
 
         <div class="flex space-x-2 mr-4">
           <div class="w-[50px] text-xs flex items-center justify-center rounded-3xl text-center border border-solid border-gray-200 bg-gray-100">
-            {{ team.project_count ?? team.member_count }}
+            0
           </div>
 
           <el-dropdown trigger="click">
@@ -111,31 +111,16 @@
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
 import TeamIcon from '~/assets/images/icons/team.png'
+import { getTeams } from '~/api/team'
+import type { IListTeam } from '~/types'
 
-interface Team {
-  id: number
-  name: string
-  project_count?: number
-  member_count?: number
-}
+const teams = ref<IListTeam[]>([])
 
-const teams = ref<Team[]>([
-  {
-    id: 1,
-    name: 'Personal',
-    project_count: 5,
-  },
-  {
-    id: 2,
-    name: 'Perfect Team',
-    member_count: 10,
-  },
-  {
-    id: 3,
-    name: 'Graphic Designers',
-    member_count: 3,
-  },
-])
+await useAsyncData('teams', async () => {
+  const { data } = await getTeams()
+
+  teams.value = data.value.teams
+})
 </script>
 
 <style lang="scss" scoped>

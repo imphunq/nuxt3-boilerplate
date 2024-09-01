@@ -81,7 +81,7 @@ const teams = computed<ILabelValue[]>(() => {
 })
 
 const selectPrivacy = (item: ILabelValue) => {
-  currentPrivacy.value = item.value
+  currentPrivacy.value = item.value as string
 
   dropdownSelectPrivacyButtonRef.value?.click()
 }

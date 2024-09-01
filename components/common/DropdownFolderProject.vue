@@ -88,7 +88,7 @@ const items = computed<ILabelValue[]>(() => {
 })
 
 const selectItem = (item: ILabelValue) => {
-  currentValue.value = item.value
+  currentValue.value = item.value as string
 
   dropdownFolderProjectButtonRef.value?.click()
 }

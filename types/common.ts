@@ -5,7 +5,7 @@ export interface IBreadcrumb {
 
 export interface ILabelValue {
   label: string
-  value: string
+  value: string | number
 }
 
 export interface LinkDetail {
