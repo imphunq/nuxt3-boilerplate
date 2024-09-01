@@ -44,3 +44,11 @@ export const deleteProject = (projectId: number) => {
     method: 'DELETE',
   })
 }
+
+export const getRecentUpdateProjects = (params: any = {}) => {
+  return useMyFetch('user/projects/recently/updated', {
+    query: {
+      ...params,
+    },
+  })
+}

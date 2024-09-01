@@ -1,22 +1,27 @@
 <template>
   <div
-    v-if="data.length"
-    class="mt-8 grid grid-cols-4 gap-x-5"
+    v-if="projects.length"
+    class="mt-8"
   >
-    <!-- <ProjectOverlay
-      v-for="index in 4"
-      :key="`${index}-project-overlay`"
-    /> -->
+    <ProjectCarousel :projects="projects" />
   </div>
 
   <NoProjects v-else />
 </template>
 
 <script lang="ts" setup>
-import ProjectOverlay from '~/components/common/ProjectOverlay.vue'
+import ProjectCarousel from '~/components/overview/ProjectCarousel.vue'
 import NoProjects from '~/components/common/NoProjects.vue'
+import { getRecentUpdateProjects } from '~/api/projects'
+import type { IProject } from '~/types';
 
-const data = ref([])
+const projects = ref<IProject[]>([])
+
+await useAsyncData('recent-updated-project', async () => {
+  const { data } = await getRecentUpdateProjects()
+
+  projects.value = data.value
+})
 
 onMounted(() => {
 })

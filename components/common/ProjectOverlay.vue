@@ -70,6 +70,7 @@
           </div>
 
           <div
+            v-if="project.screens?.length"
             class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             @click="openShareProjectModal"
           >
