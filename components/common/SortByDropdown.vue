@@ -143,11 +143,11 @@ const selectItem = (item: ILabelValue) => {
   router.push({ query: { sort_by: item.value } })
 }
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-})
+// })
 </script>
 
 <style lang="scss" scoped></style>

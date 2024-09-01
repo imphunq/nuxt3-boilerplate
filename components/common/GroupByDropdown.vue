@@ -96,11 +96,11 @@ const project = computed<ILabelValue[]>(() => {
   ]
 })
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-})
+// })
 </script>
 
 <style lang="scss" scoped></style>

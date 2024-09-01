@@ -57,7 +57,7 @@
 import CommentIcon from '~/assets/images/icons/comment.png'
 
 interface Props {
-  showImage: boolean
+  showImage?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {

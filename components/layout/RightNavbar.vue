@@ -229,11 +229,11 @@ const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectM
 const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createFolderModalRef = ref<InstanceType<typeof CreateFolderModal>>()
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-})
+// })
 
 const openModalProject = () => {
   createProjectModalRef?.value?.open()

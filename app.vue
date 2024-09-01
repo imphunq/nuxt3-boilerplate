@@ -15,9 +15,9 @@ if (route.name !== 'login') {
   await authStore.fetchUser()
 }
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initFlowbite()
   })
-})
+// })
 </script>

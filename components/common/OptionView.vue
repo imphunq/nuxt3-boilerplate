@@ -31,9 +31,9 @@ import { OPTION_VIEW } from '~/constants/common'
 import { PROJECT_TYPE } from '~/constants/project'
 
 const props = withDefaults(defineProps<{
-  page: string
-  type: string
-  currentView: string
+  page?: string
+  type?: string
+  currentView?: string
 }>(), {
   page: 'project',
   type: PROJECT_TYPE.ALL,

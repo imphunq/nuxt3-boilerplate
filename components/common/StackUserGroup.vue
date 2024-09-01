@@ -31,8 +31,8 @@
 
 <script lang="ts" setup>
 interface Props {
-  size: 'medium' | 'large'
-  withoutSpace: boolean
+  size?: 'medium' | 'large'
+  withoutSpace?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {

@@ -101,11 +101,11 @@ import { initDropdowns } from 'flowbite'
 import UserDropdown from '../UserDropdown.vue'
 import ShareIcon from '~/assets/images/icons/share.png'
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-})
+// })
 </script>
 
 <style lang="scss" scoped>

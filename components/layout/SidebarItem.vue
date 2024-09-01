@@ -68,11 +68,11 @@ interface Props {
   item: MenuItem
 }
 
-onMounted(() => {
+// onMounted(() => {
   useFlowbite(() => {
     initDropdowns()
   })
-})
+// })
 
 const globalStore = useGlobalStore()
 const route = useRoute()
