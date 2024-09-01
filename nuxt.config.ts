@@ -54,7 +54,6 @@ export default defineNuxtConfig({
   },
 
   ssr: false,
-
   elementPlus: {},
 
   runtimeConfig: {
@@ -62,4 +61,6 @@ export default defineNuxtConfig({
       apiBase: process.env.NUXT_PUBLIC_API_BASE,
     }
   },
+
+  // compatibilityDate: '2024-09-01',
 })

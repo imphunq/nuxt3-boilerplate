@@ -13,7 +13,7 @@
     v-else
     :items-to-show="4"
     :items-to-scroll="4"
-    :model-value="projects[0]?.id"
+    snap-align="start"
     :wrap-around="true"
     class="carousel-wrapper"
   >
@@ -52,8 +52,7 @@ const props = defineProps<Props>()
 }
 
 .carousel__item {
-  /* Adjust the width to make items closer together */
-  width: calc(25% - 10px); /* Adjust according to your layout */
+  margin: 0px 10px;
 }
 
 .carousel-wrapper {
