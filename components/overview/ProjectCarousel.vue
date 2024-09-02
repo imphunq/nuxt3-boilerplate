@@ -1,5 +1,5 @@
 <template>
-  <div v-if="projects.length < 4" class="projects-wrapper">
+  <div v-if="projects.length < 4" class="grid grid-cols-3 gap-2">
     <div
       v-for="project in projects"
       :key="project.id"

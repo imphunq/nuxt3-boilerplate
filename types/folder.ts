@@ -15,4 +15,5 @@ export interface IFolder {
   projects_count: number;
   cover_url: string | null;
   cover_url_thumb: string | null;
+  category?: string
 }

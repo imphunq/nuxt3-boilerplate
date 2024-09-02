@@ -31,6 +31,7 @@ export interface IProject {
   screen_count: number
   members: IProjectMember[]
   screens?: IScreen[]
+  category?: string
 }
 
 export interface IProjectMember {
