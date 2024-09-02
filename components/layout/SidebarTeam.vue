@@ -71,6 +71,7 @@
         v-for="team in teams"
         :key="`team-${team.id}`"
         class="flex items-center justify-between"
+        @click="navigateTo(`teams/${team.id}`)"
       >
         <div class="flex items-center">
           <span class="cursor-pointer">

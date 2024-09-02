@@ -27,6 +27,12 @@
         <div class="vertical-divider"></div>
 
         <div class="flex items-center project-info">
+          <el-button
+            :icon="Back"
+            circle
+            @click="navigateTo('/projects')"
+            class="mr-4"
+          />
           <div class="flex items-center gap-4">
             <img :src="GroupProjectIcon" alt="" class="w-8 h-8">
 
@@ -64,7 +70,7 @@
 <script setup lang="ts">
 import moment from 'moment'
 import { initDrawers } from 'flowbite'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Back } from '@element-plus/icons-vue'
 import RightNavbar from './RightNavbar.vue'
 import DrawerSidebar from '../DrawerSidebar.vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
