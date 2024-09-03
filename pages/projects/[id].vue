@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="route.name !== excludeChildrenRouteNames"
+      v-if="!excludeChildrenRouteNames.includes(route.name as string)"
       class="py-4 border-b border-solid border-gray-200 project-tabs flex lg:flex-wrap items-center xl:justify-between justify-center gap-5"
     >
       <div class="flex items-center">
@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div :class="[route.name === excludeChildrenRouteNames ? '' : 'mt-4']">
+    <div :class="[!excludeChildrenRouteNames.includes(route.name as string) ? '' : 'mt-4']">
       <NuxtPage />
     </div>
 
@@ -82,7 +82,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const excludeChildrenRouteNames = 'projects-id-screens-screenId'
+const excludeChildrenRouteNames = ['projects-id-screens-screenId', 'projects-id-preview']
 
 const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')
