@@ -1,13 +1,13 @@
 <template>
   <div v-if="screens.length">
-    <div class="project-screen-header flex items-center justify-between">
-      <div>
+    <div class="project-screen-header block xl:flex items-center xl:justify-between">
+      <div class="text-center">
         <span class="text-sm text-black font-semibold">
           {{ project.project_title }}
         </span>
       </div>
 
-      <div class="flex items-center gap-5">
+      <div class="flex flex-wrap justify-center items-center gap-5">
         <RangeSlider class="mt-2" />
 
         <FilterProject class="mt-2" />
@@ -28,7 +28,7 @@
       <div v-show="!isOverDropZone">
         <div
           v-if="currentView === OPTION_VIEW.GRID"
-          class="grid grid-cols-4 mt-8 gap-8">
+          class="grid grid-cols-1 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-center mt-8 gap-8">
           <ScreenOverlay
             v-for="(screen, index) in screens"
             :key="`${index}-screen-overlay`"

@@ -4,7 +4,7 @@
     :data="mergeData"
     style="width: 100%"
   >
-    <el-table-column type="selection" width="55" />
+    <el-table-column type="selection" max-width="55" />
     <el-table-column prop="project_title" label="Folder / Project Name" width="400">
       <template #default="scope">
         <div v-if="scope.row.category === 'project'" class="flex items-center cursor-pointer" @click="gotoDetail(scope.row.id)">

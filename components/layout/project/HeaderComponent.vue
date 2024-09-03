@@ -1,7 +1,7 @@
 <template>
   <nav
     class="navbar flex w-full fixed top-0 start-0 z-50 bg-white border-b border-solid border-gray-200 dark:bg-gray-900">
-    <div class="flex w-full flex-wrap items-center justify-between gap-x-2 xs:gap-x-5">
+    <div class="project-header flex w-full flex-wrap items-center justify-between gap-x-2 xs:gap-x-5">
       <div class="flex items-center space-x-3 rtl:space-x-reverse">
         <button v-if="!openDrawer" type="button" @click="handleCollapse">
           <svg class="w-6 h-6 xs:w-8 xs:h-8 text-gray-800 dark:text-white" aria-hidden="true"
@@ -26,14 +26,14 @@
 
         <div class="vertical-divider"></div>
 
-        <div class="flex items-center project-info">
+        <div class="flex items-center">
           <el-button
             :icon="Back"
             circle
             @click="navigateTo('/projects')"
-            class="mr-4"
+            class="mr-4 !hidden lg:!flex"
           />
-          <div class="flex items-center gap-4">
+          <div class="items-center gap-4 hidden lg:flex">
             <img :src="GroupProjectIcon" alt="" class="w-8 h-8">
 
             <div class="flex flex-col gap-1">
@@ -45,18 +45,18 @@
             </div>
           </div>
 
-          <StackUserGroup class="mx-6" />
+          <StackUserGroup class="mx-6 hidden lg:flex" />
 
           <button
             type="button"
-            class="flex items-center gap-2 py-2 px-5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="hidden md:flex items-center gap-2 py-2 px-5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             <el-icon><Plus /></el-icon>
             <span>Invite</span>
           </button>
         </div>
       </div>
 
-      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+      <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse shrink">
         <RightNavbar />
       </div>
     </div>
@@ -136,18 +136,10 @@ const handleCollapse = () => {
 
 <style lang="scss" scoped>
 .vertical-divider {
-  position: absolute;
-  height: 100%;
-  /* Chiều cao bằng chiều cao của phần tử cha */
   width: 1px;
   background-color: #dcdfe6;
-  /* Màu sắc của divider */
-  left: 15%;
-  /* Định vị giữa phần tử cha */
-}
-
-.project-info {
-  position: absolute;
-  left: 16%;
+  align-self: stretch;
+  margin-top: -7px;
+  margin-bottom: -7px;
 }
 </style>

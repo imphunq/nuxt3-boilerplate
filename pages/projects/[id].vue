@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="route.name !== excludeChildrenRouteNames"
-      class="py-4 border-b border-solid border-gray-200 project-tabs flex items-center justify-between"
+      class="py-4 border-b border-solid border-gray-200 project-tabs flex lg:flex-wrap items-center xl:justify-between justify-center gap-5"
     >
       <div class="flex items-center">
         <div
@@ -14,6 +14,7 @@
 
         <el-menu
           :default-active="activeIndex"
+          :ellipsis="false"
           class="el-menu-project"
           mode="horizontal"
           @select="handleSelect"
@@ -39,10 +40,9 @@
         </el-menu>
       </div>
 
-      <div class="flex items-center gap-5">
+      <div class="project-tabs__right flex flex-wrap justify-center items-center gap-5">
         <el-input
           style="width: 240px"
-          size="large"
           placeholder="Find screen"
           :prefix-icon="Search"
           class="project-tabs__search-input"
@@ -50,7 +50,6 @@
         />
 
         <el-button
-          size="large"
           round
           class="project-tabs__btn-add flex items-center gap-5"
           @click="open()"
@@ -134,6 +133,10 @@ const openProjectDrawer = () => {
 
   .el-menu-project {
     height: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    // flex-grow: 0;
+    // flex-shrink: 1;
 
     .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
       background-color: none;
@@ -149,6 +152,17 @@ const openProjectDrawer = () => {
   &__btn-add {
     border-color: $color-blue;
     color: $color-blue;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .project-tabs {
+    display: flex;
+    flex-direction: column;
+
+    &__right {
+      margin-top: 32px;
+    }
   }
 }
 </style>

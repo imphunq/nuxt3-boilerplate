@@ -3,7 +3,9 @@
     v-if="folders.length"
     class="mt-8"
   >
-    <div v-if="optionView === OPTION_VIEW.GRID" class="grid grid-cols-4 gap-5 mb-5">
+    <div
+      v-if="optionView === OPTION_VIEW.GRID"
+      class="grid grid-cols-1 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-center gap-5 mb-5">
       <FolderCard
         v-for="(folder, index) in folders"
         :key="`${index}-folder-card`"

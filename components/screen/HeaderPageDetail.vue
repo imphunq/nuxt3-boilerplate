@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between p-4 h-16 border-b border-solid border-gray-200">
+  <div class="screen-header flex flex-wrap items-center p-4 border-b border-solid border-gray-200 gap-3">
     <div class="flex items-center gap-5">
       <el-button
         :icon="Back"
@@ -23,7 +23,7 @@
 
             <el-icon><CaretRight /></el-icon>
 
-            <span class="font-semibold text-black truncate ...">
+            <span class="font-semibold text-black w-3/5 truncate ...">
               {{ screen?.name }}
             </span>
           </div>
@@ -236,6 +236,18 @@ const openShareModal = () => {
     img {
       filter: brightness(10) !important;
     }
+  }
+}
+
+@media screen and (min-width: 1420px) {
+  .screen-header {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 1419px) {
+  .screen-header {
+    justify-content: center;
   }
 }
 </style>

@@ -12,6 +12,7 @@
     <div class="mt-4">
       <el-menu
         :default-active="activeIndex"
+        :ellipsis="false"
         class="el-menu-account"
         mode="horizontal"
         @select="handleSelect"

@@ -1,13 +1,13 @@
 <template>
-  <div class="flex items-center justify-between gap-8">
-    <div class="flex flex-col">
+  <div class="grid grid-col-1 xl:flex items-center xl:justify-between justify-center gap-8">
+    <div class="flex flex-col text-center">
       <span class="">{{ title }}</span>
       <span class="text-xs">
         {{ subTitle }}
       </span>
     </div>
 
-    <div class="flex items-center gap-5">
+    <div class="flex flex-wrap items-center justify-center gap-5">
       <RangeSlider class="mt-2" />
 
       <FilterProject class="mt-2" />

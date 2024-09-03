@@ -12,7 +12,9 @@ const authStore = useAuthStore()
 const route = useRoute()
 
 if (route.name !== 'login') {
-  await authStore.fetchUser()
+  await useAsyncData('user', async () => {
+    return await authStore.fetchUser()
+  })
 }
 
 onMounted(() => {
