@@ -100,7 +100,7 @@ const viewScreens = () => {
   }
 
   .view-img-inner {
-    content: url('http://localhost:3005/static/media/macbook%20black.9dc8e00b6c592dc7a61a.png');
+    content: url('~/assets/images/black.png');
     width: 58.9%;
   }
 
