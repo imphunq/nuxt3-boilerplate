@@ -1,5 +1,5 @@
 <template>
-  <div class="screen-header flex flex-wrap items-center p-4 border-b border-solid border-gray-200 gap-3">
+  <div class="screen-header flex flex-wrap items-center p-4 pt-0 border-b border-solid border-gray-200 gap-3">
     <div class="flex items-center gap-5">
       <el-button
         :icon="Back"
