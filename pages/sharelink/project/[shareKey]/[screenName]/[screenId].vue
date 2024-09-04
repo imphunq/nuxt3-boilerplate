@@ -8,9 +8,10 @@
         <img
           ref="screenImageRef"
           :src="currentScreen?.screen_url_thumb"
-          class="w-full cursor-crosshair"
+          class="w-full"
+          :class="{ 'cursor-crosshair': isLogin }"
           @load="onImageLoad"
-          @click="showCommentPopup"
+          @click="isLogin ? showCommentPopup : ''"
         >
 
         <CommentPopover
@@ -77,6 +78,7 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
+const authStore = useAuthStore()
 
 const shareKey = route.params.shareKey as string
 const screenId = parseInt(route.params.screenId as string)
@@ -98,7 +100,9 @@ const { data: response } = await useAsyncData('view-share-key-project', async ()
 
 screens.value = _get(response, 'value.data.screens', [])
 
-console.log(1111, screens.value)
+const isLogin = computed(() => {
+  return authStore.isLoggedIn
+})
 
 const showCommentPopup = async (event: MouseEvent) => {
   await commentPopoverRef.value?.close()
