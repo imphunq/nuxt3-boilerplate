@@ -40,7 +40,14 @@ export const useScreenStore = defineStore('screen-store', {
       const { data } = await getPreviewScreens(id)
 
       this.currentProject = data.value
-      this.previewScreens = _get(data.value, 'screens', [])
+      this.previewScreens = _get(data.value, 'screens', []).map((screen: IScreen, index: number) => ({
+        ...screen,
+        number_order: index + 1
+      }))
     },
+
+    resetPreviewScreen() {
+      this.previewScreens = []
+    }
   }
 })

@@ -25,4 +25,5 @@ export interface IScreen {
   screen_url_thumb: string;
   comments_count: number;
   comments: IComment[];
+  number_order?: number
 }

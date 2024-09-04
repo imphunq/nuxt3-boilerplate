@@ -95,13 +95,27 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-1">
           <div
-            v-for="color in commentColors"
-            :key="`${color}-comment-color`"
             class="w-5 h-5 rounded-full flex items-center justify-center cursor-pointer"
-            :class="[selectedColor === color ? `border-2 border-solid border-gray-500` : '']"
-            @click="selectedColor = color"
+            :class="[selectedColor === 'blue' ? `border-2 border-solid border-blue-500` : '']"
+            @click="selectedColor = 'blue'"
           >
-            <div :class="`w-3 h-3 bg-${color}-500 rounded-full`" />
+            <div :class="`w-3 h-3 bg-blue-500 rounded-full`" />
+          </div>
+
+          <div
+            class="w-5 h-5 rounded-full flex items-center justify-center cursor-pointer"
+            :class="[selectedColor === 'red' ? `border-2 border-solid border-red-500` : '']"
+            @click="selectedColor = 'red'"
+          >
+            <div :class="`w-3 h-3 bg-red-500 rounded-full`" />
+          </div>
+
+          <div
+            class="w-5 h-5 rounded-full flex items-center justify-center cursor-pointer"
+            :class="[selectedColor === 'yellow' ? `border-2 border-solid border-yellow-500` : '']"
+            @click="selectedColor = 'yellow'"
+          >
+            <div :class="`w-3 h-3 bg-yellow-500 rounded-full`" />
           </div>
         </div>
 
