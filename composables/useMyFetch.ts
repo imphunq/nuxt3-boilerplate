@@ -3,7 +3,11 @@ import { useFetch, type AfterFetchContext } from '@vueuse/core'
 export const useMyFetch = (url: string, customOptions: any = {}) => {
   const config = useRuntimeConfig()
   const authStore = useAuthStore()
+  const route = useRoute()
 
+  const ignoreRoutes = ['sharelink-shareKey', 'sharelink-shareKey-screenName-screenId', 'sharelink-project-shareKey', 'sharelink-project-shareKey-screenName-screenId']
+
+console.log('route', route.name)
   const buildQueryParams = (params: Record<string, any>)  => {
     const queryString = new URLSearchParams(params).toString();
     return queryString ? `?${queryString}` : '';
@@ -33,9 +37,13 @@ export const useMyFetch = (url: string, customOptions: any = {}) => {
     },
 
     afterFetch(ctx: AfterFetchContext) {
-      const { data } = ctx
+      const { data, response } = ctx
 
       if (data.status === 'Token is Invalid' || data.status === 'Token is Expired') {
+        if(ignoreRoutes.includes(route.name as string)) {
+          return ctx
+        }
+
         authStore.clearToken()
         authStore.clearDataUser()
 
