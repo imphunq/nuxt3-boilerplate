@@ -21,3 +21,11 @@ export const shareProject = (projectId: number, data: any) => {
 export const viewShareKeyProject = (shareKey: string) => {
   return useMyFetch(`share/project/${shareKey}`)
 }
+
+export const getListShares = (params: any = {}) => {
+  return useMyFetch('user/listshares', {
+    query: {
+      ...params,
+    },
+  })
+}

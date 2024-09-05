@@ -64,3 +64,12 @@ export interface IUserInfo {
   avatar_url: string | null;
   avatar_url_thumb: string | null;
 }
+
+export interface IMemberShare {
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+  username: string;
+  role: string;
+}

@@ -1,3 +1,5 @@
+import type { IMemberShare } from './user'
+
 export interface ICreateShare {
   user_id: number;
   share_key: string;
@@ -29,4 +31,35 @@ export interface IViewSharePage {
   deleted_at: string | null;
   screen_url: string;
   screen_url_thumb: string;
+}
+
+export interface IListShares {
+  id: number;
+  share_key: string;
+  views: number;
+  number: number;
+  public: number;
+  show_comments: boolean;
+  project_id: number;
+  screen_ids: string;
+  user_id: number;
+  team_id: number | null;
+  privacy: string | null;
+  password: string;
+  logo_id: number | null;
+  expires_at: string | null;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+  members: IMemberShare[];
+  screen_info: IScreenShareInfo[];
+}
+
+interface IScreenShareInfo {
+  id: number;
+  name: string;
+  filestore_id: number;
+  screen_url: string;
+  screen_url_thumb: string;
+  comments_count: number;
 }
