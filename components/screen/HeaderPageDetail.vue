@@ -5,7 +5,7 @@
         :icon="Back"
         size="large"
         circle
-        @click="navigateTo(`/projects/${project?.id}`)"
+        @click="back"
       />
 
       <div class="flex items-center gap-4">
@@ -227,6 +227,10 @@ const scaleScreen = (scale: number) => {
 
 const openShareModal = () => {
   shareScreenModalRef.value?.open(1, 1)
+}
+
+const back = async () => {
+  await navigateTo(`/projects/${props.project?.id}`)
 }
 </script>
 

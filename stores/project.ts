@@ -95,7 +95,7 @@ export const useProjectStore = defineStore('project-store', {
     },
 
     async fetchProject (projectId: string): Promise<void> {
-      const key = 'show-project'
+      const key = `show-project-${projectId}`
 
       const response = await usePaginationCache(
         key, () => showProject(projectId)

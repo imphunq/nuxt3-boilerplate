@@ -6,7 +6,7 @@
       <Sidebar :key="`${isCollapse}-sidebar`" />
 
       <div
-        class="main-content p-4 w-full"
+        class="main-content p-4 max-w-full overflow-auto"
         :class="[isCollapse ? 'sm:ml-16' : 'sm:ml-80']"
       >
         <slot />

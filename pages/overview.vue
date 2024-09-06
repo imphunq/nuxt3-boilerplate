@@ -1,29 +1,30 @@
 <template>
-  <div>
+  <div class="overflow-auto w-full">
     <HeaderPage />
 
     <RecentProjects />
 
-    <div class="flex mt-5 w-full gap-8">
-      <div class="flex flex-col flex-1 gap-5 w-2/3">
+    <div class="flex flex-col xl:flex-row mt-5 w-full gap-8">
+      <div class="flex flex-col flex-1 gap-5 w-full xl:w-2/3">
         <OngoingProjects />
 
         <CompletedProject />
       </div>
 
-      <div class="flex flex-col flex-1 gap-5 w-1/3">
+      <div class="flex flex-col flex-1 gap-5 w-full xl:w-1/3">
         <ListComments />
 
         <UserActivity />
       </div>
     </div>
 
-    <div class="flex items-stretch justify-between mt-5 gap-8 w-full">
-      <div class="w-1/2 flex flex-col">
+
+    <div class="flex flex-col xl:flex-row items-stretch justify-between mt-5 gap-8 w-full">
+      <div class="w-full xl:w-1/2 flex flex-col">
         <ListTeam class="flex-1" />
       </div>
 
-      <div class="w-1/2 flex flex-col">
+      <div class="w-full xl:w-1/2 flex flex-col">
         <TaskCompletionRate class="flex-1" />
       </div>
     </div>

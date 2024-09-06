@@ -299,8 +299,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
-
-  screenStore.resetPreviewScreen()
 })
 </script>
 

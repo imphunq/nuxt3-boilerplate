@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between items-center">
+  <div class="grid grid-col-1 xl:flex items-center xl:justify-between justify-center gap-8 w-full">
     <div class="flex items-center gap-x-5">
       <span class="text-lg font-medium">
         Recently Updated Projects

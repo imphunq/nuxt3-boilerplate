@@ -24,8 +24,8 @@
       </nuxt-link>
     </div>
 
-    <div class="flex items-stretch justify-between">
-      <div class="w-1/3 py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch justify-between">
+      <div class="py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
         <div class="product-tour-icon" />
         <div class="flex flex-col">
           <span class="text-sm">Product Tour</span>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div class="w-1/3 py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
+      <div class="py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
         <div class="usability-icon" />
         <div class="flex flex-col">
           <span class="text-sm">Usability Testing</span>
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="w-1/3 py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
+      <div class="py-[15px] px-[20px] flex items-start gap-4 cursor-pointer hover:shadow-xl rounded-lg">
         <div class="guide-icon" />
         <div class="flex flex-col">
           <span class="text-sm">Best Practices Guide</span>

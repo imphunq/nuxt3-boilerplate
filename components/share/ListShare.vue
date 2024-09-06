@@ -15,7 +15,7 @@
       <template #default="{ row }">
         <div class="flex items-center gap-2">
           <a
-            href="#"
+            :href="row.share_key"
             target="_blank"
             class="text-blue-500"
           >

@@ -1,6 +1,6 @@
 <template>
   <div v-if="screens.length">
-    <div class="project-screen-header block xl:flex items-center xl:justify-between">
+    <div class="project-screen-header block xl:flex items-center xl:justify-between mt-4">
       <div class="text-center">
         <span class="text-sm text-black font-semibold">
           {{ project.project_title }}
@@ -120,5 +120,10 @@ const onDrop = async (files: File[] | null) => {
 const { isOverDropZone } = useDropZone(dropZoneRef, {
   onDrop,
   dataTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/webp']
+})
+
+onBeforeMount(() => {
+  const screenStore = useScreenStore()
+  screenStore.resetPreviewScreen()
 })
 </script>
