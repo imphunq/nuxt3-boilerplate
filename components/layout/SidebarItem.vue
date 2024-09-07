@@ -1,22 +1,25 @@
 <template>
   <div>
     <div
-      :id="`dropdown-click-${keyItem}-id`"
       class="sidebar-item flex items-center dark:text-white group cursor-pointer"
       :class="[isCollapse ? 'py-[7px] pl-[25px]' : 'ml-[37px]']"
-      :aria-controls="`dropdown-click-${keyItem}`"
-      :data-collapse-toggle="`dropdown-click-${keyItem}`"
-      @click="hasChildren ? '' : gotoRoute(item.to)"
+      :aria-controls="hasChildren ? `dropdown-click-${keyItem}` : undefined"
+      :data-collapse-toggle="hasChildren ?  `dropdown-click-${keyItem}` : undefined"
+      @click="hasChildren ? '' : gotoRoute(item)"
     >
-      <img
-        v-if="item.icon"
-        :src="item.icon"
-        alt="icon"
-      >
+      <span v-if="item.icon" :class="[{ 'sidebar-item__icon': !item.parentKey, 'active-item': isActive(item.to) && !item.parentKey }]">
+        <img
+          :src="item.icon"
+          alt="icon"
+        >
+      </span>
+
       <div class="ms-3 flex-1 text-left rtl:text-right whitespace-nowrap select-none">
         <span
           v-if="!isCollapse"
-          :class="{ active: isActive(item.to) }"
+          class="sidebar-item__title"
+          :class="{ active: isActive(item.to)}"
+          :data-active="isActive(item.to) ? `dropdown-click-${item?.parentKey}` : undefined"
         >{{ item.title }}</span>
       </div>
 
@@ -62,6 +65,7 @@ interface MenuItem {
   icon: string
   title: string
   children?: MenuItem[]
+  parentKey?: string
 }
 
 interface Props {
@@ -88,16 +92,76 @@ const hasChildren = computed(() => {
 })
 
 const keyItem = computed(() => {
-  return props.item.to.split('/')[1]
+  return props.item.to.split('/')[1] ?? route.path.split('/')[1]
 })
 
-const gotoRoute = (route: string) => {
-  navigateTo(route)
+watch(() => route.path, () => {
+  nextTick(() => {
+    // remove all active parent class
+    const elements = document.querySelectorAll('.active-parent');
+
+    elements.forEach((element) => {
+      element.classList.remove('active-parent');
+    })
+
+    activeParentItem()
+  })
+})
+
+const activeParentItem = () => {
+  const activeElement = document.querySelector('[data-active]');
+
+  if (activeElement) {
+    const activeValue = activeElement.getAttribute('data-active');
+
+    if (activeValue) {
+      const dropdownElement = document.getElementById(activeValue);
+      const parentElement = document.querySelector(`[data-collapse-toggle="${activeValue}"]`);
+
+      if (dropdownElement) {
+        dropdownElement.classList.remove('hidden');
+      }
+
+      if (parentElement) {
+
+        // find first div element and add active class
+        const firstElementDiv = parentElement.querySelector('div');
+
+        // find first span element and add active class, used for display icon
+        const firstElementSpan = parentElement.querySelector('span');
+
+        if (firstElementSpan) {
+          firstElementSpan.classList.add('active-item');
+        }
+
+        if (firstElementDiv) {
+          firstElementDiv.classList.add('active-parent');
+        }
+      }
+    }
+  }
+}
+
+const gotoRoute = (item: MenuItem) => {
+  // remove all active item class
+  const activeItems = document.querySelectorAll('.sidebar-item__icon');
+
+  activeItems.forEach((element) => {
+    if (route.path) {
+      element.classList.remove('active-item');
+    }
+  })
+
+  navigateTo(item.to)
 }
 
 const isActive = (path: string) => {
   return route.path === path
 }
+
+onMounted(() => {
+  activeParentItem()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -121,5 +185,42 @@ const isActive = (path: string) => {
   span.active {
     color: $color-blue;
   }
+
+  .active-item  {
+    background-color: #5090ff;
+
+    img {
+      filter: brightness(170%);
+    }
+  }
+
+  .active-parent {
+    span {
+      color: $color-blue;
+    }
+  }
+
+  // for hover
+  &:hover .sidebar-item__icon,
+  .sidebar-item__title:hover ~ .sidebar-item__icon {
+    background-color: #5090ff;
+
+    img {
+      filter: brightness(170%);
+    }
+  }
 }
+
+.sidebar-item__icon {
+  background-color: transparent;
+  width: 60px;
+  height: 42px;
+  border-radius: 0 23px 23px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: -40px;
+  padding-right: 10px;
+}
+
 </style>

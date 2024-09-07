@@ -23,7 +23,7 @@
     <div
       id="dropdownNewButton"
       ref="dropdownNewButtonRef"
-      class="new-project-btn-block items-center justify-between rounded-full text-white cursor-pointer hidden phone:flex"
+      class="new-project-btn-block items-center justify-between rounded-full text-white cursor-pointer hidden xs:flex"
       data-dropdown-toggle="dropdownNewRecord"
     >
       <div class="new-block flex items-center">

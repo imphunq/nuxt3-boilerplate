@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="sidebar-team flex items-center dark:text-white group ml-[37px] cursor-pointer"
+      class="sidebar-team flex items-center dark:text-white group ml-[27px] cursor-pointer"
       aria-controls="dropdown-team"
       data-collapse-toggle="dropdown-team"
     >
@@ -65,7 +65,8 @@
 
     <div
       id="dropdown-team"
-      class="hidden py-2 space-y-2 ml-16"
+      class="py-2 space-y-2 ml-16"
+      :class="{ hidden: teams.length === 0 }"
     >
       <div
         v-for="team in teams"

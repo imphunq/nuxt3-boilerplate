@@ -153,11 +153,11 @@ const items = computed(() => {
       icon: CommentIcon,
       title: 'Comments',
     },
-    {
-      to: '/projects/starred',
-      icon: StarIcon,
-      title: 'Starred',
-    },
+    // {
+    //   to: '/projects/starred',
+    //   icon: StarIcon,
+    //   title: 'Starred',
+    // },
     {
       to: '/shares',
       icon: ShareIcon,

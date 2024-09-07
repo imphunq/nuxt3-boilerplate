@@ -99,7 +99,7 @@ const items = computed(() => {
       title: 'Overview',
     },
     {
-      to: '',
+      to: '/project',
       icon: ProjectIcon,
       title: 'Projects',
       children: [
@@ -107,31 +107,37 @@ const items = computed(() => {
           to: '/projects',
           icon: AllProjectIcon,
           title: 'All Projects',
+          parentKey: 'project',
         },
         {
           to: '/projects/recently-added',
           icon: RecentAddIcon,
           title: 'Recently Added',
+          parentKey: 'project',
         },
         {
           to: '/projects/starred',
           icon: StarProjectIcon,
           title: 'Starred Projects',
+          parentKey: 'project',
         },
         {
           to: '/projects/on-going',
           icon: OnGoingIcon,
           title: 'On-going Projects',
+          parentKey: 'project',
         },
         {
           to: '/projects/share',
           icon: ShareProjectIcon,
           title: 'Shares Projects',
+          parentKey: 'project',
         },
         {
           to: '/',
           icon: FileManagerIcon,
           title: 'File Manager',
+          parentKey: 'project',
         },
       ],
     },
@@ -144,16 +150,19 @@ const items = computed(() => {
           to: '/last-upload',
           icon: LastUploadIcon,
           title: 'Last Uploads',
+          parentKey: 'uploads',
         },
         {
           to: '/remote-upload',
           icon: RemoteUploadIcon,
           title: 'Remote Uploads',
+          parentKey: 'uploads',
         },
         {
           to: '/ftp-upload',
           icon: FtpUploadIcon,
           title: 'FTP Uploads',
+          parentKey: 'uploads',
         },
       ],
     },
@@ -162,11 +171,11 @@ const items = computed(() => {
       icon: CommentIcon,
       title: 'Comments',
     },
-    {
-      to: '/projects/starred',
-      icon: StarIcon,
-      title: 'Starred',
-    },
+    // {
+    //   to: '/projects/starred',
+    //   icon: StarIcon,
+    //   title: 'Starred',
+    // },
     {
       to: '/shares',
       icon: ShareIcon,
