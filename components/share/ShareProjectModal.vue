@@ -190,7 +190,7 @@
 
       <template #footer>
         <div
-          class="dialog-footer flex items-center justify-between"
+          class="dialog-footer flex flex-wrap gap-2 items-center justify-between"
         >
           <div>
             <span

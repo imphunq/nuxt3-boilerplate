@@ -178,7 +178,7 @@
       <template #footer>
         <div
           class="dialog-footer"
-          :class="[privacy === PRIVACY.PUBLIC ? 'flex items-center justify-between' : '']"
+          :class="[privacy === PRIVACY.PUBLIC ? 'flex flex-wrap items-center gap-2 justify-between' : '']"
         >
           <div v-if="privacy === PRIVACY.PUBLIC">
             <span class="text-xs text-blue-400 cursor-pointer">Manage Shared Links</span>
@@ -349,6 +349,18 @@ defineExpose({
       background-color: #fff;
       color: $color-blue;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .share-dialog{
+    width: 90%; /* Adjust for smaller screens */
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .share-dialog {
+    width: 40%; /* Wider on larger screens */
   }
 }
 </style>
