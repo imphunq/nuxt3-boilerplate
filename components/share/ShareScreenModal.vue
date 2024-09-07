@@ -354,13 +354,13 @@ defineExpose({
 
 @media screen and (max-width: 768px) {
   .share-dialog{
-    width: 90%; /* Adjust for smaller screens */
+    width: 90%;
   }
 }
 
 @media screen and (min-width: 769px) {
   .share-dialog {
-    width: 40%; /* Wider on larger screens */
+    width: 40%;
   }
 }
 </style>

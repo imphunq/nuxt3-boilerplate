@@ -1,14 +1,14 @@
 <template>
-  <div class="login-content w-full relative flex items-center justify-between">
+  <div class="login-content w-full relative flex flex-col-reverse gap-5 lg:flex-row items-center justify-between">
     <div class="left-side relative login-figures">
       <div class="img relative z-[2] w-full">
-        <img :src="LoginImage" alt="">
+        <img :src="LoginImage" alt="" class=w-full>
       </div>
       <div class="circle"></div>
       <div class="triangle"></div>
     </div>
 
-    <div class="right-side w-1/2 relative">
+    <div class="lg:right-side lg:w-1/2 md:w-2/5 sm:w-3/5 w-4/5 relative">
       <p class="font-bold text-2xl">
         Log In
       </p>
@@ -132,6 +132,18 @@ const handleLogin = async () => {
 
     h1 {
       font-size: max(25px, 1.9vw);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .left-side {
+      width: 60%;
+    }
+  }
+
+  @media screen and (max-width: 639px) {
+    .left-side {
+      width: 70%;
     }
   }
 }

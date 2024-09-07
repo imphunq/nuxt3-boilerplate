@@ -46,5 +46,16 @@
     background: -webkit-linear-gradient(0deg, #4280eb, #9e0fc8);
     color: #fff;
   }
+
+  @media screen and (max-width: 480px) {
+    .login-btn {
+      font-size: 14px;
+    }
+
+    .sign-up-btn {
+      padding: 8px 15px;
+      font-size: 12px;
+    }
+  }
 }
 </style>
