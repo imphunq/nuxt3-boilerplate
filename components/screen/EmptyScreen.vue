@@ -1,62 +1,64 @@
 <template>
-  <div class="empty-screen w-3/5 m-auto" ref="dropZoneRef">
+  <div class="empty-screen xl:w-2/3 lg:w-1/2 w-3/5 m-auto" ref="dropZoneRef">
     <div v-show="!isOverDropZone">
       <span class="flex text-3xl justify-center my-8">
-        <span class="mr-1">Add screens to</span>
-        <span class="text-black font-bold">{{ project_title }}</span>
+        <span>Add screens to <span class="text-black font-bold">{{ project_title }}</span></span>
       </span>
 
-      <div class="flex items-stretch gap-5 mb-5">
-        <el-card class="w-1/2 empty-screen__card">
-          <div class="flex flex-col justify-between h-full">
-            <div class="mb-8">
+      <div class="flex flex-col xl:flex-row gap-5 mb-5">
+        <el-card class="w-full xl:w-1/2 empty-screen__card relative">
+          <div class="flex flex-col justify-between gap-20 h-full mb-20">
+            <div>
               <div class="empty-screen__upload-icon flex items-center justify-center w-14 h-14 rounded-full">
                 <img class="w-8 h-8" :src="UploadIcon" />
               </div>
 
-              <p class="text-2xl font-bold text-black my-6">Upload your designs or drag and drop!</p>
-              <p>Get started by adding any .PNG, .JPG, .GIF file & Video (MP4, MOV) or click Upload Image button to browse from your computer.</p>
+              <p class="text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-black my-6">Upload your designs or drag and drop!</p>
+              <p class="text-sm md:text-base">Get started by adding any .PNG, .JPG, .GIF file & Video (MP4, MOV) or click Upload Image button to browse from your computer.</p>
             </div>
+          </div>
 
-            <button
-              type="button"
-              class="w-1/3 text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          <template #footer>
+            <el-button
+              type="primary"
+              round
+              size="large"
+              class="w-full"
               @click="open()"
             >
               Upload Image
-            </button>
-          </div>
+            </el-button>
+          </template>
         </el-card>
 
-        <el-card class="w-1/2 empty-screen__card">
-          <div class="flex flex-col justify-between h-full">
-            <div class="mb-[78px]">
+        <el-card class="w-full xl:w-1/2 empty-screen__card relative">
+          <div class="flex flex-col justify-between gap-16 h-full mb-20">
+            <div>
               <div class="empty-screen__sync-icon flex items-center justify-center w-14 h-14 rounded-full">
                 <img class="w-8 h-8" :src="SyncIcon" />
               </div>
 
-              <p class="text-2xl font-bold text-black my-6">Sync files from</p>
-              <p>Use HostDesign plugin to your favorite design tool and import all artboards directly.</p>
-            </div>
-
-            <div>
-              <div>
-                <span class="text-xs">Download plugin for:</span>
-              </div>
-
-              <div class="flex items-center gap-5">
-                <img class="w-6 h-6" :src="Plugin1" />
-                <img class="w-6 h-6" :src="Plugin2" />
-                <img class="w-6 h-6" :src="Plugin3" />
-              </div>
+              <p class="text-sm md:text-lg lg:text-xl xl:text-2xl font-bold text-black my-6">Sync files from</p>
+              <p class="text-sm md:text-base">Use HostDesign plugin to your favorite design tool and import all artboards directly.</p>
             </div>
           </div>
+
+          <template #footer>
+            <div>
+              <span class="text-xs">Download plugin for:</span>
+            </div>
+
+            <div class="flex items-center gap-5">
+              <img class="w-6 h-6" :src="Plugin1" />
+              <img class="w-6 h-6" :src="Plugin2" />
+              <img class="w-6 h-6" :src="Plugin3" />
+            </div>
+          </template>
         </el-card>
       </div>
 
-
-      <div class="flex items-center gap-5">
-        <el-card class="w-1/3 empty-screen__card">
+      <div class="flex flex-col xl:flex-row items-center gap-5">
+        <el-card class="w-full xl:w-1/3 empty-screen__card">
           <div class="flex items-center justify-between mb-10">
             <div>
               <p class="text-black font-semibold">Wireframe</p>
@@ -76,7 +78,7 @@
           </el-button>
         </el-card>
 
-        <el-card class="w-1/3 empty-screen__card">
+        <el-card class="w-full xl:w-1/3 empty-screen__card">
           <div class="flex items-center justify-between mb-10">
             <div>
               <p class="text-black font-semibold">Whiteboard</p>
@@ -96,7 +98,7 @@
           </el-button>
         </el-card>
 
-        <el-card class="w-1/3 empty-screen__card">
+        <el-card class="w-full xl:w-1/3 empty-screen__card">
           <div class="flex items-center justify-between mb-10">
             <div>
               <p class="text-black font-semibold">Roadmap</p>
@@ -194,6 +196,12 @@ const { isOverDropZone } = useDropZone(dropZoneRef, {
 
   &__card {
     border-radius: 15px;
+
+    .el-card__footer {
+      border-top: none;
+      bottom: 0;
+      position: absolute;
+    }
   }
 
   &__upload-icon, &__no-abs {

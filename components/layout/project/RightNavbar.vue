@@ -101,7 +101,6 @@
 <script lang="ts" setup>
 import { initDropdowns } from 'flowbite'
 import UserDropdown from '../UserDropdown.vue'
-import ShareIcon from '~/assets/images/icons/share.png'
 
 onMounted(() => {
   useFlowbite(() => {
@@ -110,9 +109,10 @@ onMounted(() => {
 })
 
 const route = useRoute()
-const id = route.params.id as string
 
 const gotoPreviewPage = () => {
+  const id = route.params.id as string
+
   window.open(`/projects/${id}/preview`, '_blank')
 }
 </script>
