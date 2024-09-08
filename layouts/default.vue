@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-hidden">
+  <div class="overflow-x-hidden relative">
     <HeaderComponent />
 
     <div class="flex content-container">

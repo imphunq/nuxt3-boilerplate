@@ -1,64 +1,83 @@
 <template>
+  <div class="overflow-x-auto">
   <el-table
     ref="projectTableRef"
     :data="mergeData"
-    style="width: 100%"
+    style="width: 100%;"
   >
-    <el-table-column type="selection" max-width="55" />
-    <el-table-column prop="project_title" label="Folder / Project Name" width="400">
+    <el-table-column type="selection" />
+    <el-table-column
+      prop="project_title"
+      label="Folder / Project Name"
+      show-overflow-tooltip
+      min-width="300"
+    >
       <template #default="scope">
         <div v-if="scope.row.category === 'project'" class="flex items-center cursor-pointer" @click="gotoDetail(scope.row.id)">
-          <img :src="scope.row.cover_url_thumb ?? NoImage" class="w-16 md:w-32 max-w-full max-h-full mr-2" alt="Thumb">
+          <img
+            :src="scope.row.cover_url_thumb ?? NoImage"
+            class="w-16 md:w-32 sm:w-16 xs:w-12 max-w-full max-h-full mr-2" alt="Thumb"
+          >
 
-          <span class="text-black">{{ scope.row.project_title }}</span>
+          <span class="text-black text-xs md:text-sm xl:text-base">{{ scope.row.project_title }}</span>
         </div>
 
         <div v-else class="flex items-center cursor-pointer" @click="gotoDetailFolder(scope.row.id)">
-          <img :src="FolderImage" class="w-16 md:w-16 max-w-full max-h-full mr-2" alt="Thumb">
+          <img
+            :src="FolderImage"
+            class="w-12 md:w-16 sm:w-12 xs:w-8 max-w-full max-h-full mr-2"
+            alt="Thumb"
+          >
 
-          <span class="text-black">{{ scope.row.folder_name }}</span>
+          <span class="text-black text-xs md:text-sm xl:text-base">{{ scope.row.folder_name }}</span>
         </div>
       </template>
     </el-table-column>
-    <el-table-column label="Folder / Project Owner" width="200">
+    <el-table-column
+      label="Folder / Project Owner"
+      header-align="center"
+      width="250"
+    >
       <template #default="scope">
-        <span v-if="scope.row.category === 'project'" class="flex items-center gap-1 px-6 py-4 text-black dark:text-white">
+        <span
+          v-if="scope.row.category === 'project'"
+          class="flex items-center justify-center gap-1 px-6 py-4 text-black dark:text-white">
           <span>{{ scope.row.members[0].name }}</span>
           <img :src="IconTick" alt="">
         </span>
       </template>
     </el-table-column>
-    <el-table-column label="People" width="200" />
+    <el-table-column label="People" width="150" />
     <el-table-column label="Screens" width="150">
       <template #default="scope">
-        <span v-if="scope.row.category === 'project'" class="flex items-center gap-1">
+        <span v-if="scope.row.category === 'project'" class="flex items-center justify-center gap-1">
           <span class="text-black">{{ scope.row.screen_count ?? scope.row.projects_count }}</span>
           <img :src="IconScreen" alt="">
         </span>
       </template>
     </el-table-column>
-    <el-table-column label="Updated" width="150">
+    <el-table-column label="Updated" width="200">
       <template #default="scope">
-        <span class="text-black">
+        <span class="text-black justify-center">
           {{ moment(scope.row.updated_at).format('YY/DD/YYYY HH:mm') }}
         </span>
       </template>
     </el-table-column>
-    <el-table-column>
+    <el-table-column width="200">
       <template #default="scope">
-        <button v-if="scope.row.category === 'project'" type="button"
-          class="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          <svg class="mr-2" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
-            width="1em" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z">
-            </path>
-          </svg>
-          <span>Share</span>
-        </button>
+        <el-button
+          v-if="scope.row.category === 'project'"
+          type="primary"
+          round
+          class="flex items-center justify-center"
+        >
+          <el-icon><Share /></el-icon>
+
+          <span class="text-xs md:text-sm xl:text-base">Share</span>
+        </el-button>
       </template>
     </el-table-column>
-    <el-table-column>
+    <el-table-column width="100">
       <template #default="scope">
         <div v-if="scope.row.category === 'project'" class="flex items-center gap-3">
           <svg class="text-xl" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em"
@@ -147,9 +166,11 @@
       </template>
     </el-table-column>
   </el-table>
+</div>
 </template>
 
 <script lang="ts" setup>
+import { Share } from "@element-plus/icons-vue"
 import IconTick from '~/assets/images/icon-tick.svg'
 import IconScreen from '~/assets/images/icon-screen.svg'
 import type { IProject } from '~/types'
@@ -185,7 +206,7 @@ const mergeData = computed(() => {
     project.category = 'project';
     return project;
   });
-console.log([...foldersData, ...props.projects], folders.value)
+
   return [...foldersData, ...props.projects]
 })
 
@@ -198,4 +219,8 @@ const gotoDetailFolder = (id: number) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.project-title .cell {
+  width: 30% !important;
+}
+</style>

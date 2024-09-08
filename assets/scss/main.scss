@@ -44,3 +44,40 @@ body {
     }
   }
 }
+
+.el-table {
+  table-layout: auto;
+}
+
+.el-table-column {
+  white-space: nowrap; /* Ngăn chặn ngắt dòng */
+}
+
+.el-table-column span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1024px) {
+  .el-table {
+    thead tr th {
+      font-size: 12px !important;
+    }
+
+    tbody tr td {
+      font-size: 12px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .el-table {
+    thead tr th {
+      font-size: 10px !important;
+    }
+
+    tbody tr td {
+      font-size: 10px !important;
+    }
+  }
+}
