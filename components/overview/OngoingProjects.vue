@@ -5,7 +5,7 @@
       :link-detail="linkDetail"
     />
 
-    <div class="relative overflow-auto border border-solid border-gray-200 border-t-0 h-80 rounded-b-lg">
+    <div class="relative border border-solid border-gray-200 border-t-0 h-80 rounded-b-lg">
       <el-scrollbar>
         <el-table
           :data="projects"
@@ -14,21 +14,21 @@
           <el-table-column
             sortable
             label="Name"
-            header-align="center"
-            align="center"
+            show-overflow-tooltip
+            min-width="200"
           >
             <template #default="{ row }">
               <div class="flex items-center gap-2">
                 <img
                   :src="GroupProjectIcon"
                   alt=""
-                  class="w-8 h-8"
+                  class="w-8 h-8 hidden md:flex"
                 >
 
                 <div class="flex flex-col gap-1">
                   <span class="font-semibold text-black">{{ row.project_title }}</span>
 
-                  <p class="flex items-center gap-1 text-sm text-gray-500">
+                  <p class="hidden md:flex items-center gap-1 text-sm text-gray-500">
                     <span>@examples</span>
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAPZJREFUGFdtUMtRAlEQ7HmlZ7FK9ipGIJvBagRmIGawRuAYgWQARiAkAJuBhrBnsEo8S+3Y8+Dpo3QuM9Xd0/MRZFHpaijAhFBPEB4XejbNeXLAXvQikEFOGrChgE39seNRfK3rluk8F+Z1h6OLRk9bcdcAef0jNHzS6mSP37u7XOnqjeMvI5gEzJ1YxbE1uVun3F3SCgZrDcelYDtjXQeEIbv92BgdrKT4ffQL2nShxd0h5gPteanFaHfgw3qT9uMHGoLV4YFWNlpw3d03aqan/77B5vlS+zc/r/Oi0o9BwNbB2OSjKRy7YzKJznl4E/DVy0WJ/wbrO1+1Jmt1OAAAAABJRU5ErkJggg==" alt="">
                   </p>

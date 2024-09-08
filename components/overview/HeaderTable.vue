@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-between rounded-t-lg border border-solid border-gray-200 p-[10px]">
+  <div class="flex flex-wrap items-center md:justify-between justify-center gap-2 rounded-t-lg border border-solid border-gray-200 p-[10px]">
     <div class="flex items-center gap-2">
       <span class="text-sm">
         {{ props.title }}

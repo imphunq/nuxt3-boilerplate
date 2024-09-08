@@ -8,7 +8,12 @@
     <div class="relative overflow-auto border border-solid border-gray-200 border-t-0 h-96 rounded-b-lg">
       <el-scrollbar>
         <el-table :data="teams" style="width: 100%">
-          <el-table-column label="Name" sortable>
+          <el-table-column
+            label="Name"
+            sortable
+            show-overflow-tooltip
+            min-width="200"
+          >
             <template #default="{ row }">
               <div class="flex items-center gap-2">
                 <img

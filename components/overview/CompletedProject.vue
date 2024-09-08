@@ -5,23 +5,23 @@
       :link-detail="linkDetail"
     />
 
-    <div class="relative overflow-auto border border-solid border-gray-200 border-t-0 h-80 rounded-b-lg">
+    <div class="relative border border-solid border-gray-200 border-t-0 h-80 rounded-b-lg">
       <el-scrollbar>
         <el-table :data="projects" style="width: 100%">
-          <el-table-column label="Name" sortable>
+          <el-table-column label="Name" sortable show-overflow-tooltip min-width="200">
             <template #default="{ row }">
               <div class="flex items-center gap-2">
                 <img
                   :src="GroupProjectIcon"
                   alt=""
-                  class="w-8 h-8"
+                  class="w-8 h-8 hidden md:flex"
                 >
 
                 <div class="flex flex-col gap-1">
                   <span class="font-semibold text-black">{{ row.project_title }}</span>
 
-                  <p class="flex items-center gap-1 text-sm text-gray-500">
-                    <span class="truncate ...">{{ row.cover_url }}</span>
+                  <p class="items-center gap-1 text-sm text-gray-500 w-full hidden md:flex">
+                    <span class="w-1/2 truncate ...">{{ row.cover_url }}</span>
                     <div class="flex items-center gap-1 border border-gray-200 border-solid rounded-xl px-1 cursor-pointer">
                       <el-icon><CopyDocument /></el-icon>
                       <span>Copy</span>

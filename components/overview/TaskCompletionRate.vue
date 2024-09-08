@@ -13,7 +13,7 @@
       </div>
 
       <VueApexCharts
-        width="650"
+        max-width="650"
         height="310"
         type="line"
         :options="options"

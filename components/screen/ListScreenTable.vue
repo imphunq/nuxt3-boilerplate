@@ -2,7 +2,12 @@
   <el-table ref="screenTableRef" :data="screens" :default-sort="{ prop: 'project_title', order: 'descending' }"
     style="width: 100%" :show-header="false">
     <el-table-column type="selection" width="55" />
-    <el-table-column prop="project_title" label="Project Name">
+    <el-table-column
+      prop="project_title"
+      label="Project Name"
+      show-overflow-tooltip
+      min-width="300"
+    >
       <template #default="scope">
         <div class="flex items-center">
           <img :src="scope.row.screen_url_thumb" class="w-16 md:w-32 max-w-full max-h-full mr-2" alt="Thumb">
