@@ -19,7 +19,7 @@ import { Minus, Plus } from '@element-plus/icons-vue'
 
 const emit = defineEmits(['scale'])
 
-const scale = ref<number>(50)
+const scale = ref<number>(100)
 
 const plusScale = () => {
   if (scale.value < 100) {

@@ -8,7 +8,7 @@
       </div>
 
       <div class="flex flex-wrap justify-center items-center gap-5">
-        <RangeSlider class="mt-2" />
+        <RangeSlider class="mt-2" @range="changeRange" />
 
         <FilterProject class="mt-2" />
 
@@ -28,7 +28,8 @@
       <div v-show="!isOverDropZone">
         <div
           v-if="currentView === OPTION_VIEW.GRID"
-          class="grid grid-cols-1 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-center mt-8 gap-8">
+          :class="gridClasses"
+          class="justify-center mt-8 gap-8">
           <ScreenOverlay
             v-for="(screen, index) in screens"
             :key="`${index}-screen-overlay`"
@@ -70,6 +71,8 @@ import type { IScreen, IProject, IUploadRequestResponse } from '~/types'
 import { requestUploadScreenToProject, uploadScreenToFileServer } from '~/api/projects'
 import { useDropZone } from '@vueuse/core'
 
+const emit = defineEmits(['change-range'])
+
 const screenStore = useScreenStore()
 const projectStore = useProjectStore()
 const route = useRoute()
@@ -77,6 +80,7 @@ const { id } = route.params
 
 const screens = ref<IScreen[]>([])
 const dropZoneRef = ref<HTMLDivElement>()
+const gridClasses = ref<string>('grid grid-cols-1 2xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2')
 
 await useAsyncData('screens', async () => {
   const { data } = await getScreensInProject(id as string)
@@ -95,6 +99,10 @@ const project = computed((): IProject => {
 const currentView = computed(() => {
   return screenStore.getOptionView
 })
+
+const changeRange = (classes: string) => {
+  // gridClasses.value = classes
+}
 
 const handleUpload = async (files: FileList | File[] | null) => {
   if (files && files.length > 0) {

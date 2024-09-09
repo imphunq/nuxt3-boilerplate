@@ -24,7 +24,7 @@
             alt="Logo" class="w-[130px] navbar-logo cursor-pointer">
         </NuxtLink>
 
-        <div class="vertical-divider"></div>
+        <div class="hidden md:flex vertical-divider"></div>
 
         <div class="flex items-center">
           <el-button

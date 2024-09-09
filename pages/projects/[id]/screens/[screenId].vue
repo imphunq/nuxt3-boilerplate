@@ -133,7 +133,7 @@ const user = computed(() => {
 const screenImageRef = ref<HTMLImageElement | null>(null)
 const containerRef = ref<HTMLDivElement | null>(null)
 const commentPopoverRef = ref<InstanceType<typeof CommentPopover> | null>(null)
-const defaultWidth = ref<string>('50%')
+const defaultWidth = ref<string>('100%')
 const popoverX = ref<number>(0)
 const popoverY = ref<number>(0)
 const originalWidth = ref<number>(0)

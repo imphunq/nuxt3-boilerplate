@@ -8,6 +8,7 @@
       <button
         type="button"
         class="md:py-2.5 md:px-5 py-1.5 px-2.5 text-sm font-medium text-blue-500 focus:outline-none bg-white rounded-full border border-blue-400 hover:bg-blue-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        @click="navigateTo('/projects')"
       >
         View All Projects
       </button>
