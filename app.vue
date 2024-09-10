@@ -6,8 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initFlowbite } from 'flowbite'
-
 const authStore = useAuthStore()
 const route = useRoute()
 
@@ -16,10 +14,4 @@ if (route.name !== 'login') {
     return await authStore.fetchUser()
   })
 }
-
-onMounted(() => {
-  useFlowbite(() => {
-    initFlowbite()
-  })
-})
 </script>

@@ -60,13 +60,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 </script>
 
-    <style lang="scss" scoped></style>
+<style lang="scss" scoped></style>

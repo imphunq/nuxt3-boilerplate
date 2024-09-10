@@ -69,18 +69,11 @@
 
 <script setup lang="ts">
 import moment from 'moment'
-import { initDrawers } from 'flowbite'
 import { Plus, Back } from '@element-plus/icons-vue'
 import RightNavbar from './RightNavbar.vue'
 import DrawerSidebar from '../DrawerSidebar.vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
 import StackUserGroup from '~/components/common/StackUserGroup.vue'
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDrawers()
-  })
-})
 
 const globleStore = useGlobalStore()
 const projectStore = useProjectStore()

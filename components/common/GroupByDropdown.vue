@@ -53,7 +53,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import type { ILabelValue } from '~/types'
 
 type Key = 'project'
@@ -94,12 +93,6 @@ const project = computed<ILabelValue[]>(() => {
       label: 'Date Created',
     },
   ]
-})
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
 })
 </script>
 

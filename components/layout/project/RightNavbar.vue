@@ -99,14 +99,7 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import UserDropdown from '../UserDropdown.vue'
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 
 const route = useRoute()
 

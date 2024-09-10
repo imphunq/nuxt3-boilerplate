@@ -62,7 +62,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import type { ILabelValue } from '~/types'
 import _find from 'lodash/find'
 
@@ -142,12 +141,6 @@ const allProjects = computed<ILabelValue[]>(() => {
 const selectItem = (item: ILabelValue) => {
   router.push({ query: { sort_by: item.value } })
 }
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 </script>
 
 <style lang="scss" scoped></style>

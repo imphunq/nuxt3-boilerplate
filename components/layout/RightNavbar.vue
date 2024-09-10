@@ -216,7 +216,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import UserDropdown from './UserDropdown.vue'
 import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
 import CreateProjectDirectModal from '~/components/project/CreateProjectDirectModal.vue'
@@ -228,12 +227,6 @@ const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectModal>>()
 const createTeamModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createFolderModalRef = ref<InstanceType<typeof CreateFolderModal>>()
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 
 const openModalProject = () => {
   createProjectModalRef?.value?.open()

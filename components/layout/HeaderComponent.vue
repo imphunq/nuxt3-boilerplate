@@ -74,18 +74,10 @@
 </template>
 
 <script setup lang="ts">
-import { initDrawers } from 'flowbite'
-
 import Breadcrumb from './Breadcrumb.vue'
 import SearchInput from './SearchInput.vue'
 import RightNavbar from './RightNavbar.vue'
 import DrawerSidebar from './DrawerSidebar.vue'
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDrawers()
-  })
-})
 
 const globleStore = useGlobalStore()
 

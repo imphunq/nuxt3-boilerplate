@@ -54,7 +54,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDrawers } from 'flowbite'
 import SidebarItem from './SidebarItem.vue'
 
 import OverviewIcon from '~/assets/images/icons/overview.png'
@@ -75,12 +74,6 @@ import FileManagerIcon from '~/assets/images/icons/file-manager.svg'
 import LastUploadIcon from '~/assets/images/icons/last-upload.svg'
 import RemoteUploadIcon from '~/assets/images/icons/remote-upload.svg'
 import FtpUploadIcon from '~/assets/images/icons/ftp-upload.svg'
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDrawers()
-  })
-})
 
 const items = computed(() => {
   return [

@@ -36,7 +36,7 @@
     </div>
 
     <div class="mt-5 flex justify-end">
-      <div class="set-status-btn-block flex items-center justify-between rounded-full text-white cursor-pointer" id="dropdownNewButton" data-dropdown-toggle="dropdownNew">
+      <div class="set-status-btn-block flex items-center justify-between rounded-full text-white cursor-pointer" id="dropdownNewButton">
         <div class="new-block flex items-center">
           <span class="text-xs">
             Set Status

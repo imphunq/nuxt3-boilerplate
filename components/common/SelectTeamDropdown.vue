@@ -63,7 +63,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import _find from 'lodash/find'
 import type { ILabelValue } from '~/types'
 
@@ -98,12 +97,6 @@ const selectTeam = (item: ILabelValue) => {
 
   dropdownSelectTeamButtonRef.value?.click()
 }
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 </script>
 
 <style lang="scss" scoped></style>

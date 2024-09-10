@@ -53,7 +53,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initDropdowns } from 'flowbite'
 import _find from 'lodash/find'
 import type { ILabelValue } from '~/types'
 import { Unlock, Lock } from '@element-plus/icons-vue'
@@ -85,12 +84,6 @@ const selectPrivacy = (item: ILabelValue) => {
 
   dropdownSelectPrivacyButtonRef.value?.click()
 }
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 </script>
 
 <style lang="scss" scoped></style>

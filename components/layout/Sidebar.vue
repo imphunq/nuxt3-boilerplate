@@ -54,8 +54,6 @@
 </template>
 
 <script lang="ts" setup>
-import { initFlowbite, initDropdowns } from 'flowbite'
-
 import SidebarItem from './SidebarItem.vue'
 import SidebarItemCollapse from './SidebarItemCollapse.vue'
 import SidebarTeam from './SidebarTeam.vue'
@@ -80,12 +78,6 @@ import RemoteUploadIcon from '~/assets/images/icons/remote-upload.svg'
 import FtpUploadIcon from '~/assets/images/icons/ftp-upload.svg'
 
 const globalStore = useGlobalStore()
-
-onMounted(() => {
-  useFlowbite(() => {
-    initDropdowns()
-  })
-})
 
 const isCollapse = computed(() => {
   return globalStore.getIsCollapse
