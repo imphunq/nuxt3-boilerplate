@@ -179,4 +179,28 @@ defineExpose({
     border-bottom: 1.5px solid black;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .team-dialog {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .folder-dialog {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .folder-dialog {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .folder-dialog {
+    width: 40%;
+  }
+}
 </style>

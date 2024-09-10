@@ -65,8 +65,8 @@
           </el-input>
         </el-form-item>
 
-        <div class="flex items-center gap-5 justify-between">
-          <div class="w-1/2">
+        <div class="flex md:flex-row flex-col items-center md:gap-5 justify-center md:justify-between">
+          <div class="w-full md:w-1/2">
             <el-form-item
               prop="privacy"
               label="Project Type"
@@ -92,7 +92,7 @@
             </el-form-item>
           </div>
 
-          <div class="w-1/2">
+          <div class="w-full md:w-1/2">
             <el-form-item
               prop="projectdevice"
               label="Prototype"
@@ -164,7 +164,7 @@
             >Cancel</span>
             <button
               type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               @click="onSubmit"
             >
               Create Project

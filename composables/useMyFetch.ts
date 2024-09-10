@@ -7,9 +7,9 @@ export const useMyFetch = (url: string, customOptions: any = {}) => {
 
   const ignoreRoutes = ['sharelink-shareKey', 'sharelink-shareKey-screenName-screenId', 'sharelink-project-shareKey', 'sharelink-project-shareKey-screenName-screenId']
 
-  const buildQueryParams = (params: Record<string, any>)  => {
-    const queryString = new URLSearchParams(params).toString();
-    return queryString ? `?${queryString}` : '';
+  const buildQueryParams = (params: Record<string, any>) => {
+    const queryString = new URLSearchParams(params).toString()
+    return queryString ? `?${queryString}` : ''
   }
 
   const queryParams = buildQueryParams(customOptions.query || {})
@@ -27,8 +27,8 @@ export const useMyFetch = (url: string, customOptions: any = {}) => {
 
       options.headers = {
         ...options.headers,
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       }
 
@@ -39,7 +39,7 @@ export const useMyFetch = (url: string, customOptions: any = {}) => {
       const { data, response } = ctx
 
       if (data.status === 'Token is Invalid' || data.status === 'Token is Expired') {
-        if(ignoreRoutes.includes(route.name as string)) {
+        if (ignoreRoutes.includes(route.name as string)) {
           return ctx
         }
 

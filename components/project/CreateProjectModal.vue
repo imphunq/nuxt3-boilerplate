@@ -67,7 +67,7 @@
           </el-input>
         </el-form-item>
 
-        <ul class="grid w-full gap-6 md:grid-cols-2">
+        <ul class="grid w-full gap-6 md:grid-cols-2 auto-rows-fr">
           <li>
             <input
               id="project-private"
@@ -80,7 +80,7 @@
             >
             <label
               for="project-private"
-              class="border-solid border-gray-200 flex gap-5 items-center w-full p-5 text-gray-500 bg-white border rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full border-solid border-gray-200 flex gap-5 items-center w-full p-5 text-gray-500 bg-white border rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <img
                 :src="Private"
@@ -104,7 +104,7 @@
             >
             <label
               for="project-public"
-              class="border-solid flex gap-5 items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+              class="h-full border-solid flex gap-5 items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <img
                 :src="Public"
@@ -118,8 +118,8 @@
           </li>
         </ul>
 
-        <div class="flex items-center justify-between mt-[22px] gap-6">
-          <div class="list-colors block w-1/2">
+        <div class="flex flex-col md:flex-row justify-center items-center md:justify-between mt-[22px] gap-6">
+          <div class="list-colors block w-full md:w-1/2">
             <p class="mb-2 font-semibold">
               Color
             </p>
@@ -156,7 +156,7 @@
             </div>
           </div>
 
-          <div class="list-icon block w-1/2">
+          <div class="list-icon block w-full md:w-1/2">
             <p class="mb-2 font-semibold">
               Icon
             </p>
@@ -218,7 +218,7 @@
             <button
               v-if="step === 1"
               type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
               @click="nextStep"
             >
               Next
@@ -388,6 +388,30 @@ defineExpose({
 
   .border-bottom-selected {
     border-bottom: 1.5px solid black;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .project-dialog {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .project-dialog {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .project-dialog {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .project-dialog {
+    width: 40%;
   }
 }
 </style>
