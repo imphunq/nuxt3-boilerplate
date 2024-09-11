@@ -14,7 +14,11 @@
 
         <GroupByDropdown type="project" />
 
-        <SortByDropdown />
+        <SortByDropdown
+          without-push-query-to-route
+          type="order"
+          @change="changeSortBy"
+        />
 
         <OptionView
           page="screen"
@@ -66,10 +70,11 @@ import FilterProject from '~/components/common/FilterProject.vue'
 import ListScreenTable from '~/components/screen/ListScreenTable.vue'
 import EmptyScreen from '~/components/screen/EmptyScreen.vue'
 import { OPTION_VIEW } from '~/constants/common'
-import { getScreensInProject } from '~/api/screens'
+import { getScreensInProject, getScreensSortBy } from '~/api/screens'
 import type { IScreen, IProject, IUploadRequestResponse } from '~/types'
 import { requestUploadScreenToProject, uploadScreenToFileServer } from '~/api/projects'
 import { useDropZone } from '@vueuse/core'
+import _get from 'lodash/get'
 
 const emit = defineEmits(['change-range'])
 
@@ -102,6 +107,12 @@ const currentView = computed(() => {
 
 const changeRange = (classes: string) => {
   // gridClasses.value = classes
+}
+
+const changeSortBy = async (value: string) => {
+  const { data } =  await getScreensSortBy(id as string, value)
+
+  screens.value = data.value
 }
 
 const handleUpload = async (files: FileList | File[] | null) => {

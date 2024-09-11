@@ -65,13 +65,17 @@
 import type { ILabelValue } from '~/types'
 import _find from 'lodash/find'
 
-type Key = 'overview' | 'project'
+type Key = 'overview' | 'project' | 'order'
 
 interface Props {
   type?: Key
+  withoutPushQueryToRoute?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  withoutPushQueryToRoute: false,
+})
+const emit = defineEmits(['change'])
 
 const router = useRouter()
 const route = useRoute()
@@ -86,13 +90,13 @@ const sortByItems = computed<ILabelValue[]>(() => {
   switch (props.type) {
     case 'overview':
       return overview.value
-      break
     case 'project':
       return allProjects.value
       break
+    case 'order':
+      return orders.value
     default:
       return overview.value
-      break
   }
 })
 
@@ -138,8 +142,25 @@ const allProjects = computed<ILabelValue[]>(() => {
   ]
 })
 
+const orders = computed<ILabelValue[]>(() => {
+  return [
+    {
+      value: 'asc',
+      label: 'Ascending',
+    },
+    {
+      value: 'desc',
+      label: 'Descending',
+    },
+  ]
+})
+
 const selectItem = (item: ILabelValue) => {
-  router.push({ query: { sort_by: item.value } })
+  if (!props.withoutPushQueryToRoute) {
+    router.push({ query: { sort_by: item.value } })
+  }
+
+  emit('change', item.value)
 }
 </script>
 

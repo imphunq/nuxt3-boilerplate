@@ -15,3 +15,11 @@ export const deleteScreen = (projectId: string, screenId: number) => {
     method: 'DELETE',
   })
 }
+
+export const getScreensSortBy = (projectId: string, sortBy: string) => {
+  return useMyFetch(`user/project/${projectId}/screens/${sortBy}`, {
+    query: {
+      sort_by: sortBy,
+    },
+  })
+}
