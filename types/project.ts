@@ -82,3 +82,7 @@ export interface IUploadRequestResponse {
   upload_id: string
   upload_url: string
 }
+
+export interface IRenameProject {
+  project_title: string
+}

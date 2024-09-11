@@ -1,6 +1,6 @@
 <template>
   <div class="screen-header flex flex-wrap items-center p-4 pt-0 border-b border-solid border-gray-200 gap-3">
-    <div class="flex items-center gap-5">
+    <div class="flex justify-center items-center gap-5">
       <el-button
         :icon="Back"
         size="large"
@@ -23,7 +23,7 @@
 
             <el-icon><CaretRight /></el-icon>
 
-            <span class="font-semibold text-black w-3/5 truncate ...">
+            <span class="font-semibold text-black w-1/2 md:w-3/5 truncate ...">
               {{ screen?.name }}
             </span>
           </div>
@@ -61,7 +61,7 @@
       </el-radio-group>
     </div>
 
-    <div class="flex items-center gap-5">
+    <div class="flex flex-wrap justify-center items-center gap-5">
       <el-popover
         placement="bottom"
         :width="300"

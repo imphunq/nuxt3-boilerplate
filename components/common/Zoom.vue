@@ -5,7 +5,7 @@
       circle
       @click="minusScale"
     />
-    <span>{{ scale }} %</span>
+    <span class="text-xs md:text-base">{{ scale }} %</span>
     <el-button
       :icon="Plus"
       circle
