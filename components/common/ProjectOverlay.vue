@@ -40,7 +40,7 @@
                   <el-dropdown-item @click="">
                     <span class="ml-2 text-base">Comments</span>
                   </el-dropdown-item>
-                  <el-dropdown-item @click="">
+                  <el-dropdown-item @click="openMoveToModal">
                     <span class="ml-2 text-base">Move to</span>
                   </el-dropdown-item>
                   <el-dropdown-item @click="">
@@ -123,6 +123,7 @@
           @delete="handleDelete"
         />
         <RenameProjectModal ref="modalRenameProjectRef" />
+        <ProjectMoveToFolderModal ref="projectMoveToFolderModalRef" />
       </el-card>
     </div>
   </div>
@@ -134,6 +135,7 @@ import moment from 'moment'
 import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
 import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
 import RenameProjectModal from '~/components/project/RenameProjectModal.vue'
+import ProjectMoveToFolderModal from '~/components/project/ProjectMoveToFolderModal.vue'
 import type { IProject } from '~/types'
 import NoImage from '~/assets/images/no-image.jpg'
 import { deleteProject } from '~/api/projects'
@@ -150,6 +152,7 @@ const route = useRoute()
 const shareProjectModalRef = ref<InstanceType<typeof ShareProjectModal> | null>(null)
 const modalConfirmDeleteRef = ref<InstanceType<typeof ModalConfirmDelete> | null>(null)
 const modalRenameProjectRef = ref<InstanceType<typeof RenameProjectModal> | null>(null)
+const projectMoveToFolderModalRef = ref<InstanceType<typeof ProjectMoveToFolderModal> | null>(null)
 
 const handleView = () => {
   navigateTo(`/projects/${props.project.id}`)
@@ -165,6 +168,10 @@ const openModalConfirmDelete = () => {
 
 const openRenameModal = () => {
   modalRenameProjectRef.value?.open(props.project)
+}
+
+const openMoveToModal = async () => {
+  await projectMoveToFolderModalRef.value?.open(props.project)
 }
 
 const handleDelete = async () => {

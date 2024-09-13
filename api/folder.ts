@@ -11,3 +11,7 @@ export const createFolder = (data: ICreateFolder) => {
 export const getFolders = () => {
   return useMyFetch(`user/folders`)
 }
+
+export const showFolder = (id: string) => {
+  return useMyFetch(`user/folders/${id}`)
+}

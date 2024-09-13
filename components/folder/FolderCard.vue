@@ -40,5 +40,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const handleView = () => {}
+const handleView = () => {
+  navigateTo(`/folders/${props.folder.id}`)
+}
 </script>

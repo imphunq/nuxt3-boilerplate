@@ -86,3 +86,7 @@ export interface IUploadRequestResponse {
 export interface IRenameProject {
   project_title: string
 }
+
+export interface IMoveProjectToFolder extends IRenameProject {
+  folder_id: number | undefined
+}

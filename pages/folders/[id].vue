@@ -1,6 +1,8 @@
 <template>
   <div>
     <HeaderPage
+      :title="`All projects in ${folder?.folder_name}`"
+      :subTitle="`View all your projects in ${folder?.folder_name} here`"
       :key="route.path"
       :type="PROJECT_TYPE.ALL"
     />
@@ -33,6 +35,8 @@ import ListProject from '~/components/project/ListProject.vue'
 import ListFolders from '~/components/folder/ListFolders.vue'
 import { PROJECT_TYPE } from '~/constants/project'
 import NoProjects from '~/components/common/NoProjects.vue'
+import { showFolder } from '~/api/folder'
+import type { IFolder } from '~/types'
 
 definePageMeta({
   middleware: 'auth',
@@ -43,19 +47,25 @@ const route = useRoute()
 const projectStore = useProjectStore()
 const folderStore = useFolderStore()
 
-await useAsyncData('folders', async () => {
-  await folderStore.fetchFolders()
+const { id } = route.params
+
+const folder = ref<IFolder>()
+
+await useAsyncData('show-folder', async () => {
+  const { data } = await showFolder(id as string)
+
+  folder.value = data.value
 })
 
 useRefetch(
   () => projectStore.fetchProjects(
     route.query.page as string ?? '1',
-    { ...route.query, folder_id: '' },
+    { ...route.query, folder_id: id },
   ),
 )
 
 const folders = computed(() => {
-  return folderStore.getFolders
+  return []
 })
 
 const projects = computed(() => {
