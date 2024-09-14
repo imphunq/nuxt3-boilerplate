@@ -1,6 +1,6 @@
 import { useFetch } from '@vueuse/core'
 import { useMyFetch } from '~/composables/useMyFetch'
-import type { IProjectCreate, IRenameProject, IMoveProjectToFolder } from '~/types'
+import type { IProjectCreate, IRenameProject, IMoveProjectToFolder, IInvite } from '~/types'
 
 export const createProject = (data: IProjectCreate) => {
   return useMyFetch('user/projects', {
@@ -55,6 +55,13 @@ export const getRecentUpdateProjects = (params: any = {}) => {
 
 export const updateProject = (projectId:number, data: IRenameProject | IMoveProjectToFolder) => {
   return useMyFetch(`user/project/${projectId}/update`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export const inviteToProject = (projectId: string, data: IInvite) => {
+  return useMyFetch(`user/project/${projectId}/invite`, {
     method: 'POST',
     body: JSON.stringify(data),
   })

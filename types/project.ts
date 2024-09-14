@@ -90,3 +90,7 @@ export interface IRenameProject {
 export interface IMoveProjectToFolder extends IRenameProject {
   folder_id: number | undefined
 }
+
+export interface IInvite {
+  email: string
+}

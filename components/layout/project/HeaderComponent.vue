@@ -49,10 +49,14 @@
 
           <button
             type="button"
-            class="hidden md:flex items-center gap-2 py-2 px-5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            class="hidden md:flex items-center gap-2 py-2 px-5 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            @click="openInviteModal"
+          >
             <el-icon><Plus /></el-icon>
             <span>Invite</span>
           </button>
+
+          <InviteModal ref="inviteModalRef" />
         </div>
       </div>
 
@@ -74,11 +78,13 @@ import RightNavbar from './RightNavbar.vue'
 import DrawerSidebar from '../DrawerSidebar.vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
 import StackUserGroup from '~/components/common/StackUserGroup.vue'
+import InviteModal from '~/components/project/InviteModal.vue'
 
 const globleStore = useGlobalStore()
 const projectStore = useProjectStore()
 
 const openDrawer = ref<boolean>(false)
+const inviteModalRef = ref<InstanceType<typeof InviteModal>>()
 
 const project = computed(() => {
   return projectStore.getProject
@@ -124,6 +130,10 @@ const handleCollapse = () => {
   if (width >= 640) {
     globleStore.setIsCollapse(!globleStore.getIsCollapse)
   }
+}
+
+const openInviteModal = () => {
+  inviteModalRef.value?.open()
 }
 </script>
 
