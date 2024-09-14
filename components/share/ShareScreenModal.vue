@@ -233,7 +233,7 @@ const disableComment = ref<boolean>(false)
 const currentProjectId = ref<number>(0)
 const currentScreenId = ref<number>(0)
 
-const { copy } = useClipboard()
+const { copy, isSupported } = useClipboard()
 
 const privacyOptions: ILabelValue[] = [
   { label: 'Public Share', value: PRIVACY.PUBLIC },
@@ -305,7 +305,29 @@ const copyToClipboard = () => {
       })
     })
   } else {
-    copy(el.value)
+    if (isSupported) {
+      console.log('support copied')
+      copy(el.value)
+    }
+    else {
+      console.log('not support copied')
+      const ele = document.createElement('textarea')
+      ele.value = shareLink.value
+      ele.setAttribute('readonly', '')
+      ele.style.position = 'absolute'
+      ele.style.left = '-9999px'
+      document.body.appendChild(el)
+      const selected =
+        document.getSelection()?.rangeCount || 0 > 0
+          ? document.getSelection()?.getRangeAt(0)
+          : false
+
+          ele.select()
+
+      document.execCommand('copy')
+
+      document.body.removeChild(ele)
+    }
 
     ElMessage({
       message: 'Copy successfully',

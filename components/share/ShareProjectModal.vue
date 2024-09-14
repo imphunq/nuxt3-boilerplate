@@ -246,7 +246,7 @@ const activeTab = ref<string>('public')
 const embedCode = ref<string>('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
 const embedCodeRef = ref<InstanceType<typeof HTMLDivElement> | null>(null)
 
-const { copy } = useClipboard()
+const { copy, isSupported } = useClipboard()
 
 const open = async (projectId: number) => {
   if (localStorage.getItem(`screenProject_${projectId}`)) {
@@ -301,7 +301,29 @@ const copyToClipboard = () => {
       })
     })
   } else {
-    copy(el)
+    if (isSupported) {
+      console.log('support copied')
+      copy(el)
+    }
+    else {
+      console.log('not support copied')
+      const ele = document.createElement('textarea')
+      ele.value = shareLink.value
+      ele.setAttribute('readonly', '')
+      ele.style.position = 'absolute'
+      ele.style.left = '-9999px'
+      document.body.appendChild(ele)
+      const selected =
+        document.getSelection()?.rangeCount || 0 > 0
+          ? document.getSelection()?.getRangeAt(0)
+          : false
+
+      ele.select()
+
+      document.execCommand('copy')
+
+      document.body.removeChild(ele)
+    }
 
     ElMessage({
       message: 'Copy successfully',
