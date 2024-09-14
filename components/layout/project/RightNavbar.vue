@@ -11,6 +11,7 @@
     <button
       type="button"
       class="hidden md:flex items-center gap-2 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      @click="openShareProject"
     >
     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"></path></svg>
       <span>Share</span>
@@ -95,18 +96,27 @@
     </div>
 
     <UserDropdown />
+    <ShareProjectModal ref="shareProjectModalRef" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import UserDropdown from '../UserDropdown.vue'
+import ShareProjectModal from '~/components/share/ShareProjectModal.vue'
 
 const route = useRoute()
+const shareProjectModalRef = ref<InstanceType<typeof ShareProjectModal>>()
 
 const gotoPreviewPage = () => {
   const id = route.params.id as string
 
   window.open(`/projects/${id}/preview`, '_blank')
+}
+
+const openShareProject = () => {
+  const id = route.params.id as string
+
+  shareProjectModalRef.value?.open(parseInt(id))
 }
 </script>
 
