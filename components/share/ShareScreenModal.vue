@@ -301,44 +301,40 @@ const close = () => {
 }
 
 const copyToClipboard = () => {
-  const el = document.getElementById('share-input') as HTMLInputElement
+  const el = document.getElementById('share-input') as HTMLInputElement;
 
-  if (navigator.clipboard) {
+  if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(el.value).then(() => {
       ElMessage({
         message: 'Copy successfully',
         type: 'success',
-      })
-    })
+      });
+    }).catch(err => {
+      console.error('Clipboard write failed: ', err);
+    });
   } else {
-    if (isSupported) {
-      console.log('support copied')
-      copy(el.value)
+    const ele = document.createElement('textarea');
+    ele.value = el.value;
+    ele.setAttribute('readonly', '');
+    ele.style.position = 'absolute';
+    ele.style.left = '-9999px';
+    document.body.appendChild(ele);
+
+    ele.select();
+    const successful = document.execCommand('copy');
+    document.body.removeChild(ele);
+
+    if (successful) {
+      ElMessage({
+        message: 'Copy successfully',
+        type: 'success',
+      });
+    } else {
+      ElMessage({
+        message: 'Copy failed',
+        type: 'error',
+      });
     }
-    else {
-      console.log('not support copied')
-      const ele = document.createElement('textarea')
-      ele.value = shareLink.value
-      ele.setAttribute('readonly', '')
-      ele.style.position = 'absolute'
-      ele.style.left = '-9999px'
-      document.body.appendChild(el)
-      const selected =
-        document.getSelection()?.rangeCount || 0 > 0
-          ? document.getSelection()?.getRangeAt(0)
-          : false
-
-          ele.select()
-
-      document.execCommand('copy')
-
-      document.body.removeChild(ele)
-    }
-
-    ElMessage({
-      message: 'Copy successfully',
-      type: 'success',
-    })
   }
 }
 
