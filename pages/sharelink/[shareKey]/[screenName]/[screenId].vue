@@ -7,7 +7,7 @@
       >
         <img
           ref="screenImageRef"
-          :src="currentScreen?.screen_url_thumb"
+          :src="currentScreen?.screen_url"
           class="w-full"
           :class="{ 'cursor-crosshair': isLogin }"
           @load="onImageLoad"

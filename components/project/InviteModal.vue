@@ -80,6 +80,28 @@
             Add
           </button>
         </div>
+
+        <div v-if="dataEmail.length" class="text-left mt-4 border-t border-solid border-gray-200">
+          <div
+            v-for="(mail, index) in dataEmail"
+            :key="index"
+            class="flex justify-between items-center py-3 border-b border-solid border-gray-200"
+          >
+            <span class="text-sm">{{ mail }}</span>
+            <el-select
+              v-model="role"
+              class="invite-role-select"
+              style="width: 120px;"
+            >
+              <el-option
+                v-for="(item, index) in roles"
+                :key="`${index}-${item.value}`"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+        </div>
       </template>
     </el-dialog>
   </div>
@@ -95,9 +117,22 @@ const id = route.params.id as string
 
 const dialogFormVisible = ref(false)
 
+const dataEmail = ref<string[]>([])
 const formInitial = reactive<IInvite>({
   email: '',
 })
+const role = ref<string>('Guest')
+
+const roles = [
+  {
+    label: 'Guest',
+    value: 'guest',
+  },
+  {
+    label: 'Member',
+    value: 'member',
+  }
+]
 
 const loading = ref<boolean>(false)
 
@@ -122,6 +157,7 @@ const open = () => {
 
 const close = () => {
   dialogFormVisible.value = false
+  dataEmail.value = []
 }
 
 const handleInviteToProject = async () => {
@@ -142,10 +178,12 @@ const handleInviteToProject = async () => {
         return
       }
 
-      loading.value = false
-      dialogFormVisible.value = false
+      dataEmail.value.push(form.email)
 
-      close()
+      form.email = ''
+
+      loading.value = false
+      // dialogFormVisible.value = false
 
       ElMessage({
         message: 'Invite successfully',
@@ -181,6 +219,12 @@ defineExpose({
 
   .border-bottom-selected {
     border-bottom: 1.5px solid black;
+  }
+
+  .invite-role-select {
+    .el-select__wrapper {
+      border-radius: 18px;
+    }
   }
 }
 
