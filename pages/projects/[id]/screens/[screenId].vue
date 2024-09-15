@@ -143,6 +143,8 @@ const visiblePopovers = reactive(Array(comments.value.length).fill(false))
 
 const handleScale = (scale: number) => {
   defaultWidth.value = `${scale}%`
+
+  localStorage.setItem('zoom', scale.toString())
 }
 
 const showCommentPopup = async (event: MouseEvent) => {
@@ -295,6 +297,10 @@ const previousScreen = (currentOrder: number) => {
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
+
+  const zoomValue = localStorage.getItem('zoom') ?? '100'
+
+  defaultWidth.value = `${zoomValue}%`
 })
 
 onUnmounted(() => {

@@ -108,6 +108,7 @@ export const useAuthStore = defineStore('auth', {
       this.userLogin = null
 
       localStorage.removeItem('user')
+      localStorage.removeItem('zoom')
     }
   },
 })
