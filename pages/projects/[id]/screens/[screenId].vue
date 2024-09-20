@@ -56,7 +56,7 @@
         >
           <template #reference>
             <CommentIcon
-              :style="{ top: `${comment.displayY}%`, left: `${comment.displayX}%` }"
+              :style="{ top: `${comment.percent_y}%`, left: `${comment.percent_x}%` }"
               class="absolute cursor-pointer"
             />
           </template>
@@ -201,13 +201,16 @@ const handleSubmitComment = async (comment: any) => {
   const imageRect = containerRef.value!.getBoundingClientRect();
   const xPercent = (popoverX.value / imageRect.width) * 100;
   const yPercent = (popoverY.value / imageRect.height) * 100;
-
+console.log('xPercent:', xPercent)
+console.log('yPercent:', yPercent)
   const data = {
     comment,
     position_x: popoverX.value,
     position_y: popoverY.value,
     displayX: xPercent,
     displayY: yPercent,
+    percent_x: xPercent,
+    percent_y: yPercent,
     id: 0,
     parent_id: 0,
     mentions: null,
@@ -234,6 +237,8 @@ const handleSubmitComment = async (comment: any) => {
     screens_id: screenId,
     parent_id: 0,
     commenttype_id: user.value!.id,
+    percent_x: xPercent,
+    percent_y: yPercent,
   })
 
   if (error.value) {
@@ -265,15 +270,15 @@ const handleCloseReplyComment = (index: number) => {
 
 const onImageLoad = () => {
   if (screenImageRef.value) {
-    originalWidth.value = screenImageRef.value.naturalWidth
-    originalHeight.value = screenImageRef.value.naturalHeight
+    originalWidth.value = screenImageRef.value.clientWidth
+    originalHeight.value = screenImageRef.value.clientHeight
 
     const screenComments = currentScreen.value?.comments || []
     const imageRect = containerRef.value!.getBoundingClientRect();
 
     comments.value = screenComments.map((comment: IComment) => {
-      const xPercent = (comment.position_x / imageRect.width) * 100;
-      const yPercent = (comment.position_y / imageRect.height) * 100;
+      const xPercent = (comment.position_x / originalWidth.value) * 100;
+      const yPercent = (comment.position_y / originalHeight.value) * 100;
 
       return {
         ...comment,
@@ -298,9 +303,17 @@ const previousScreen = (currentOrder: number) => {
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
 
-  const zoomValue = localStorage.getItem('zoom') ?? '100'
+  // const zoomValue = localStorage.getItem('zoom') ?? '100'
 
-  defaultWidth.value = `${zoomValue}%`
+  // defaultWidth.value = `${zoomValue}%`
+
+  setTimeout(() => {
+
+
+    const zoomValue = localStorage.getItem('zoom') ?? '100'
+
+    defaultWidth.value = `${zoomValue}%`
+  }, 100)
 })
 
 onUnmounted(() => {
@@ -324,5 +337,14 @@ onUnmounted(() => {
 
 .half-right-circle {
   clip-path: circle(50% at 100% 50%);
+}
+
+.camera {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  align-items: center;
+  justify-content: center;
+  background: darkred;
 }
 </style>

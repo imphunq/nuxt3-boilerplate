@@ -18,14 +18,18 @@ export interface IComment {
   updated_at: string;
   deleted_at: string | null;
   user_info?: IUserInfo | null;
-  displayX?: number
-  displayY?: number
+  displayX?: number;
+  displayY?: number;
+  percent_x: number;
+  percent_y: number;
 }
 
 export interface ICommentCreate {
   comment: string;
   position_x: number;
   position_y: number;
+  percent_x: number;
+  percent_y: number;
   screens_id: number;
   parent_id?: number;
   commenttype_id: number;

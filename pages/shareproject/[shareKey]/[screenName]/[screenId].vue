@@ -32,7 +32,7 @@
         >
           <template #reference>
             <CommentIcon
-              :style="{ top: `${comment.displayY}%`, left: `${comment.displayX}%` }"
+              :style="{ top: `${comment.percent_y}%`, left: `${comment.percent_x}%` }"
               class="absolute cursor-pointer"
             />
           </template>
@@ -175,6 +175,8 @@ const handleSubmitComment = async (comment: any) => {
     position_y: popoverY.value,
     displayX: xPercent,
     displayY: yPercent,
+    percent_x: xPercent,
+    percent_y: yPercent,
     id: 0,
     parent_id: 0,
     mentions: null,
