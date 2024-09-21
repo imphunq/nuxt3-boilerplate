@@ -93,10 +93,6 @@ await useAsyncData('screens', async () => {
   screens.value = data.value
 })
 
-await useAsyncData('project', async () => {
-  return await projectStore.fetchProject(id as string)
-})
-
 const project = computed((): IProject => {
   return projectStore.getProject as IProject
 })

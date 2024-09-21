@@ -11,7 +11,7 @@
       />
 
       <template v-if="type === 'add-comment'">
-        <AddComment :comment="comment" />
+        <AddComment :comment="comment" :project="project" />
       </template>
 
       <template v-else-if="type === 'mention'">
@@ -53,7 +53,12 @@ interface Props {
 const props = defineProps<Props>()
 
 const route = useRoute()
+const projectStore = useProjectStore()
 const id = route.params.id as string
+
+const project = computed(() => {
+  return projectStore.getProject
+})
 
 const gotoScreen = () => {
   navigateTo(`/projects/${id}/screens/${props.comment.screen_info.id}`)

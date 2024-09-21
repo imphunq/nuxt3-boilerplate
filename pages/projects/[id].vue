@@ -81,12 +81,17 @@ definePageMeta({
   layout: 'project',
 })
 
+const projectStore = useProjectStore()
 const route = useRoute()
 const excludeChildrenRouteNames = ['projects-id-screens-screenId', 'projects-id-preview']
 
 const projectDrawerRef = ref<InstanceType<typeof ProjectDrawer>>()
 const activeIndex = ref<string>('screens')
 const { id } = route.params
+
+await useAsyncData('project', async () => {
+  return await projectStore.fetchProject(id as string)
+})
 
 const { files, open, reset, onChange } = useFileDialog({
   accept: 'image/*',

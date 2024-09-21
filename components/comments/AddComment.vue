@@ -15,7 +15,9 @@
           {{ comment?.screen_info.name }}
         </span>
         <span class="text-gray-500 dark:text-gray-400"> in </span>
-        <span class="cursor-pointer text-blue-500">Webinars</span>
+        <span class="cursor-pointer text-blue-500">
+          {{ project?.project_title }}
+        </span>
       </div>
       <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
         {{ moment(comment?.created_at).format('YY/DD/YYYY HH:mm') }}
@@ -42,14 +44,16 @@
 
 <script lang="ts" setup>
 import CommentIcon from '~/assets/images/icons/comment.png'
-import type { IListComments } from '~/types'
+import type { IListComments, IProject } from '~/types'
 import moment from 'moment'
 
 interface Props {
   comment?: IListComments
+  project: IProject | null
 }
 
 const props = withDefaults(defineProps<Props>(), {
   comment: undefined,
+  project: null,
 })
 </script>
