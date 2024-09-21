@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mt-4">
       <span class="text-xl text-black">Comments</span>
 
       <div class="flex items-center gap-4">

@@ -94,3 +94,15 @@ export interface IMoveProjectToFolder extends IRenameProject {
 export interface IInvite {
   email: string
 }
+
+export interface IMemberProject {
+  id: number;
+  name: string;
+  lastname: string;
+  email: string;
+  username: string;
+  role: string | null;
+  project_id: number;
+  avatar_url: string | null;
+  avatar_url_thumb: string | null;
+}
