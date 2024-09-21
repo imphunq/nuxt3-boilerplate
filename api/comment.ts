@@ -13,3 +13,7 @@ export const deleteComment = (projectId: string, commentId: number) => {
     method: 'DELETE',
   })
 }
+
+export const getCommentsInProject = (projectId: string) => {
+  return useMyFetch(`user/project/${projectId}/comments`)
+}

@@ -201,8 +201,7 @@ const handleSubmitComment = async (comment: any) => {
   const imageRect = containerRef.value!.getBoundingClientRect();
   const xPercent = (popoverX.value / imageRect.width) * 100;
   const yPercent = (popoverY.value / imageRect.height) * 100;
-console.log('xPercent:', xPercent)
-console.log('yPercent:', yPercent)
+
   const data = {
     comment,
     position_x: popoverX.value,

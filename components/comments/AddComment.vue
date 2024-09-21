@@ -7,18 +7,18 @@
     >
     <div class="font-medium dark:text-white">
       <div>
-        <span>Jese Leos</span>
+        <span>{{ comment?.user_info.name }}</span>
         <span class="text-gray-500 dark:text-gray-400">
           added a new comment on
         </span>
         <span class="cursor-pointer text-blue-500">
-          Login
+          {{ comment?.screen_info.name }}
         </span>
         <span class="text-gray-500 dark:text-gray-400"> in </span>
         <span class="cursor-pointer text-blue-500">Webinars</span>
       </div>
       <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-        November 04, 2021 9:21AM
+        {{ moment(comment?.created_at).format('YY/DD/YYYY HH:mm') }}
       </div>
 
       <div class="flex items-center gap-4 mt-3">
@@ -31,7 +31,7 @@
               alt=""
             >
             <span class="text-xs">
-              This is a new comment
+              {{ comment?.comment }}
             </span>
           </div>
         </div>
@@ -42,4 +42,14 @@
 
 <script lang="ts" setup>
 import CommentIcon from '~/assets/images/icons/comment.png'
+import type { IListComments } from '~/types'
+import moment from 'moment'
+
+interface Props {
+  comment?: IListComments
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  comment: undefined,
+})
 </script>

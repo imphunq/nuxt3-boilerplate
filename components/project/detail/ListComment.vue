@@ -5,13 +5,13 @@
 
       <el-image
         style="width: 240px; height: 130px"
-        src="https://flowbite.com/docs/images/blog/image-2.jpg"
+        :src="comment.screen_info.screen_url_thumb"
         fit="cover"
         class="rounded-lg"
       />
 
       <template v-if="type === 'add-comment'">
-        <AddComment />
+        <AddComment :comment="comment" />
       </template>
 
       <template v-else-if="type === 'mention'">
@@ -23,6 +23,7 @@
       <button
         type="button"
         class="flex items-center gap-2 py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+        @click="gotoScreen"
       >
         <el-icon><CopyDocument /></el-icon>
         <span>View Screen</span>
@@ -42,10 +43,19 @@
 import { CopyDocument } from '@element-plus/icons-vue'
 import AddComment from '~/components/comments/AddComment.vue'
 import MentionInComment from '~/components/comments/MentionInComment.vue'
+import type { IListComments } from '~/types'
 
 interface Props {
   type: string
+  comment: IListComments
 }
 
 const props = defineProps<Props>()
+
+const route = useRoute()
+const id = route.params.id as string
+
+const gotoScreen = () => {
+  navigateTo(`/projects/${id}/screens/${props.comment.screen_info.id}`)
+}
 </script>
