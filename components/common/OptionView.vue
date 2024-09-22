@@ -40,36 +40,52 @@ const props = withDefaults(defineProps<{
   currentView: OPTION_VIEW.GRID
 })
 
+const emit = defineEmits(['change-view'])
+
 const projectStore = useProjectStore()
 const screenStore = useScreenStore()
 
 const option = ref<string>(OPTION_VIEW.GRID)
 
 const changeView = (view: string) => {
+  emit('change-view', view)
+
   option.value = view
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.ALL) {
     projectStore.setOptionView(view)
+
+    return
   }
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.STARRED) {
     projectStore.setStarredOptionView(view)
+
+    return
   }
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.SHARE) {
     projectStore.setSharedOptionView(view)
+
+    return
   }
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.ONGOING) {
     projectStore.setOnGoingOptionView(view)
+
+    return
   }
 
   if (props.page === 'project' && props.type === PROJECT_TYPE.RECENTLY_ADDED) {
     projectStore.setRecentlyAddedOptionView(view)
+
+    return
   }
 
   if (props.page === 'screen' && props.type === PROJECT_TYPE.SCREEN) {
     screenStore.setOptionView(view)
+
+    return
   }
 }
 

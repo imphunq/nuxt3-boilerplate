@@ -2,6 +2,25 @@
   <div
     class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-md rounded-lg text-gray-900">
     <div class="rounded-t-lg h-20 overflow-hidden bg-gray-200">
+      <div class="flex justify-end p-2">
+        <el-popover
+          placement="bottom-start"
+          :width="200"
+          trigger="click"
+        >
+          <template #reference>
+            <el-icon class="cursor-pointer">
+              <More />
+            </el-icon>
+          </template>
+
+          <ul>
+            <li class="cursor-pointer mb-2 hover:text-blue-400">View profile</li>
+            <li class="cursor-pointer mb-2 hover:text-blue-400">Edit role</li>
+            <li class="text-red-500 cursor-pointer hover:text-red-400">Remove from project</li>
+          </ul>
+        </el-popover>
+      </div>
     </div>
     <div class="w-16 h-16 relative -mt-12 ml-4 border-4 border-white rounded-full overflow-hidden">
       <img class="object-cover object-center h-32"
@@ -13,7 +32,9 @@
       <p class="text-gray-500 mt-2 text-xs">@{{ member.email }}</p>
       <p class="mt-4 text-sm text-gray-500">
         <span v-if="member.project_id === id" class="flex items-center gap-1">
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAPZJREFUGFdtUMtRAlEQ7HmlZ7FK9ipGIJvBagRmIGawRuAYgWQARiAkAJuBhrBnsEo8S+3Y8+Dpo3QuM9Xd0/MRZFHpaijAhFBPEB4XejbNeXLAXvQikEFOGrChgE39seNRfK3rluk8F+Z1h6OLRk9bcdcAef0jNHzS6mSP37u7XOnqjeMvI5gEzJ1YxbE1uVun3F3SCgZrDcelYDtjXQeEIbv92BgdrKT4ffQL2nShxd0h5gPteanFaHfgw3qT9uMHGoLV4YFWNlpw3d03aqan/77B5vlS+zc/r/Oi0o9BwNbB2OSjKRy7YzKJznl4E/DVy0WJ/wbrO1+1Jmt1OAAAAABJRU5ErkJggg==" alt="">
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAPZJREFUGFdtUMtRAlEQ7HmlZ7FK9ipGIJvBagRmIGawRuAYgWQARiAkAJuBhrBnsEo8S+3Y8+Dpo3QuM9Xd0/MRZFHpaijAhFBPEB4XejbNeXLAXvQikEFOGrChgE39seNRfK3rluk8F+Z1h6OLRk9bcdcAef0jNHzS6mSP37u7XOnqjeMvI5gEzJ1YxbE1uVun3F3SCgZrDcelYDtjXQeEIbv92BgdrKT4ffQL2nShxd0h5gPteanFaHfgw3qT9uMHGoLV4YFWNlpw3d03aqan/77B5vlS+zc/r/Oi0o9BwNbB2OSjKRy7YzKJznl4E/DVy0WJ/wbrO1+1Jmt1OAAAAABJRU5ErkJggg=="
+            alt="">
           <span class="text-blue-500"> Project Owner </span>
         </span>
         <span v-else>{{ member.role }}</span>
@@ -23,6 +44,7 @@
 </template>
 
 <script lang="ts" setup>
+import { More } from '@element-plus/icons-vue'
 import type { IMemberProject } from '~/types'
 
 interface Props {
