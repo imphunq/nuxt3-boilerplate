@@ -15,6 +15,9 @@
           <template v-else-if="type === 'project'">
             Once you delete your project, it can't be undone. All screens, comments, and hotspots in this project will be deleted.
           </template>
+          <template v-else-if="type === 'share'">
+            Once you delete your share link, it can't be undone. The link will be deleted permanently.
+          </template>
         </p>
       </div>
       <template #footer>

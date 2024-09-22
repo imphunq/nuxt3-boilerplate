@@ -37,3 +37,9 @@ export const listSharesInProject = (projectId: string, params: any = {}) => {
     },
   })
 }
+
+export const deleteShare = (projectId: string, shareId: number) => {
+  return useMyFetch(`user/project/${projectId}/sharekey/${shareId}`, {
+    method: 'DELETE',
+  })
+}

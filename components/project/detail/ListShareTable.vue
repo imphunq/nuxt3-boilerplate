@@ -66,7 +66,7 @@
     </el-table-column>
     <el-table-column width="200">
       <template #default="{ row }">
-        <div class="flex items-center gap-1 text-center text-red-500 cursor-pointer">
+        <div class="flex items-center gap-1 text-center text-red-500 cursor-pointer" @click="openDeleteShare(row)">
           <el-icon><Delete /></el-icon>
           <span>Delete Link</span>
         </div>
@@ -92,6 +92,12 @@
   <div class="w-full flex justify-center mt-8">
     <Pagination :data="meta" />
   </div>
+
+  <ModalConfirmDelete
+    ref="modalConfirmDeleteRef"
+    type="share"
+    @delete="handleDelete"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -99,6 +105,8 @@ import moment from 'moment'
 import type { IListShares, IPagination } from '~/types';
 import Pagination from '~/components/common/Pagination.vue'
 import { CopyDocument, More, Delete } from '@element-plus/icons-vue'
+import { deleteShare } from '~/api/share'
+import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
 
 interface Props {
   shares: IListShares[];
@@ -106,4 +114,47 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const shareStore = useShareStore()
+const route = useRoute()
+const id = route.params.id as string
+
+const modalConfirmDeleteRef = ref<InstanceType<typeof ModalConfirmDelete> | null>(null)
+const idDelete = ref<number>(0)
+
+const openDeleteShare = async (row: IListShares) => {
+  modalConfirmDeleteRef.value?.open(row.share_key)
+
+  idDelete.value = row.id
+}
+
+const handleDelete = async () => {
+  const { error } = await deleteShare(id, idDelete.value)
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again later',
+      type: 'error'
+    })
+
+    return
+  }
+
+  modalConfirmDeleteRef.value?.close()
+
+  idDelete.value = 0
+
+  clearCacheStartWith('project-shares')
+
+  await shareStore.fetchProjectShares(
+    id,
+    route.query.page as string ?? '1',
+    route.query,
+  )
+
+  ElMessage({
+    message: 'Share link deleted successfully',
+    type: 'success'
+  })
+}
 </script>
