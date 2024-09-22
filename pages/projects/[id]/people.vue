@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <div class="flex items-center justify-between mt-4">
       <span class="text-xl text-black">People</span>
 
@@ -51,7 +51,5 @@ await useAsyncData('member', async () => {
 
 const changeView = (view: string) => {
   viewOption.value = view
-
-  console.log(viewOption.value)
 }
 </script>

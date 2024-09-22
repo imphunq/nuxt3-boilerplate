@@ -29,3 +29,11 @@ export const getListShares = (params: any = {}) => {
     },
   })
 }
+
+export const listSharesInProject = (projectId: string, params: any = {}) => {
+  return useMyFetch(`user/project/${projectId}/listshares`, {
+    query: {
+      ...params,
+    },
+  })
+}
