@@ -1,7 +1,8 @@
 <template>
   <div>
     <div
-      class="no-projects flex flex-col flex-1 text-center gap-5"
+      class="flex flex-col flex-1 text-center gap-5"
+      :class="{ 'no-projects': !props.withoutPadding }"
     >
       <div class="no-project__icon flex justify-center">
         <img
@@ -40,6 +41,14 @@
 import ProjectIcon from '~/assets/images/icon-project.svg'
 import CreateProjectModal from '~/components/project/CreateProjectModal.vue'
 import CreateProjectDirectModal from '~/components/project/CreateProjectDirectModal.vue'
+
+interface Props {
+  withoutPadding: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  withoutPadding: false
+})
 
 const createProjectModalRef = ref<InstanceType<typeof CreateProjectModal>>()
 const createProjectDirectModalRef = ref<InstanceType<typeof CreateProjectDirectModal>>()

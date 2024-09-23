@@ -253,7 +253,7 @@ const open = async (projectId: number, screenId: number) => {
   if (localStorage.getItem(`screenKey_${projectId}_${screenId}`)) {
     shareLink.value = `${window.location.host}/sharelink/${localStorage.getItem(`screenKey_${projectId}_${screenId}`)}`
     dialogFormVisible.value = true
-
+console.log('zo')
     return
   }
 

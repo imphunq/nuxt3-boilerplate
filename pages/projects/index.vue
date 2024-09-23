@@ -20,7 +20,7 @@
       />
     </template>
     <template v-else>
-      <div>
+      <div class="h-screen">
         <NoProjects />
       </div>
     </template>

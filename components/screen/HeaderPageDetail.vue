@@ -217,6 +217,9 @@ interface Props {
 const props = defineProps<Props>()
 const emit = defineEmits(['scale'])
 
+const route = useRoute()
+const { id, screenId } = route.params
+
 const shareScreenModalRef = ref<InstanceType<typeof ShareScreenModal>>()
 const mode = ref<string>('comment')
 const selectedColor = ref<string>('white')
@@ -226,7 +229,7 @@ const scaleScreen = (scale: number) => {
 }
 
 const openShareModal = () => {
-  shareScreenModalRef.value?.open(1, 1)
+  shareScreenModalRef.value?.open(parseInt(id as string), parseInt(screenId as string))
 }
 
 const back = async () => {

@@ -5,7 +5,9 @@ export const useMyFetch = (url: string, customOptions: any = {}) => {
   const authStore = useAuthStore()
   const route = useRoute()
 
-  const ignoreRoutes = ['sharelink-shareKey', 'sharelink-shareKey-screenName-screenId', 'sharelink-project-shareKey', 'sharelink-project-shareKey-screenName-screenId']
+  console.log(1111, route.name)
+
+  const ignoreRoutes = ['sharelink-shareKey', 'sharelink-shareKey-screenName-screenId', 'sharelink-project-shareKey', 'shareproject-shareKey', 'shareproject-shareKey-screenName-screenId']
 
   const buildQueryParams = (params: Record<string, any>) => {
     const queryString = new URLSearchParams(params).toString()

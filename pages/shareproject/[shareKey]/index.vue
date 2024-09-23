@@ -69,7 +69,7 @@ const viewScreens = () => {
   const screenName = _get(data.value.screens, '[0].name', '')
 
   router.push({
-    name: 'sharelink-project-shareKey-screenName-screenId',
+    name: 'shareproject-shareKey-screenName-screenId',
     params: {
       shareKey,
       screenName,

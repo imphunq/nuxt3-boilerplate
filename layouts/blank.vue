@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-x-hidden">
+  <div class="relative overflow-hidden">
     <slot />
   </div>
 </template>

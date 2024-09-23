@@ -258,6 +258,9 @@ import { createProject } from '~/api/projects'
 const dialogFormVisible = ref(false)
 const step = ref<number>(1)
 
+const projectStore = useProjectStore()
+const route = useRoute()
+
 const formInitial = reactive<IProjectCreate>({
   project_title: '',
   privacy: 'private',
@@ -314,6 +317,8 @@ const open = () => {
 
 const close = () => {
   dialogFormVisible.value = false
+
+  step.value = 1
 }
 
 const directUpload = () => {
@@ -341,6 +346,15 @@ const handleCreateProject = async () => {
   dialogFormVisible.value = false
 
   navigateTo('/projects')
+
+  if (route.name === 'projects') {
+    clearCacheStartWith('projects')
+
+    await projectStore.fetchProjects(
+      route.query.page as string ?? '1',
+      route.query,
+    )
+  }
 
   ElMessage({
     message: 'Project created successfully',

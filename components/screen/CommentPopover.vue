@@ -175,12 +175,12 @@ watch(comment, (val: string) => {
   }
 })
 
-const open = () => {
+const open = async () => {
   commentPopOver.value = true
 
-  nextTick(() => {
+  setTimeout(() => {
     commentBoxRef.value?.focus()
-  })
+  }, 100)
 }
 
 const close = () => {
