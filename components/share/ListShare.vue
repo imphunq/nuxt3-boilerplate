@@ -31,14 +31,14 @@
       </div>
     </el-table-column>
     <el-table-column
-      label="Project"
+      label="Screen"
       show-overflow-tooltip
       header-align="center"
     >
       <template #default="{ row }">
         <div class="text-center">
           <span>
-            {{ row.screen_info[0].name }}
+            {{ row.screen_info[0] ? row.screen_info[0].name : '' }}
           </span>
         </div>
       </template>
