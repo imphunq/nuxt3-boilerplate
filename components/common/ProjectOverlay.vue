@@ -90,7 +90,7 @@
             </div>
           </div>
           <img
-            :src="project.cover_url_thumb ?? NoImage"
+            :src="project.cover_url ?? NoImage"
             class="rounded-lg w-full aspect-[4/3] object-cover"
           >
         </div>

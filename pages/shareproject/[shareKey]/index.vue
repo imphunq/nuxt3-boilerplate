@@ -62,7 +62,7 @@ const { data: response } = await useAsyncData('view-share-key-project', async ()
 })
 
 data.value = _get(response, 'value.data', {}) as IProject
-thumb.value = data.value.cover_url_thumb
+thumb.value = data.value.cover_url
 
 const viewScreens = () => {
   const screenId = _get(data.value.screens, '[0].id', '')

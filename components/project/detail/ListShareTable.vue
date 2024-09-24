@@ -107,6 +107,7 @@ import Pagination from '~/components/common/Pagination.vue'
 import { CopyDocument, More, Delete } from '@element-plus/icons-vue'
 import { deleteShare } from '~/api/share'
 import ModalConfirmDelete from '~/components/common/ModalConfirmDelete.vue'
+import { deleteItemByValue } from '~/utils'
 
 interface Props {
   shares: IListShares[];
@@ -121,11 +122,13 @@ const id = route.params.id as string
 
 const modalConfirmDeleteRef = ref<InstanceType<typeof ModalConfirmDelete> | null>(null)
 const idDelete = ref<number>(0)
+const shareKey = ref<string>('')
 
 const openDeleteShare = async (row: IListShares) => {
   modalConfirmDeleteRef.value?.open(row.share_key)
 
   idDelete.value = row.id
+  shareKey.value = row.share_key
 }
 
 const handleDelete = async () => {
@@ -142,8 +145,6 @@ const handleDelete = async () => {
 
   modalConfirmDeleteRef.value?.close()
 
-  idDelete.value = 0
-
   clearCacheStartWith('project-shares')
 
   await shareStore.fetchProjectShares(
@@ -151,6 +152,11 @@ const handleDelete = async () => {
     route.query.page as string ?? '1',
     route.query,
   )
+
+  deleteItemByValue(shareKey.value)
+
+  idDelete.value = 0
+  shareKey.value = ''
 
   ElMessage({
     message: 'Share link deleted successfully',

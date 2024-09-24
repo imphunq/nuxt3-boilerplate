@@ -89,7 +89,7 @@
             </div>
           </div>
           <img
-            :src="screen.screen_url_thumb ?? NoImage"
+            :src="screen.screen_url ?? NoImage"
             class="rounded-lg w-full aspect-[4/3] object-cover"
           >
         </div>
