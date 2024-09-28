@@ -7,7 +7,11 @@
       :type="PROJECT_TYPE.ONGOING"
     />
 
-    <ListProject :key="route.path" :projects="projects" :meta="meta" />
+    <ListProject
+      :key="route.path"
+      :projects="projects"
+      :meta="meta"
+    />
   </div>
 </template>
 

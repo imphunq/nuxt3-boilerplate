@@ -47,6 +47,9 @@
                   <el-dropdown-item @click="handleArchive">
                     <span class="ml-2 text-base">Archive</span>
                   </el-dropdown-item>
+                  <el-dropdown-item @click="handleAddToFavorite">
+                    <span class="ml-2 text-base">Add to favorite</span>
+                  </el-dropdown-item>
                   <el-dropdown-item @click="">
                     <span class="ml-2 text-base">Set as main screen</span>
                   </el-dropdown-item>
@@ -143,6 +146,7 @@ import ProjectMoveToFolderModal from '~/components/project/ProjectMoveToFolderMo
 import type { IProject } from '~/types'
 import NoImage from '~/assets/images/no-image.jpg'
 import { deleteProject, toggleArchiveProject } from '~/api/projects'
+import { addProjectToFavorite } from '~/api/favorite'
 
 interface Props {
   project: IProject
@@ -237,6 +241,31 @@ const handleArchive = async () => {
       type: 'error',
     })
   }
+}
+
+const handleAddToFavorite = async () => {
+  const { error } = await addProjectToFavorite({ project_id: props.project.id })
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again',
+      type: 'error',
+    })
+
+    return
+  }
+
+  ElMessage({
+    message: 'Project added to favorite successfully.',
+    type: 'success',
+  })
+
+  // clearCacheStartWith('projects')
+
+  // projectStore.fetchProjects(
+  //   route.query.page as string ?? '1',
+  //   route.query,
+  // )
 }
 </script>
 
