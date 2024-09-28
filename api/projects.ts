@@ -89,3 +89,11 @@ export const getRecentAddedProjects = (params: any = {}) => {
     },
   })
 }
+
+export const getOngoingProjects = (params: any = {}) => {
+  return useMyFetch('user/view/on-going/projects', {
+    query: {
+      ...params,
+    },
+  })
+}

@@ -29,7 +29,7 @@
                   <span class="font-semibold text-black">{{ row.project_title }}</span>
 
                   <p class="hidden md:flex items-center gap-1 text-sm text-gray-500">
-                    <span>@examples</span>
+                    <span>@{{ row.projectable.email }}</span>
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABHNCSVQICAgIfAhkiAAAAPZJREFUGFdtUMtRAlEQ7HmlZ7FK9ipGIJvBagRmIGawRuAYgWQARiAkAJuBhrBnsEo8S+3Y8+Dpo3QuM9Xd0/MRZFHpaijAhFBPEB4XejbNeXLAXvQikEFOGrChgE39seNRfK3rluk8F+Z1h6OLRk9bcdcAef0jNHzS6mSP37u7XOnqjeMvI5gEzJ1YxbE1uVun3F3SCgZrDcelYDtjXQeEIbv92BgdrKT4ffQL2nShxd0h5gPteanFaHfgw3qT9uMHGoLV4YFWNlpw3d03aqan/77B5vlS+zc/r/Oi0o9BwNbB2OSjKRy7YzKJznl4E/DVy0WJ/wbrO1+1Jmt1OAAAAABJRU5ErkJggg==" alt="">
                   </p>
                 </div>
@@ -55,7 +55,7 @@
             <template #default="{ row }">
               <div class="flex justify-center items-center gap-1">
                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAIVJREFUKFNjnL987QVGBgZ9BjLA////AxkXLF/7PyEyGGgGaQBocQNIx6gBo2EATgcUp0Rs6Q+cyv4zOCRGBTuA5PGlVqxJmGwD5i9bM4GREZSxGBWALhBgYPx/AeJCRqBL/h8Asf7/Yy5MjA6EigNlkL0AtDkByFfAn62YFiRGBj6AqQEA2AVpnXScLSkAAAAASUVORK5CYII=" alt="">
-                <span>{{ row.screen_count }}</span>
+                <span>{{ row.screens_count }}</span>
               </div>
             </template>
           </el-table-column>
@@ -95,154 +95,15 @@ import HeaderTable from '~/components/overview/HeaderTable.vue'
 import GroupProjectIcon from '~/assets/images/icons/project/group.svg'
 import StackUserGroup from '~/components/common/StackUserGroup.vue'
 import type { LinkDetail, IProject } from '~/types'
+import { getOngoingProjects } from '~/api/projects'
 
-const projects: IProject[] = [
-  {
-    id: 1,
-    watermark_id: null,
-    project_title: 'Project Alpha',
-    project_folder: '/projects/alpha',
-    project_description: 'This is the description for Project Alpha.',
-    color: '#FF5733',
-    archived: 0,
-    projecttype_id: 2,
-    projectdevice_id: 1,
-    projectable_id: 10,
-    team_id: 1,
-    projectable_type: 'TypeA',
-    privacy: 'public',
-    folder_id: null,
-    finished: 'false',
-    completed_date: null,
-    icon_id: 5,
-    background_color: '#FFFFFF',
-    cover_id: 12,
-    last_activity: '2024-08-01T12:00:00Z',
-    created_at: '2024-01-15T08:00:00Z',
-    updated_at: '2024-07-31T10:00:00Z',
-    deleted_at: null,
-    cover_url: 'https://example.com/cover1.png',
-    cover_url_thumb: 'https://example.com/cover1_thumb.png',
-    screen_count: 15,
-    members: [],
-  },
-  {
-    id: 2,
-    watermark_id: null,
-    project_title: 'Project Beta',
-    project_folder: '/projects/beta',
-    project_description: 'This is the description for Project Beta.',
-    color: '#FF5733',
-    archived: 0,
-    projecttype_id: 2,
-    projectdevice_id: 1,
-    projectable_id: 10,
-    team_id: 1,
-    projectable_type: 'TypeA',
-    privacy: 'public',
-    folder_id: null,
-    finished: 'false',
-    completed_date: null,
-    icon_id: 5,
-    background_color: '#FFFFFF',
-    cover_id: 12,
-    last_activity: '2024-08-01T12:00:00Z',
-    created_at: '2024-01-15T08:00:00Z',
-    updated_at: '2024-07-31T10:00:00Z',
-    deleted_at: null,
-    cover_url: 'https://example.com/cover2.png',
-    cover_url_thumb: 'https://example.com/cover2_thumb.png',
-    screen_count: 15,
-    members: [],
-  },
-  {
-    id: 3,
-    watermark_id: null,
-    project_title: 'Project Gamma',
-    project_folder: '/projects/gamma',
-    project_description: 'This is the description for Project Gamma.',
-    color: '#FF5733',
-    archived: 0,
-    projecttype_id: 2,
-    projectdevice_id: 1,
-    projectable_id: 10,
-    team_id: 1,
-    projectable_type: 'TypeA',
-    privacy: 'public',
-    folder_id: null,
-    finished: 'false',
-    completed_date: null,
-    icon_id: 5,
-    background_color: '#FFFFFF',
-    cover_id: 12,
-    last_activity: '2024-08-01T12:00:00Z',
-    created_at: '2024-01-15T08:00:00Z',
-    updated_at: '2024-07-31T10:00:00Z',
-    deleted_at: null,
-    cover_url: 'https://example.com/cover3.png',
-    cover_url_thumb: 'https://example.com/cover3_thumb.png',
-    screen_count: 15,
-    members: [],
-  },
-  {
-    id: 4,
-    watermark_id: null,
-    project_title: 'Project Gamma',
-    project_folder: '/projects/gamma',
-    project_description: 'This is the description for Project Gamma.',
-    color: '#FF5733',
-    archived: 0,
-    projecttype_id: 2,
-    projectdevice_id: 1,
-    projectable_id: 10,
-    team_id: 1,
-    projectable_type: 'TypeA',
-    privacy: 'public',
-    folder_id: null,
-    finished: 'false',
-    completed_date: null,
-    icon_id: 5,
-    background_color: '#FFFFFF',
-    cover_id: 12,
-    last_activity: '2024-08-01T12:00:00Z',
-    created_at: '2024-01-15T08:00:00Z',
-    updated_at: '2024-07-31T10:00:00Z',
-    deleted_at: null,
-    cover_url: 'https://example.com/cover3.png',
-    cover_url_thumb: 'https://example.com/cover3_thumb.png',
-    screen_count: 15,
-    members: [],
-  },
-  {
-    id: 5,
-    watermark_id: null,
-    project_title: 'Project Gamma',
-    project_folder: '/projects/gamma',
-    project_description: 'This is the description for Project Gamma.',
-    color: '#FF5733',
-    archived: 0,
-    projecttype_id: 2,
-    projectdevice_id: 1,
-    projectable_id: 10,
-    team_id: 1,
-    projectable_type: 'TypeA',
-    privacy: 'public',
-    folder_id: null,
-    finished: 'false',
-    completed_date: null,
-    icon_id: 5,
-    background_color: '#FFFFFF',
-    cover_id: 12,
-    last_activity: '2024-08-01T12:00:00Z',
-    created_at: '2024-01-15T08:00:00Z',
-    updated_at: '2024-07-31T10:00:00Z',
-    deleted_at: null,
-    cover_url: 'https://example.com/cover3.png',
-    cover_url_thumb: 'https://example.com/cover3_thumb.png',
-    screen_count: 15,
-    members: [],
-  },
-]
+const projects = ref<IProject[]>([])
+
+await useAsyncData('ongoing-projects', async () => {
+  const { data } = await getOngoingProjects()
+
+  projects.value = data.value[0]
+})
 
 const linkDetail = computed<LinkDetail>(() => {
   return {

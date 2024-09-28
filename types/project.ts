@@ -32,6 +32,7 @@ export interface IProject {
   members: IProjectMember[]
   screens?: IScreen[]
   category?: string
+  projectable?: IProjectMember
 }
 
 export interface IProjectMember {

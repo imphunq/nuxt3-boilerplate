@@ -17,6 +17,7 @@ import ListProject from '~/components/project/ListProject.vue'
 import { PROJECT_TYPE } from '~/constants/project'
 import type { IProject, IPagination } from '~/types'
 import { DEFAULT_META } from '~/constants/common'
+import { getOngoingProjects } from '~/api/projects'
 
 definePageMeta({
   middleware: 'auth',
@@ -27,6 +28,12 @@ const route = useRoute()
 
 const projects = ref<IProject[]>([])
 const meta = reactive<IPagination>(DEFAULT_META)
+
+await useAsyncData('ongoing-projects', async () => {
+  const { data } = await getOngoingProjects()
+
+  projects.value = data.value[0]
+})
 
 onMounted(() => {
   globalStore.setBreadcrumbs([
