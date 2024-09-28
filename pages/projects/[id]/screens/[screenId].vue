@@ -58,6 +58,8 @@
             <CommentIcon
               :style="{ top: `${comment.percent_y}%`, left: `${comment.percent_x}%` }"
               class="absolute cursor-pointer"
+              ref="popoverRefs"
+              @mousedown="startDrag(index, $event)"
             />
           </template>
           <template #default>
@@ -93,8 +95,9 @@ import HeaderPageDetail from '~/components/screen/HeaderPageDetail.vue'
 import CommentPopover from '~/components/screen/CommentPopover.vue'
 import CommentIcon from '~/components/screen/CommentIcon.vue'
 import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
-import { createComment } from '~/api/comment'
+import { createComment, updateCommentInProject } from '~/api/comment'
 import type { IScreen, IComment } from '~/types'
+import { useDraggable } from '@vueuse/core'
 
 definePageMeta({
   layout: 'blank',
@@ -105,8 +108,12 @@ const router = useRouter()
 const screenStore = useScreenStore()
 const authStore = useAuthStore()
 
+const popoverRefs = ref<HTMLElement[]>([])
+
 const screenId = parseInt(route.params.screenId as string)
 const projectId = route.params.id as string
+
+const draggableRef = ref<HTMLElement | null>(null)
 
 if(screenStore.previewScreens.length === 0) {
   useAsyncData('preview-screens', async () => {
@@ -299,6 +306,55 @@ const previousScreen = (currentOrder: number) => {
   return screens.value.slice().reverse().find((screen: IScreen) => screen.orders < currentOrder )
 }
 
+const startDrag = (index: number, event: MouseEvent) => {
+  handleCloseReplyComment(index)
+
+  const item = comments.value[index];
+
+  // Start X/Y positions
+  const { percent_x: startX, percent_y: startY } = item;
+  const { clientX: startClientX, clientY: startClientY } = event;
+
+  // Get the container size for percentage calculations
+  const container = containerRef.value?.getBoundingClientRect();
+  if (!container) return;
+
+  const onMouseMove = (moveEvent: MouseEvent) => {
+    // Calculate the new positions in percentages
+    const deltaX = (moveEvent.clientX - startClientX) / container.width * 100;
+    const deltaY = (moveEvent.clientY - startClientY) / container.height * 100;
+
+    // New calculated positions in percentages
+    let newPercentX = startX + deltaX;
+    let newPercentY = startY + deltaY;
+
+    // Ensure the comment stays within container bounds
+    newPercentX = Math.max(0, Math.min(newPercentX, 100)); // Keep between 0 and 100
+    newPercentY = Math.max(0, Math.min(newPercentY, 100)); // Keep between 0 and 100
+
+    item.percent_x = newPercentX;
+    item.percent_y = newPercentY;
+  };
+
+  const onMouseUp = async () => {
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+
+    handleCloseReplyComment(index)
+
+    await updateCommentInProject(projectId, item.id, {
+      percent_x: item.percent_x,
+      percent_y: item.percent_y,
+    });
+  };
+
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+
+  // Prevent text selection while dragging
+  event.preventDefault();
+};
+
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
 
@@ -313,6 +369,12 @@ onMounted(() => {
 
     defaultWidth.value = `${zoomValue}%`
   }, 100)
+
+  if (draggableRef.value && containerRef.value) {
+    useDraggable(draggableRef, {
+      handle: draggableRef.value, // The popover can be dragged by itself
+    })
+  }
 })
 
 onUnmounted(() => {

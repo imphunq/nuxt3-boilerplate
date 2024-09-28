@@ -1,5 +1,5 @@
 import { useMyFetch } from '~/composables/useMyFetch'
-import type { ICommentCreate } from '~/types'
+import type { ICommentCreate, IUpdateComment } from '~/types'
 
 export const createComment = (projectId: string, data: ICommentCreate) => {
   return useMyFetch(`user/project/${projectId}/comment`, {
@@ -16,4 +16,11 @@ export const deleteComment = (projectId: string, commentId: number) => {
 
 export const getCommentsInProject = (projectId: string) => {
   return useMyFetch(`user/project/${projectId}/comments`)
+}
+
+export const updateCommentInProject = (projectId: string, commentId: number, data: IUpdateComment) => {
+  return useMyFetch(`user/project/${projectId}/updatecomment/${commentId}`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
 }

@@ -38,7 +38,7 @@
       <template #default="{ row }">
         <div class="text-center">
           <span>
-            {{ row.screen_info[0] ? row.screen_info[0].name : '' }}
+            {{ _get(_first(row.screen_info), 'name', '') }}
           </span>
         </div>
       </template>
@@ -91,6 +91,8 @@
 
 <script lang="ts" setup>
 import moment from 'moment'
+import _get from 'lodash/get'
+import _first from 'lodash/first'
 import type { IListShares, IPagination } from '~/types';
 import Pagination from '~/components/common/Pagination.vue'
 import { CopyDocument, More } from '@element-plus/icons-vue'

@@ -64,3 +64,13 @@ export interface IListComments {
   user_info: IUserInfo;
   screen_info: ScreenInfoComment;
 }
+
+export interface IUpdateComment {
+  comment?: string;
+  position_x?: number;
+  position_y?: number;
+  percent_x?: number;
+  percent_y?: number;
+  screens_id?: number;
+  parent_id?: number;
+}
