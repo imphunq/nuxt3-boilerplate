@@ -19,8 +19,6 @@
 import HeaderPage from '~/components/project/HeaderPage.vue'
 import ListProject from '~/components/project/ListProject.vue'
 import { PROJECT_TYPE } from '~/constants/project'
-import type { IProject, IPagination } from '~/types'
-import { DEFAULT_META } from '~/constants/common'
 
 definePageMeta({
   middleware: 'auth',
@@ -28,9 +26,23 @@ definePageMeta({
 
 const globalStore = useGlobalStore()
 const route = useRoute()
+const projectStore = useProjectStore()
 
-const projects = ref<IProject[]>([])
-const meta = reactive<IPagination>(DEFAULT_META)
+useRefetch(
+  () => projectStore.fetchRecentlyAddedProjects(
+    route.query.page as string ?? '1',
+    { ...route.query },
+  ),
+)
+
+const projects = computed(() => {
+  return projectStore.getRecentlyAddedProjects
+})
+
+const meta = computed(() => {
+  return projectStore.getMetaRecentlyAdded
+})
+
 
 onMounted(() => {
   globalStore.setBreadcrumbs([

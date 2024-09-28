@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import { OPTION_VIEW } from '~/constants/common'
-import { getProjects, showProject } from '~/api/projects'
+import { getProjects, showProject, getRecentAddedProjects } from '~/api/projects'
 import type { IProject, IPagination } from "~/types"
 import { DEFAULT_META } from '~/constants/common'
 
@@ -13,6 +13,8 @@ interface State {
   projects: IProject[]
   meta: IPagination
   project: IProject | null
+  recentlyAddedProjects: IProject[],
+  metaRecentlyAdded: IPagination
 }
 
 export const useProjectStore = defineStore('project-store', {
@@ -25,7 +27,9 @@ export const useProjectStore = defineStore('project-store', {
       optionViewRecentlyAdded: OPTION_VIEW.GRID,
       projects: [],
       meta: DEFAULT_META,
-      project: null
+      project: null,
+      recentlyAddedProjects: [],
+      metaRecentlyAdded: DEFAULT_META
     }
   },
 
@@ -53,6 +57,12 @@ export const useProjectStore = defineStore('project-store', {
     },
     getProject(): IProject | null {
       return this.project
+    },
+    getRecentlyAddedProjects(): IProject[] {
+      return this.recentlyAddedProjects
+    },
+    getMetaRecentlyAdded(): IPagination {
+      return this.metaRecentlyAdded
     }
   },
 
@@ -104,6 +114,23 @@ export const useProjectStore = defineStore('project-store', {
       const { data } = response
 
       this.project = data.value
-    }
+    },
+
+    async fetchRecentlyAddedProjects (page: string, query: any = {}): Promise<void> {
+      const key = `recently-added-projects-${page}-${JSON.stringify(query)}`
+
+      const response = await usePaginationCache(
+        key, () => getRecentAddedProjects({ page, ...query })
+      )
+      const { data } = response
+
+      this.recentlyAddedProjects = data.value.data
+      Object.assign(this.metaRecentlyAdded, {
+        current_page: data.value.current_page,
+        total: data.value.projects_count,
+        per_page: data.value.limit,
+        last_page: data.value.total_page,
+      })
+    },
   }
 })

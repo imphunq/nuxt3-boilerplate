@@ -79,3 +79,13 @@ export const toggleArchiveProject = (projectId: number, data: IArchiveProject) =
     body: JSON.stringify(data),
   })
 }
+
+export const getRecentAddedProjects = (params: any = {}) => {
+  return useMyFetch('user/projects', {
+    query: {
+      ...params,
+      sort_by: 'date_created',
+      order_by: 'desc',
+    },
+  })
+}
