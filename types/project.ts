@@ -106,3 +106,7 @@ export interface IMemberProject {
   avatar_url: string | null;
   avatar_url_thumb: string | null;
 }
+
+export interface IArchiveProject {
+  archived: number
+}

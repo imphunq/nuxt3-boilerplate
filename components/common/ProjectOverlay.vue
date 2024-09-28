@@ -10,6 +10,7 @@
             class="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center"
           >
             <button
+              v-if="!project.archived"
               type="button"
               class="px-5 py-3 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               @click="handleView"
@@ -43,7 +44,7 @@
                   <el-dropdown-item @click="openMoveToModal">
                     <span class="ml-2 text-base">Move to</span>
                   </el-dropdown-item>
-                  <el-dropdown-item @click="">
+                  <el-dropdown-item @click="handleArchive">
                     <span class="ml-2 text-base">Archive</span>
                   </el-dropdown-item>
                   <el-dropdown-item @click="">
@@ -97,7 +98,10 @@
 
         <div class="flex items-center justify-between px-4">
           <div class="flex flex-col mb-2 mt-3">
-            <span class="text-sm font-normal text-black dark:text-gray-400">
+            <span
+              class="text-sm font-normal text-black dark:text-gray-400"
+              :class="{ 'line-through': project.archived }"
+              >
               {{ props.project.project_title }}
             </span>
 
@@ -138,7 +142,7 @@ import RenameProjectModal from '~/components/project/RenameProjectModal.vue'
 import ProjectMoveToFolderModal from '~/components/project/ProjectMoveToFolderModal.vue'
 import type { IProject } from '~/types'
 import NoImage from '~/assets/images/no-image.jpg'
-import { deleteProject } from '~/api/projects'
+import { deleteProject, toggleArchiveProject } from '~/api/projects'
 
 interface Props {
   project: IProject
@@ -184,6 +188,41 @@ const handleDelete = async () => {
     })
 
     modalConfirmDeleteRef.value?.close()
+
+    clearCacheStartWith('projects')
+
+    projectStore.fetchProjects(
+      route.query.page as string ?? '1',
+      route.query,
+    )
+  }
+  catch (e) {
+    ElMessage({
+      message: 'Something went wrong. Please try again later.',
+      type: 'error',
+    })
+  }
+}
+
+const handleArchive = async () => {
+  try {
+    const { error } = await toggleArchiveProject(props.project.id, {
+      archived: Number(!props.project.archived),
+    })
+
+    if (error.value) {
+      ElMessage({
+        message: 'Something went wrong, please try again',
+        type: 'error',
+      })
+
+      return
+    }
+
+    ElMessage({
+      message: 'Project archived successfully.',
+      type: 'success',
+    })
 
     clearCacheStartWith('projects')
 
