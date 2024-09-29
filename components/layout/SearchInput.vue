@@ -13,9 +13,14 @@
             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
       </div>
-      <input type="search" id="default-search"
+      <input
+        v-model="keyword"
+        type="search"
+        id="default-search"
         class="rounded-full block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="Search" />
+        placeholder="Search"
+        autocomplete="off"
+      />
       <button class="absolute end-2.5 bottom-2.5 outline-none font-medium rounded-lg text- px-4 py-2 dark:bg-white dark:hover:bg-white dark:focus:ring-white">
         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"
           height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +54,26 @@
       </ul>
     </div>
     <div class="pt-3 px-5 pb-5 border border-solid border-gray-200">
-
+      <div v-if="projects.length" class="flex flex-col gap-4">
+        <div v-for="project in projects"
+          :key="`${project.id}-search-project`"
+          class="flex items-center gap-5 cursor-pointer"
+          @click="navigateTo(`/projects/${project.id}`)"
+        >
+          <div class="w-10 h-10 bg-gray-200 rounded-lg">
+            <img
+              :src="project.cover_url_thumb ?? NoImage"
+              alt="project"
+              class="w-10 h-10
+              rounded-lg"
+            />
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ project.project_title }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">All projects</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="flex items-center justify-center py-3 bg-gray-50">
       <span>
@@ -59,7 +83,7 @@
 
       </span>
       <span class="ml-2">
-        View all result for {{ keyword }}
+        View all result for <b>{{ keyword }}</b>
       </span>
     </div>
     <div data-popper-arrow></div>
@@ -67,5 +91,29 @@
 </template>
 
 <script lang="ts" setup>
+import type { IProject } from "~/types"
+import { getProjects } from '~/api/projects'
+import _debounce from 'lodash/debounce'
+import NoImage from '~/assets/images/no-image.jpg'
+
 const keyword = ref<string>('')
+const projects = ref<IProject[]>([])
+
+const delayedSearch = _debounce(async (value) => {
+  const { data } = await getProjects({
+    page: 1,
+    title_search_type: 'like',
+    project_title: value,
+  })
+
+  projects.value = data.value.data
+}, 1000)
+
+watch(() => keyword.value, (value) => {
+  if (value) {
+    delayedSearch(value)
+  } else {
+    projects.value = []
+  }
+})
 </script>
