@@ -7,16 +7,16 @@
     >
     <div class="font-medium dark:text-white">
       <div>
-        <span>{{ comment?.user_info.name }}</span>
+        <span>{{ comment?.user_info?.name }}</span>
         <span class="text-gray-500 dark:text-gray-400">
           added a new comment on
         </span>
         <span class="cursor-pointer text-blue-500">
-          {{ comment?.screen_info.name }}
+          {{ comment?.screen_info?.name }}
         </span>
         <span class="text-gray-500 dark:text-gray-400"> in </span>
         <span class="cursor-pointer text-blue-500">
-          {{ project?.project_title }}
+          {{ project?.project_title || comment?.project_info?.project_title }}
         </span>
       </div>
       <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">

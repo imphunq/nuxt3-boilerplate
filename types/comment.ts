@@ -63,6 +63,7 @@ export interface IListComments {
   percent_y: number;
   user_info: IUserInfo;
   screen_info: ScreenInfoComment;
+  project_info?: ProjectInfoComment;
 }
 
 export interface IUpdateComment {
@@ -73,4 +74,11 @@ export interface IUpdateComment {
   percent_y?: number;
   screens_id?: number;
   parent_id?: number;
+}
+
+export interface ProjectInfoComment {
+  id: number;
+  project_title: string
+  cover_url: string
+  cover_url_thumb: string
 }

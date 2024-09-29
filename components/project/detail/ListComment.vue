@@ -5,7 +5,7 @@
 
       <el-image
         style="width: 240px; height: 130px"
-        :src="comment.screen_info.screen_url_thumb"
+        :src="comment?.screen_info?.screen_url_thumb"
         fit="cover"
         class="rounded-lg"
       />

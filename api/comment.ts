@@ -24,3 +24,11 @@ export const updateCommentInProject = (projectId: string, commentId: number, dat
     body: JSON.stringify(data),
   })
 }
+
+export const getUserCommentsProject = (params: any = {}) => {
+  return useMyFetch('user/project-comments', {
+    query: {
+      ...params,
+    },
+   })
+}
