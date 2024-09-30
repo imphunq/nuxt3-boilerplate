@@ -93,7 +93,9 @@
                 class="flex items-center justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 <span>Public Share Link</span>
-                <span class="text-blue-500 text-xs cursor-pointer">Create New Share Link</span>
+                <span class="text-blue-500 text-xs cursor-pointer"
+                  @click="handleCreateNewShareScreen"
+                >Create New Share Link</span>
               </label>
               <div class="relative mb-6">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -253,28 +255,11 @@ const open = async (projectId: number, screenId: number) => {
   if (localStorage.getItem(`screenKey_${projectId}_${screenId}`)) {
     shareLink.value = `${window.location.host}/sharelink/${localStorage.getItem(`screenKey_${projectId}_${screenId}`)}`
     dialogFormVisible.value = true
-console.log('zo')
-    return
-  }
-
-  const { data, error } = await shareScreen(projectId, {
-    screen_ids: screenId,
-  })
-
-  if (error.value) {
-    ElMessage({
-      message: 'Something went wrong, please try again',
-      type: 'error',
-    })
 
     return
   }
 
-  shareData.value = data.value.data
-
-  shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
-
-  localStorage.setItem(`screenKey_${projectId}_${screenId}`, shareData.value.share_key)
+  await handleCreateNewShareScreen()
 
   dialogFormVisible.value = true
 }
@@ -340,6 +325,27 @@ const copyToClipboard = () => {
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // activeTab.value = tab
+}
+
+const handleCreateNewShareScreen = async () => {
+  const { data, error } = await shareScreen(currentProjectId.value, {
+    screen_ids: currentScreenId.value,
+  })
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again',
+      type: 'error',
+    })
+
+    return
+  }
+
+  shareData.value = data.value.data
+
+  shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
+
+  localStorage.setItem(`screenKey_${currentProjectId.value}_${currentScreenId.value}`, shareData.value.share_key)
 }
 
 defineExpose({

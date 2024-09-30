@@ -138,7 +138,9 @@
                   class="flex items-center justify-between mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   <span>Public Share Link</span>
-                  <span class="text-blue-500 text-xs cursor-pointer">Create New Share Link</span>
+                  <span class="text-blue-500 text-xs cursor-pointer"
+                    @click="handleCreateNewLink"
+                  >Create New Share Link</span>
                 </label>
                 <div class="relative mb-6">
                   <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -247,10 +249,13 @@ const activeTab = ref<string>('public')
 const embedCode = ref<string>('<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
 const embedCodeRef = ref<InstanceType<typeof HTMLDivElement> | null>(null)
 const shareInputRef = ref<InstanceType<typeof HTMLInputElement> | null>(null)
+const currentProjectId = ref<number>(0)
 
 const { copy, isSupported } = useClipboard()
 
 const open = async (projectId: number) => {
+  currentProjectId.value = projectId
+
   setTimeout(() => {
     if (shareInputRef.value) {
       shareInputRef.value.focus()
@@ -264,22 +269,7 @@ const open = async (projectId: number) => {
     return
   }
 
-  const { data, error } = await shareProject(projectId, {
-    public: 'true',
-  })
-
-  if (error.value) {
-    ElMessage({
-      message: 'Something went wrong, please try again',
-      type: 'error',
-    })
-
-    return
-  }
-
-  shareLink.value = `${window.location.host}/shareproject/${data.value.data.share_key}`
-
-  localStorage.setItem(`screenProject_${projectId}`, data.value.data.share_key)
+  await handleCreateNewLink()
 
   dialogFormVisible.value = true
 }
@@ -341,6 +331,26 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 }
 
 const saveSettings = () => {}
+
+const handleCreateNewLink = async () => {
+  console.log(currentProjectId.value)
+  const { data, error } = await shareProject(currentProjectId.value, {
+    public: 'true',
+  })
+
+  if (error.value) {
+    ElMessage({
+      message: 'Something went wrong, please try again',
+      type: 'error',
+    })
+
+    return
+  }
+
+  shareLink.value = `${window.location.host}/shareproject/${data.value.data.share_key}`
+
+  localStorage.setItem(`screenProject_${currentProjectId.value}`, data.value.data.share_key)
+}
 
 defineExpose({
   open,
