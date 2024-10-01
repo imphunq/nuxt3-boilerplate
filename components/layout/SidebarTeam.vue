@@ -113,15 +113,16 @@
 <script lang="ts" setup>
 import { More } from '@element-plus/icons-vue'
 import TeamIcon from '~/assets/images/icons/team.png'
-import { getTeams } from '~/api/team'
 import type { IListTeam } from '~/types'
 
-const teams = ref<IListTeam[]>([])
+const useTeam = useTeamStore()
 
 await useAsyncData('teams', async () => {
-  const { data } = await getTeams()
+  await useTeam.fetchTeams()
+})
 
-  teams.value = data.value.teams
+const teams = computed((): IListTeam[] => {
+  return useTeam.getTeams
 })
 </script>
 

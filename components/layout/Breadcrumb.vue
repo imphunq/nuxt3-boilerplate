@@ -47,7 +47,7 @@
               class="border border-gray-300 rounded-full inline-flex items-center px-3 py-2 text-sm font-normal text-center text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-white dark:focus:ring-gray-700"
             >
               <div class="personal-icon" />
-              <span class="mr-8">Personal</span>
+              <span class="mr-8">{{ currentTeam }}</span>
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -69,23 +69,15 @@
                 class="py-2 text-sm text-gray-700 dark:text-gray-200"
                 aria-labelledby="dropdownDefault"
               >
-                <li>
+                <li
+                  v-for="team in teams"
+                  :key="`${team.id}-teams-breadcrumb`"
+                  @click="selectTeam(team.id)"
+                >
                   <a
                     href="#"
                     class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Perfect Team</a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Web Design</a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Personal</a>
+                  >{{ team.name }}</a>
                 </li>
               </ul>
             </div>
@@ -97,11 +89,28 @@
 </template>
 
 <script setup lang="ts">
-import type { IBreadcrumb } from '~/types'
+import type { IBreadcrumb, IListTeam } from '~/types'
 
+const useTeam = useTeamStore()
 const globalStore = useGlobalStore()
+
+const selectedTeam = ref<number>(0)
+
+const currentTeam = computed(() => {
+  const team = teams.value.find((team) => team.id === selectedTeam.value)
+
+  return team?.name
+})
 
 const breadcrumbs = computed(() => {
   return globalStore.breadcrumbs as IBreadcrumb[]
 })
+
+const teams = computed((): IListTeam[] => {
+  return useTeam.getTeams
+})
+
+const selectTeam = (id: number) => {
+  selectedTeam.value = id
+}
 </script>
