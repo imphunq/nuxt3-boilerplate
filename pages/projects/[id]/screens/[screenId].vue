@@ -67,6 +67,7 @@
               :comment-prop="comment"
               @close="handleCloseReplyComment(index)"
               @delete="handleDeleteComment"
+              @edit="handleEditComment"
             />
           </template>
         </el-popover>
@@ -353,6 +354,16 @@ const startDrag = (index: number, event: MouseEvent) => {
 
   // Prevent text selection while dragging
   event.preventDefault();
+};
+
+const handleEditComment = async (comment: string, commentId: number) => {
+  await updateCommentInProject(projectId, commentId, {
+    comment
+  });
+
+  await refreshNuxtData('preview-screens')
+
+  onImageLoad()
 };
 
 onMounted(() => {

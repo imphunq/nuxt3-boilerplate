@@ -25,7 +25,7 @@
               <el-icon class="cursor-pointer"><Delete /></el-icon>
             </template>
           </el-popconfirm>
-          <el-icon class="cursor-pointer"><EditPen /></el-icon>
+          <el-icon class="cursor-pointer" @click="editComment"><EditPen /></el-icon>
         </div>
       </div>
 
@@ -46,7 +46,7 @@ interface Props {
   comment: IComment
 }
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['delete', 'edit'])
 const props = defineProps<Props>()
 
 const authStore = useAuthStore()
@@ -69,5 +69,9 @@ const confirmDelete = async () => {
     ElMessage.success('Comment deleted successfully')
     emit('delete', props.comment.id)
   }
+}
+
+const editComment = () => {
+  emit('edit', props.comment)
 }
 </script>

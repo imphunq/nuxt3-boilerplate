@@ -12,7 +12,11 @@
     </div>
 
     <div class="mt-4">
-      <CommentInfo :comment="commentProp" @delete="handleDeleteComment" />
+      <CommentInfo
+        :comment="commentProp"
+        @delete="handleDeleteComment"
+        @edit="handleEditStatus"
+      />
     </div>
 
     <div class="mt-4 flex gap-4 w-full">
@@ -77,7 +81,15 @@
       </div>
     </div>
 
-    <div class="flex items-center justify-end">
+    <div class="flex items-center justify-end gap-2">
+      <button
+        v-if="editStatus"
+        type="button"
+        class="inline-flex items-center py-2.5 px-8 text-xs font-medium text-center text-gray-500 bg-gray-200 rounded-lg focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-900 hover:bg-gray-300"
+        @click="closeEdit"
+      >
+        Cancel
+      </button>
       <button
         type="submit"
         class="inline-flex items-center py-2.5 px-8 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
@@ -101,11 +113,13 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits(['reply', 'close', 'delete'])
+const emit = defineEmits(['reply', 'close', 'delete', 'edit'])
 
 const commentPopOver = ref<boolean>(false)
 const comment = ref<string>('')
 const hasError = ref<boolean>(false)
+const editStatus = ref<boolean>(false)
+const commentUpdateId = ref<number>(0)
 
 const rules: Rules = {
   comment: [
@@ -123,6 +137,9 @@ watch(comment, (val: string) => {
 
 const close = () => {
   emit('close')
+
+  editStatus.value = false
+  commentUpdateId.value = 0
 }
 
 const open = () => {
@@ -134,14 +151,33 @@ const submitComment = () => {
     hasError.value = true
   }
   else {
-    emit('reply', comment)
+    if (editStatus.value) {
+      emit('edit', comment.value, commentUpdateId.value)
+    } else {
+      emit('reply', comment)
+    }
+
     comment.value = ''
+    commentUpdateId.value = 0
     close()
   }
 }
 
 const handleDeleteComment = (id: number) => {
   emit('delete', id)
+}
+
+const handleEditStatus = (commentUpdate: IComment) => {
+  editStatus.value = true
+
+  comment.value = commentUpdate.comment
+  commentUpdateId.value = commentUpdate.id
+}
+
+const closeEdit = () => {
+  editStatus.value = false
+
+  comment.value = ''
 }
 
 defineExpose({
