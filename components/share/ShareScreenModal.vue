@@ -265,20 +265,7 @@ const open = async (projectId: number, screenId: number) => {
 }
 
 watch(disableComment, async (value) => {
-  const { data, error } = await shareScreen(currentProjectId.value, {
-    screen_ids: currentScreenId.value,
-    show_comments: !disableComment.value,
-  })
-
-  if (error.value) {
-    return
-  }
-
-  shareData.value = data.value.data
-
-  shareLink.value = `${window.location.host}/sharelink/${shareData.value.share_key}`
-
-  localStorage.setItem(`screenKey_${currentProjectId.value}_${currentScreenId.value}`, shareData.value.share_key)
+  handleCreateNewShareScreen()
 })
 
 const close = () => {
@@ -330,6 +317,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 const handleCreateNewShareScreen = async () => {
   const { data, error } = await shareScreen(currentProjectId.value, {
     screen_ids: currentScreenId.value,
+    show_comments: !disableComment.value,
   })
 
   if (error.value) {

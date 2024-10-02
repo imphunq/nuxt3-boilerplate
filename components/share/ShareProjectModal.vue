@@ -274,6 +274,10 @@ const open = async (projectId: number) => {
   dialogFormVisible.value = true
 }
 
+watch(disableComment, async (value) => {
+  handleCreateNewLink()
+})
+
 const close = () => {
   dialogFormVisible.value = false
 }
@@ -333,9 +337,9 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 const saveSettings = () => {}
 
 const handleCreateNewLink = async () => {
-  console.log(currentProjectId.value)
   const { data, error } = await shareProject(currentProjectId.value, {
     public: 'true',
+    show_comments: !disableComment.value,
   })
 
   if (error.value) {

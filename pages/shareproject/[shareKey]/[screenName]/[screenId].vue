@@ -71,6 +71,7 @@ import ReplyCommentPopover from '~/components/screen/ReplyCommentPopover.vue'
 import { viewShareKeyProject } from '~/api/share'
 import type { IScreen, IComment } from '~/types'
 import { createComment } from '~/api/comment'
+import _has from 'lodash/has'
 
 definePageMeta({
   layout: 'blank',
@@ -229,19 +230,22 @@ const onImageLoad = () => {
     originalWidth.value = screenImageRef.value.naturalWidth
     originalHeight.value = screenImageRef.value.naturalHeight
 
-    //   const screenComments = currentScreen.value?.comments || []
-    //   const imageRect = containerRef.value!.getBoundingClientRect();
+    // check currentScreen.value has comments key
+    if (_has(currentScreen.value, 'comments'))  {
+      const screenComments = currentScreen.value?.comments || []
+      const imageRect = containerRef.value!.getBoundingClientRect();
 
-    // comments.value = screenComments.map((comment: IComment) => {
-    //   const xPercent = (comment.position_x / imageRect.width) * 100;
-    //   const yPercent = (comment.position_y / imageRect.height) * 100;
+      comments.value = screenComments.map((comment: IComment) => {
+        const xPercent = (comment.position_x / imageRect.width) * 100;
+        const yPercent = (comment.position_y / imageRect.height) * 100;
 
-    //   return {
-    //     ...comment,
-    //     displayX: xPercent,
-    //     displayY: yPercent,
-    //   }
-    // })
+        return {
+          ...comment,
+          displayX: xPercent,
+          displayY: yPercent,
+        }
+      })
+    }
 
     console.log('Original width:', originalWidth.value)
     console.log('Original height:', originalHeight.value)
