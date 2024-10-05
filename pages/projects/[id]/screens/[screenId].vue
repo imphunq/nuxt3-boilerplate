@@ -4,6 +4,7 @@
       :project="project"
       :screen="currentScreen"
       @scale="handleScale"
+      @changeMode="handleChangeMode"
     />
 
     <div class="flex items-center justify-between py-4 px-8">
@@ -33,7 +34,8 @@
         <img
           ref="screenImageRef"
           :src="currentScreen?.screen_url"
-          class="w-full cursor-crosshair"
+          class="w-full"
+          :class="{ 'cursor-crosshair': canCreateComment }"
           @load="onImageLoad"
           @click="showCommentPopup"
         >
@@ -113,6 +115,7 @@ const popoverRefs = ref<HTMLElement[]>([])
 
 const screenId = parseInt(route.params.screenId as string)
 const projectId = route.params.id as string
+const canCreateComment = ref<boolean>(false)
 
 const draggableRef = ref<HTMLElement | null>(null)
 
@@ -156,6 +159,7 @@ const handleScale = (scale: number) => {
 }
 
 const showCommentPopup = async (event: MouseEvent) => {
+  if (!canCreateComment.value) return
   await commentPopoverRef.value?.close()
 
   setTimeout(() => {
@@ -365,6 +369,14 @@ const handleEditComment = async (comment: string, commentId: number) => {
 
   onImageLoad()
 };
+
+const handleChangeMode = (mode: string) => {
+  if (mode === 'comment') {
+    canCreateComment.value = true
+  } else {
+    canCreateComment.value = false
+  }
+}
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeyDown)
